@@ -1,2 +1,10 @@
-GET http://localhost:8080/algorithm
+POST http://localhost:8080/submit/1
+Content-Type: application/json
 
+{
+  "sid": 1,
+  "pid": 1,
+  "uid": 1,
+  "language": 3,
+  "code" : "TEST"
+}

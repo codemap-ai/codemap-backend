@@ -4,6 +4,17 @@
 <details>
 <summary> 1. Web Server </summary>
 
+! 데이터 베이스 관련 주의할 점 !
+`/src/main/resource/application.properties`안에 다음과 같은 라인이 있는데,
+
+`spring.jpa.hibernate.ddl-auto=<option>`
+
+옵션에는 none, crate 등등 들어갈 수 있음. 항상 none으로 하는게 좋은데,
+만약 데이터베이스 구조나 변수명을 바꾸었다면 create로 한번 빌드해서 서버올려야 프로젝트 내 JPA관련 파일들이 초기화가 됨(안할 시 오류남)
+
+create는 서버올릴 때마다 연동된 DB초기화함. (내용만)
+
+
 >2022-07-20 
 >> 1. 초기 프로젝트 생성
 >> 2. DB,API 설계에 맞게 class 구조와 컨트롤러 구현
