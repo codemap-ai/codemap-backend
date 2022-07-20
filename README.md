@@ -6,6 +6,7 @@
 
 <details>
 <summary> ! 데이터 베이스 관련 주의할 점 ! </summary>
+
 `/src/main/resource/application.properties`안에 다음과 같은 라인이 있는데,
 
 `spring.jpa.hibernate.ddl-auto=<option>`
