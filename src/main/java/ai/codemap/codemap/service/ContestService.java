@@ -1,20 +1,26 @@
 package ai.codemap.codemap.service;
 
 import ai.codemap.codemap.model.Contest;
-import ai.codemap.codemap.repository.MemoryContestRepository;
+import ai.codemap.codemap.repository.ContestRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public class ContestService {
-    private final MemoryContestRepository contestRepository = new MemoryContestRepository();
 
-    public Contest getOne(int cid){
-        return contestRepository.read(cid);
+    private final ContestRepository contestRepository;
+
+    public ContestService(ContestRepository contestRepository) {
+        this.contestRepository = contestRepository;
     }
 
-    public List<Contest> getAll(){
-        return contestRepository.getList();
+    public Contest getOne(int cid) {
+        return contestRepository.findById(cid);
+
+    }
+
+    public List<Contest> getAll() {
+        return contestRepository.findAll();
+
     }
 }

@@ -1,20 +1,24 @@
 package ai.codemap.codemap.service;
 
 import ai.codemap.codemap.model.Problem;
-import ai.codemap.codemap.repository.MemoryProblemRepository;
+import ai.codemap.codemap.repository.ProblemRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class ProblemService {
-    private MemoryProblemRepository problemRepository = new MemoryProblemRepository();
 
-    public Problem getOne(int pid){
-        return problemRepository.read(pid);
+public class ProblemService {
+
+    private final ProblemRepository problemRepository;
+    public ProblemService(ProblemRepository problemRepository) {
+        this.problemRepository = problemRepository;
     }
 
-    public List<Problem> getAll(){
-        return problemRepository.getList();
+    public Problem getOne(int pid) {
+        return problemRepository.findById(pid);
+    }
+
+    public List<Problem> getAll() {
+        return problemRepository.findAll();
     }
 }
