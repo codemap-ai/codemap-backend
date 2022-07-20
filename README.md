@@ -26,8 +26,8 @@
 >>    spring.datasource.password=<password>
 >>    ```
 
-<details>
-<summary> 테이블 생성 쿼리 </summary>
+
+- 테이블 생성 쿼리 
 
 ```
 create table Algorithm(
@@ -68,7 +68,6 @@ create table Result(
 );
 ```
 
-</details>
 
 </details>
 
