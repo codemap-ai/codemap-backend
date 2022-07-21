@@ -81,6 +81,7 @@ create table submission(
     used_language INT,
     submit_code varchar(10000),
     submit_date datetime,
+    testmode bool,
     primary key(submission_id)
 );
 
