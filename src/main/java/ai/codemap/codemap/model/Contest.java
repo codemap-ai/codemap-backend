@@ -13,11 +13,11 @@ import javax.persistence.*;
 public class Contest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int cid; // primary key
+    private int contestId; // primary key
 
     @Column(name="title")
     private String title;
 
     @Column(name="problemSet")
-    private String problemSet;
+    private String problem_set;
 }

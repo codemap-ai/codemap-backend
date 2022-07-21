@@ -12,8 +12,8 @@ public class AlgorithmService {
         this.algorithmRepository = algorithmRepository;
     }
 
-    public Algorithm getOne(int aid){
-            return algorithmRepository.findById(aid);
+    public Algorithm getOne(int algorithm_id){
+            return algorithmRepository.findById(algorithm_id);
         }
     public List<Algorithm> getALL(){
         return algorithmRepository.findAll();

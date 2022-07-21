@@ -14,8 +14,8 @@ public class ProblemService {
         this.problemRepository = problemRepository;
     }
 
-    public Problem getOne(int pid) {
-        return problemRepository.findById(pid);
+    public Problem getOne(int problem_id) {
+        return problemRepository.findById(problem_id);
     }
 
     public List<Problem> getAll() {

@@ -1,13 +1,7 @@
 package ai.codemap.codemap;
 
-import ai.codemap.codemap.repository.AlgorithmRepository;
-import ai.codemap.codemap.repository.ContestRepository;
-import ai.codemap.codemap.repository.ProblemRepository;
-import ai.codemap.codemap.repository.ResultRepository;
-import ai.codemap.codemap.service.AlgorithmService;
-import ai.codemap.codemap.service.ContestService;
-import ai.codemap.codemap.service.ProblemService;
-import ai.codemap.codemap.service.ResultService;
+import ai.codemap.codemap.repository.*;
+import ai.codemap.codemap.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,14 +11,15 @@ public class SpringConfig {
     private final AlgorithmRepository algorithmRepository;
     private final ContestRepository contestRepository;
     private final ProblemRepository problemRepository;
-    private final ResultRepository resultRepository;
-
+    private final SubmissionRepository submissionRepository;
+    private final TestRepository testRepository;
     @Autowired
-    public SpringConfig(AlgorithmRepository algorithmRepository, ContestRepository contestRepository, ProblemRepository problemRepository, ResultRepository resultRepository) {
+    public SpringConfig(AlgorithmRepository algorithmRepository, ContestRepository contestRepository, ProblemRepository problemRepository, SubmissionRepository submissionRepository, TestRepository testRepository) {
         this.algorithmRepository = algorithmRepository;
         this.contestRepository = contestRepository;
         this.problemRepository = problemRepository;
-        this.resultRepository = resultRepository;
+        this.submissionRepository = submissionRepository;
+        this.testRepository = testRepository;
     }
 
     @Bean
@@ -43,7 +38,11 @@ public class SpringConfig {
     }
 
     @Bean
-    public ResultService repositoryService() {
-        return new ResultService(resultRepository);
+    public SubmissionService repositoryService() {
+        return new SubmissionService(submissionRepository);
+    }
+    @Bean
+    public TestService testService(){
+        return new TestService(testRepository);
     }
 }

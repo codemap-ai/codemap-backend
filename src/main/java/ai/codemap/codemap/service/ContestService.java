@@ -14,8 +14,8 @@ public class ContestService {
         this.contestRepository = contestRepository;
     }
 
-    public Contest getOne(int cid) {
-        return contestRepository.findById(cid);
+    public Contest getOne(int contest_id) {
+        return contestRepository.findById(contest_id);
 
     }
 

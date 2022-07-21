@@ -5,6 +5,6 @@ import ai.codemap.codemap.model.Algorithm;
 import java.util.List;
 
 public interface AlgorithmRepository {
-    Algorithm findById(int aid);
+    Algorithm findById(int algorithmId);
     List<Algorithm> findAll();
 }

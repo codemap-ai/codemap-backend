@@ -1,0 +1,13 @@
+package ai.codemap.codemap.repository;
+
+import ai.codemap.codemap.model.Submission;
+
+import java.util.List;
+
+public interface SubmissionRepository {
+    Submission findById(int submissionId);
+    List<Submission> findAll();
+    List<Submission> findByTestId(int testId);
+    List<Submission> findByUserId(int userId);
+    List<Submission> findByProblemId(int problemId);
+}

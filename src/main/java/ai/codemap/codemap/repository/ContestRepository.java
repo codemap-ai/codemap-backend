@@ -5,6 +5,6 @@ import ai.codemap.codemap.model.Contest;
 import java.util.List;
 
 public interface ContestRepository {
-    Contest findById(int cid);
+    Contest findById(int contestId);
     List<Contest> findAll();
 }

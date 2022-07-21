@@ -24,6 +24,10 @@
 >> 4. 로컬 DB(MySQL)과 연동 확인
 >> 5. IntelliJ 내의 HTTP Client 플러그인 사용하여 API서버 작동 확인
 
+>2022-07-21
+>> 1. DB스키마 수정 (result -> submission , test 추가)
+>> 2. API 수정
+>> 3. API 서버 작동 확인
 </details>
 
 <details>
@@ -43,42 +47,50 @@
 - 테이블 생성 쿼리 
 
 ```
-create table Algorithm(
- aid INT,
- title varchar(100),
- body varchar(10000),
- primary key(aid)
+create table algorithm(
+	algorithm_id INT,
+	title varchar(100),
+	body varchar(10000),
+	primary key(algorithm_id)
 );
 
-create table Contest(
-   cid INT,
+create table contest(
+	contest_id INT,
     title varchar(100),
     problemSet varchar(100),
-    primary key(cid)
+    primary key(contest_id)
 );
 
-create table Problem(
-   pid INT,
-    cid INT,
+create table problem(
+	problem_id INT,
+    contest_id INT,
     title varchar(100),
-    memoryLimit INT,
-    timeLimit float,
+    memory_limit INT,
+    time_limit float,
     body varchar(10000),
-    primary key(pid)
+    primary key(problem_id)
 );
 
-create table Result(
-   rid INT,
-    pid INT,
-    uid INT,
-    executeTime float,
-    usedMemory INT,
+create table submission(
+    submission_id INT,
+    problme_id INT,
+    user_id INT,
+    execute_time float,
+    used_memory INT,
     result INT,
-    usedLanguage INT,
-    submitCode varchar(10000),
-    submitDate datetime,
-    primary key(rid)
+    used_language INT,
+    submit_code varchar(10000),
+    submit_date datetime,
+    primary key(submission_id)
 );
+
+create table test(
+	test_id INT,
+    contest_id INT,
+    user_id INT,
+    primary key(test_id)
+)
+
 ```
 
 

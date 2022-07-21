@@ -5,6 +5,7 @@ import ai.codemap.codemap.model.Problem;
 import java.util.List;
 
 public interface ProblemRepository {
-    Problem findById(int pid);
+    Problem findById(int problemId);
     List<Problem> findAll();
+
 }

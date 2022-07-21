@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/algorithm")
+@RequestMapping("/algorithms")
 public class AlgorithmRestController {
     private final AlgorithmService algorithmService;
 
