@@ -28,6 +28,11 @@
 >> 1. DB스키마 수정 (result -> submission , test 추가)
 >> 2. API 수정
 >> 3. API 서버 작동 확인
+
+>2022-07-24
+>> 1. DB스키마 수정 (contest -> problem_set , test -> contest)
+>> 2. API 수정
+>> 3. API 서버 작동 확인
 </details>
 
 <details>
