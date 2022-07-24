@@ -14,4 +14,5 @@ public interface DataJpaSubmissionRepository extends JpaRepository<Submission, I
 
     @Override
     List<Submission> findByUserId(int user_id);
+
 }

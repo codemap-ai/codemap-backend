@@ -2,9 +2,21 @@ package ai.codemap.codemap;
 
 import ai.codemap.codemap.repository.*;
 import ai.codemap.codemap.service.*;
+
+import com.rabbitmq.client.AMQP;
+import org.springframework.amqp.core.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+/* rabbit mq */
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.context.annotation.Bean;
+
 
 @Configuration
 public class SpringConfig {
@@ -13,6 +25,7 @@ public class SpringConfig {
     private final ProblemRepository problemRepository;
     private final SubmissionRepository submissionRepository;
     private final ContestRepository contestRepository;
+
     @Autowired
     public SpringConfig(AlgorithmRepository algorithmRepository, ProblemSetRepository problemSetRepository, ProblemRepository problemRepository, SubmissionRepository submissionRepository, ContestRepository contestRepository) {
         this.algorithmRepository = algorithmRepository;
@@ -41,8 +54,48 @@ public class SpringConfig {
     public SubmissionService repositoryService() {
         return new SubmissionService(submissionRepository);
     }
+
     @Bean
-    public ContestService testService(){
+    public ContestService testService() {
         return new ContestService(contestRepository);
     }
+
+
+
+
+
+
+    /* rabbit queue */
+
+    private static final String EXCHANGE_NAME = "judge.exchange";
+    private static final String QUEUE_NAME = "judge.queue";
+    private static final String ROUTING_KEY = "4242";
+
+    @Bean
+    DirectExchange exchange() {
+        return new DirectExchange(EXCHANGE_NAME);
+    }
+
+    @Bean
+    Queue queue() {
+        return new Queue(QUEUE_NAME);
+    }
+
+    @Bean
+    Binding binding(Queue queue, DirectExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
+    }
+
+    @Bean
+    RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, MessageConverter messageConverter) {
+        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
+        return rabbitTemplate;
+    }
+
+    @Bean
+    MessageConverter messageConverter() {
+        return new Jackson2JsonMessageConverter();
+    }
+
 }

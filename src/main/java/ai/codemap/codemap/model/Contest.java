@@ -14,7 +14,7 @@ public class Contest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int contestId; // primary key
-    @Column(name = "problemSet_id")
+    @Column(name = "problem_set_id")
     private int problemSetId;
     @Column(name = "user_id")
     private int userId;

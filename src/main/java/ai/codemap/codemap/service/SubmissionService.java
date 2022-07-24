@@ -16,6 +16,11 @@ public class SubmissionService {
         return submissionRepository.findById(submission_id);
     }
 
+    public Submission addSubmission(Submission submission){
+
+        submissionRepository.save(submission);
+        return submission;
+    }
     public List<Submission> getByUserId(int userId) {
         return submissionRepository.findByUserId(userId);
     }

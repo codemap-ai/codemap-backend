@@ -1,0 +1,17 @@
+POST localhost:8081/submit/submission
+
+Content-Type: application/json
+
+{
+  "submissionId" : 7,
+  "problemId": 1,
+  "userId": 1,
+  "contestId": 1,
+  "executeTime": 2,
+  "usedMemory" : 20,
+  "result" : 1,
+  "usedLanguage" : 1,
+  "submitCode" : "code",
+  "submitDate" : "2022-01-01 01:00:00"
+
+}

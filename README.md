@@ -33,6 +33,8 @@
 >> 1. DB스키마 수정 (contest -> problem_set , test -> contest)
 >> 2. API 수정
 >> 3. API 서버 작동 확인
+>> 4. RabbitMQ 연동
+>> 5. RabbitMQ Exchange -> Queue 메시지 전송 확인
 </details>
 
 <details>
