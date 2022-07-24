@@ -23,17 +23,15 @@ public class SubmitRestController {
 
 
     @PostMapping("/submission")
-    public String get_submission(@RequestBody Submission submission){
+    public ResponseEntity<Submission> get_submission(@RequestBody Submission submission){
 
-
-        return "submission_done";
+        submissionService.addSubmission(submission);
+        return ResponseEntity.ok(submission);
     }
 
     @PostMapping("")
     public ResponseEntity<SubmitForm> submit(@RequestBody SubmitForm submitForm){
-        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "4242", "postpost");
-
-
+        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "4242", submitForm);
 
         return ResponseEntity.ok(submitForm);
     }

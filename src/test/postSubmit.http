@@ -2,10 +2,9 @@ POST localhost:8081/submit
 Content-Type: application/json
 
 {
-  "sid": "1",
-  "uid": "1",
-  "pid": "1",
-  "language": "1",
+  "sid": 1,
+  "uid": 2,
+  "pid": 3,
+  "language": 4,
   "code": "test"
-
 }

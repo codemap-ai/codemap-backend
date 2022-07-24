@@ -14,11 +14,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/submissions")
-public class SubmissionController {
+public class SubmissionRestController {
     private final SubmissionService submissionService;
 
     @Autowired
-    public SubmissionController(SubmissionService submissionService) {
+    public SubmissionRestController(SubmissionService submissionService) {
         this.submissionService = submissionService;
     }
 

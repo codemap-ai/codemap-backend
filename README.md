@@ -35,6 +35,10 @@
 >> 3. API 서버 작동 확인
 >> 4. RabbitMQ 연동
 >> 5. RabbitMQ Exchange -> Queue 메시지 전송 확인
+
+>2022-07-25
+>> 1. submission save() 확인
+>> 2. /submit, /submit/submission API 생성 및 테스트 학인
 </details>
 
 <details>
