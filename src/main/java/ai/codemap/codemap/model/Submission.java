@@ -19,8 +19,8 @@ public class Submission {
     private int problemId;
     @Column(name = "user_id")
     private int userId;
-    @Column(name = "test_id")
-    private int testId;
+    @Column(name = "contest_id")
+    private int contestId;
     @Column(name = "execute_time")
     private float executeTime; // sec
     @Column(name = "used_memory")
@@ -33,8 +33,6 @@ public class Submission {
     private String submitCode;
     @Column(name = "submit_date")
     private Date submitDate; // submission date
-    @Column(name = "testmode")
-    private Boolean testMode;
 }
 
 

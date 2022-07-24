@@ -10,7 +10,7 @@ public interface DataJpaSubmissionRepository extends JpaRepository<Submission, I
     List<Submission> findByProblemId(int problem_id);
 
     @Override
-    List<Submission> findByTestId(int test_id);
+    List<Submission> findByContestId(int contest_id);
 
     @Override
     List<Submission> findByUserId(int user_id);

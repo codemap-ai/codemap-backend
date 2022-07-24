@@ -18,16 +18,6 @@ public class SubmitRestController {
         this.problemService = problemService;
     }
 
-    @GetMapping("/{problem_id}")
-    public ResponseEntity<Problem> submitForm(@PathVariable String problem_id){
-        Problem problem = problemService.getOne(Integer.parseInt(problem_id));
-
-        if(problem==null){
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok(problem);
-    }
-
     @PostMapping("/{problem_id}")
     public ResponseEntity<SubmitForm> submit(@RequestBody SubmitForm submitForm){
 

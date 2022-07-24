@@ -4,8 +4,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 import javax.persistence.*;
+
 @Data
 @Getter
 @Setter
@@ -14,10 +14,9 @@ public class Contest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int contestId; // primary key
+    @Column(name = "problemSet_id")
+    private int problemSetId;
+    @Column(name = "user_id")
+    private int userId;
 
-    @Column(name="title")
-    private String title;
-
-    @Column(name="problemSet")
-    private String problem_set;
 }

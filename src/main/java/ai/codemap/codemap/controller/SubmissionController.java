@@ -30,9 +30,9 @@ public class SubmissionController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/test/{test_id}")
-    public ResponseEntity<List<Submission>> getSubmissionListByTestId(@PathVariable String test_id) {
-        List<Submission> list = submissionService.getByTestId(Integer.parseInt(test_id));
+    @GetMapping("/contest/{contest_id}")
+    public ResponseEntity<List<Submission>> getSubmissionListByContestId(@PathVariable String contest_id) {
+        List<Submission> list = submissionService.getByContestId(Integer.parseInt(contest_id));
         if (list == null) list = new ArrayList<Submission>();
 
         return ResponseEntity.ok(list);

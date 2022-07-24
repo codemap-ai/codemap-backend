@@ -14,8 +14,8 @@ public class Problem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int problemId; // primary key
 
-    @Column(name="contest_id")
-    private int contestId; // foreign key
+    @Column(name="problemSet_id")
+    private int problemSetId; // foreign key
     @Column(name="title")
     private String title;
     @Column(name="memory_limit")

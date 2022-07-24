@@ -1,1 +1,1 @@
-GET http://localhost:8080/submissions/all
+GET localhost:8081/submissions/problem/2

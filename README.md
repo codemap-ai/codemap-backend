@@ -54,16 +54,16 @@ create table algorithm(
 	primary key(algorithm_id)
 );
 
-create table contest(
-	contest_id INT,
+create table problem_set(
+	problem_set_id INT,
     title varchar(100),
-    problemSet varchar(100),
-    primary key(contest_id)
+    problem_list varchar(100),
+    primary key(problemSet_id)
 );
 
 create table problem(
 	problem_id INT,
-    contest_id INT,
+    problemSet_id INT,
     title varchar(100),
     memory_limit INT,
     time_limit float,
@@ -75,21 +75,21 @@ create table submission(
     submission_id INT,
     problme_id INT,
     user_id INT,
+    contest_id INT,
     execute_time float,
     used_memory INT,
     result INT,
     used_language INT,
     submit_code varchar(10000),
     submit_date datetime,
-    testmode bool,
     primary key(submission_id)
 );
 
-create table test(
-	test_id INT,
-    contest_id INT,
+create table contest(
+	contest_id INT,
+    problemSet_id INT,
     user_id INT,
-    primary key(test_id)
+    primary key(contest_id)
 )
 
 ```

@@ -9,17 +9,17 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SpringConfig {
     private final AlgorithmRepository algorithmRepository;
-    private final ContestRepository contestRepository;
+    private final ProblemSetRepository problemSetRepository;
     private final ProblemRepository problemRepository;
     private final SubmissionRepository submissionRepository;
-    private final TestRepository testRepository;
+    private final ContestRepository contestRepository;
     @Autowired
-    public SpringConfig(AlgorithmRepository algorithmRepository, ContestRepository contestRepository, ProblemRepository problemRepository, SubmissionRepository submissionRepository, TestRepository testRepository) {
+    public SpringConfig(AlgorithmRepository algorithmRepository, ProblemSetRepository problemSetRepository, ProblemRepository problemRepository, SubmissionRepository submissionRepository, ContestRepository contestRepository) {
         this.algorithmRepository = algorithmRepository;
-        this.contestRepository = contestRepository;
+        this.problemSetRepository = problemSetRepository;
         this.problemRepository = problemRepository;
         this.submissionRepository = submissionRepository;
-        this.testRepository = testRepository;
+        this.contestRepository = contestRepository;
     }
 
     @Bean
@@ -28,8 +28,8 @@ public class SpringConfig {
     }
 
     @Bean
-    public ContestService contestService() {
-        return new ContestService(contestRepository);
+    public ProblemSetService problemSetService() {
+        return new ProblemSetService(problemSetRepository);
     }
 
     @Bean
@@ -42,7 +42,7 @@ public class SpringConfig {
         return new SubmissionService(submissionRepository);
     }
     @Bean
-    public TestService testService(){
-        return new TestService(testRepository);
+    public ContestService testService(){
+        return new ContestService(contestRepository);
     }
 }

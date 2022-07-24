@@ -5,19 +5,18 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
-
 @Data
 @Getter
 @Setter
 @Entity
-public class Test {
+public class ProblemSet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int testId; // primary key
-    @Column(name = "contest_id")
-    private int contestId;
-    @Column(name = "user_id")
-    private int userId;
+    private int problemSetId; // primary key
 
+    @Column(name="title")
+    private String title;
+
+    @Column(name="problem_list")
+    private String problem_list;
 }

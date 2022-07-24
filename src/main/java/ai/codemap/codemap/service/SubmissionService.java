@@ -24,8 +24,8 @@ public class SubmissionService {
         return submissionRepository.findByProblemId(problemId);
     }
 
-    public List<Submission> getByTestId(int testId) {
-        return submissionRepository.findByTestId(testId);
+    public List<Submission> getByContestId(int contestId) {
+        return submissionRepository.findByContestId(contestId);
     }
 
     public List<Submission> getAll() {
