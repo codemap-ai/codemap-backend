@@ -15,8 +15,10 @@ public class Algorithm {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int algorithmId; // primary key
 
-    @Column(name = "title")
+    @Column(name = "title", length = 100)
     private String title;
-    @Column(name = "body")
+    @Column(name = "body", length = 100000)
     private String body;
+    @Column(name = "description", length = 10000)
+    private String description;
 }

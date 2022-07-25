@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @Getter
@@ -18,5 +19,9 @@ public class Contest {
     private int problemSetId;
     @Column(name = "user_id")
     private int userId;
+    @Column(name = "created_time")
+    private Date createTime;
+    @Column(name = "finish_time")
+    private Date finishTime;
 
 }

@@ -14,14 +14,12 @@ public class Problem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int problemId; // primary key
 
-    @Column(name="problemSet_id")
-    private int problemSetId; // foreign key
-    @Column(name="title")
+    @Column(name="title",length = 100)
     private String title;
     @Column(name="memory_limit")
     private int memoryLimit; // KB
     @Column(name="time_limit")
     private float timeLimit; // sec
-    @Column(name="body")
+    @Column(name="body",length = 100000)
     private String body;
 }
