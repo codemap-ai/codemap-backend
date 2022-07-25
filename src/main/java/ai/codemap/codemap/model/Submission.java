@@ -33,6 +33,8 @@ public class Submission {
     private String submitCode;
     @Column(name = "submit_date")
     private Date submitDate; // submission date
+    @Column(name = "score")
+    private int score;
 }
 
 

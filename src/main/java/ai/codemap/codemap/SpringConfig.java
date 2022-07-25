@@ -68,7 +68,7 @@ public class SpringConfig {
     /* rabbit queue */
 
     private static final String EXCHANGE_NAME = "judge.exchange";
-    private static final String QUEUE_NAME = "judge.queue";
+    private static final String QUEUE_NAME = "judge-queue";
     private static final String ROUTING_KEY = "4242";
 
     @Bean

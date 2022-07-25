@@ -16,11 +16,12 @@ public class SubmissionService {
         return submissionRepository.findById(submission_id);
     }
 
-    public Submission addSubmission(Submission submission){
+    public Submission addSubmission(Submission submission) {
 
         submissionRepository.save(submission);
         return submission;
     }
+
     public List<Submission> getByUserId(int userId) {
         return submissionRepository.findByUserId(userId);
     }
@@ -29,12 +30,17 @@ public class SubmissionService {
         return submissionRepository.findByProblemId(problemId);
     }
 
+
     public List<Submission> getByContestId(int contestId) {
         return submissionRepository.findByContestId(contestId);
     }
 
     public List<Submission> getAll() {
         return submissionRepository.findAll();
+    }
+
+    public int setUpdate(int submissionId, int problemId){
+        return submissionRepository.updateProblemId(problemId, submissionId);
     }
 
 }

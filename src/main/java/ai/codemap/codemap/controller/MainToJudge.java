@@ -7,9 +7,9 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
-public class SubmitForm {
-    private int user_id;
-    private int problem_id;
-    private int language;
+public class MainToJudge {
+    private int id;
+    private int problemId;
+    private String language;
     private String source;
 }

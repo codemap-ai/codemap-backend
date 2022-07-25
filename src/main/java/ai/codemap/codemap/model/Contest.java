@@ -23,5 +23,7 @@ public class Contest {
     private Date createTime;
     @Column(name = "finish_time")
     private Date finishTime;
+    @Column(name = "penalty")
+    private int penalty;
 
 }

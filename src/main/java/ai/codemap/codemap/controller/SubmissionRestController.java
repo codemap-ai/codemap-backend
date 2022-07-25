@@ -31,12 +31,13 @@ public class SubmissionRestController {
     }
 
     @GetMapping("/contest/{contest_id}")
-    public ResponseEntity<List<Submission>> getSubmissionListByContestId(@PathVariable String contest_id) {
-        List<Submission> list = submissionService.getByContestId(Integer.parseInt(contest_id));
-        if (list == null) list = new ArrayList<Submission>();
+        public ResponseEntity<List<Submission>> getSubmissionListByContestId(@PathVariable String contest_id) {
+            List<Submission> list = submissionService.getByContestId(Integer.parseInt(contest_id));
+            if (list == null) list = new ArrayList<Submission>();
 
-        return ResponseEntity.ok(list);
-    }
+            return ResponseEntity.ok(list);
+        }
+
 
     @GetMapping("/user/{user_id}")
     public ResponseEntity<List<Submission>> getSubmissionListByUserId(@PathVariable String user_id) {
