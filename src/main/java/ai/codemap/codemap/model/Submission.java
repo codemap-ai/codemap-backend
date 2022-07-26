@@ -29,7 +29,7 @@ public class Submission {
     private String result; // 0->AC, 1->WA, 2->CompileError, 3->RuntimeError, 4->OutOfMemory, 5->SegmentationFault, 6->TimeOut
     @Column(name = "used_language")
     private String usedLanguage; // 0->C, 1->C++, 2->JAVA, 3->Python
-    @Column(name = "compiler_message")
+    @Column(name = "compiler_message", length = 100000)
     private String compilerMessage;
     @Column(name = "submit_code",length = 100000)
     private String submitCode;
