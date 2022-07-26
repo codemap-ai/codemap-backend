@@ -1,0 +1,28 @@
+stages:
+  - build
+  - deploy
+
+build-job:
+  image: amazoncorretto
+  stage: build
+  script:
+    - chmod 755 ./gradlew
+    - ./gradlew clean build
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 30 days
+
+deploy-job:
+  image: ubuntu
+  stage: deploy
+  script:
+    - apt update
+    - apt install -y openssh-client
+    - mkdir -p ~/.ssh
+    - eval $(ssh-agent -s)
+    - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - chmod 600 "$SSH_PRIVATE_KEY"
+    - ssh-add "$SSH_PRIVATE_KEY"
+    - scp build/libs/*.jar ubuntu@"$EC2_BACKEND_IP":~/build.jar
