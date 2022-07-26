@@ -63,7 +63,7 @@ public class SubmitRestController {
         mainToJudge.setProblemId(submitForm.getProblemId());
         mainToJudge.setSource(submitForm.getSource());
 
-        //rabbitTemplate.convertAndSend(queue.getName(), mainToJudge);
+        rabbitTemplate.convertAndSend(queue.getName(), mainToJudge);
 
         return submissionId;
     }
