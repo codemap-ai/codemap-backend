@@ -9,9 +9,9 @@ public class CodemapApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CodemapApplication.class, args);
-//        SpringApplication app = new SpringApplication(CodemapApplication.class);
-//        app.addListeners(new ApplicationPidFileWriter());
-//        app.run(args);
+        SpringApplication app = new SpringApplication(CodemapApplication.class);
+        app.addListeners(new ApplicationPidFileWriter());
+        app.run(args);
     }
 
 }
