@@ -2,8 +2,8 @@ POST localhost:8081/submit/submission
 Content-Type: application/json;
 
 {
-  "submissionId" : 5,
-  "status" : 0,
+  "submissionId" : 1,
+  "status" : "Accepted",
   "time" : 2.7,
   "memory" : 15000,
   "compilerMessage" : "nice",

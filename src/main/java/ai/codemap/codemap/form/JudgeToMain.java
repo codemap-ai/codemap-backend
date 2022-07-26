@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class JudgeToMain {
     private int submissionId;
-    private int status;
+    private String status;
     private double time;
     private Long memory;
     private String compilerMessage;

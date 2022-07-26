@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/submit")
 public class SubmitRestController {
-    private final String[] _language = {"c++14", "c++17","c++20","python3","java17"};
     private final SubmissionService submissionService;
     @Autowired
     RabbitTemplate rabbitTemplate;
@@ -38,6 +37,7 @@ public class SubmitRestController {
         submission.setUsedMemory(judgeToMain.getMemory());
         submission.setResult(judgeToMain.getStatus());
         submission.setScore(judgeToMain.getScore());
+        submission.setCompilerMessage(judgeToMain.getCompilerMessage());
 
         submissionService.addSubmission(submission);
 
@@ -55,10 +55,11 @@ public class SubmitRestController {
         submission.setUsedLanguage(submitForm.getLanguage());
         submission.setSubmitCode(submitForm.getSource());
         submission.setSubmitDate(java.sql.Timestamp.valueOf(LocalDateTime.now()));
+        submission.setResult("Waiting");
         final int submissionId = submissionService.addSubmission(submission).getSubmissionId();
 
         mainToJudge.setId(submissionId);
-        mainToJudge.setLanguage(_language[submitForm.getLanguage()]);
+        mainToJudge.setLanguage(submitForm.getLanguage());
         mainToJudge.setProblemId(submitForm.getProblemId());
         mainToJudge.setSource(submitForm.getSource());
 

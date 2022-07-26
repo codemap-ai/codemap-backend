@@ -11,6 +11,6 @@ public class SubmitForm {
     private int userId;
     private int problemId;
     private int contestId;
-    private int language;
+    private String language;
     private String source;
 }
