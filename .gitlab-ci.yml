@@ -3,7 +3,7 @@ stages:
   - deploy
 
 build-job:
-  image: amazoncorretto
+  image: amazoncorretto:17
   stage: build
   script:
     - chmod 755 ./gradlew
