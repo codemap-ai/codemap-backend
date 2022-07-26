@@ -22,9 +22,9 @@ public class Submission {
     @Column(name = "contest_id")
     private int contestId;
     @Column(name = "execute_time")
-    private float executeTime; // sec
+    private double executeTime; // sec
     @Column(name = "used_memory")
-    private int usedMemory; // KB
+    private Long usedMemory; // KB
     @Column(name = "result")
     private int result; // 0->AC, 1->WA, 2->CompileError, 3->RuntimeError, 4->OutOfMemory, 5->SegmentationFault, 6->TimeOut
     @Column(name = "used_language")

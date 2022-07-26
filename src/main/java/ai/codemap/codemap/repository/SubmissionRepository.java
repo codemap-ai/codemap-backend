@@ -15,8 +15,4 @@ public interface SubmissionRepository {
     List<Submission> findByUserId(int userId);
     List<Submission> findByProblemId(int problemId);
 
-    @Modifying(clearAutomatically = true)
-    @Query("UPDATE Submission s SET s.problemId = :problemId WHERE s.submissionId = :submissionId")
-    int updateProblemId(int problemId, int submissionId);
-
 }

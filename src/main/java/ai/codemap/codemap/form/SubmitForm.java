@@ -1,4 +1,4 @@
-package ai.codemap.codemap.controller;
+package ai.codemap.codemap.form;
 
 import lombok.Data;
 import lombok.Getter;
@@ -8,8 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SubmitForm {
-    private int user_id;
-    private int problem_id;
+    private int userId;
+    private int problemId;
+    private int contestId;
     private int language;
     private String source;
 }

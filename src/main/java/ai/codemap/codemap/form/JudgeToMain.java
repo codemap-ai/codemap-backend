@@ -1,4 +1,4 @@
-package ai.codemap.codemap.controller;
+package ai.codemap.codemap.form;
 
 import lombok.Data;
 import lombok.Getter;
@@ -10,8 +10,8 @@ import lombok.Setter;
 public class JudgeToMain {
     private int submissionId;
     private int status;
-    private float time;
-    private int memory;
+    private double time;
+    private Long memory;
     private String compilerMessage;
     private int score;
 }

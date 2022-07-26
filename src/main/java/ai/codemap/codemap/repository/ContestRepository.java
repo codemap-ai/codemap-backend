@@ -7,4 +7,5 @@ import java.util.List;
 public interface ContestRepository {
     Contest findById(int contestId);
     List<Contest> findAll();
+    Contest save(Contest contest);
 }

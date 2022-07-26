@@ -39,6 +39,11 @@
 >2022-07-25
 >> 1. submission save() 확인
 >> 2. /submit, /submit/submission API 생성 및 테스트 학인
+>> 3. 채점서버 연동 확인
+
+>2022-07-26
+>> 1. contest save() 확인
+>> 2. 채점 후 데이터베이스 채점결과 추가기능 구현
 </details>
 
 <details>

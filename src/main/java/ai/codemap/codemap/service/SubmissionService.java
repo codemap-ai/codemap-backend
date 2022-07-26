@@ -39,8 +39,5 @@ public class SubmissionService {
         return submissionRepository.findAll();
     }
 
-    public int setUpdate(int submissionId, int problemId){
-        return submissionRepository.updateProblemId(problemId, submissionId);
-    }
 
 }

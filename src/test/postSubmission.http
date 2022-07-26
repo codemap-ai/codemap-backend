@@ -1,14 +1,11 @@
-#POST localhost:8081/submit/submission
-#Content-Type: application/json;
-#
-#{
-#  "problemId": 1,
-#  "userId": 2,
-#  "contestId": 2,
-#  "executeTime": 1.0,
-#  "usedMemory": 20,
-#  "result": 1,
-#  "usedLanguage": 1,
-#  "submitCode": "test4",
-#  "submitDate": "2021-12-31T16:00:00.000+00:00"
-#}
+POST localhost:8081/submit/submission
+Content-Type: application/json;
+
+{
+  "submissionId" : 5,
+  "status" : 0,
+  "time" : 2.7,
+  "memory" : 15000,
+  "compilerMessage" : "nice",
+  "score" : 100
+}

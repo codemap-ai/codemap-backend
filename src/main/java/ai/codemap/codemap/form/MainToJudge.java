@@ -1,4 +1,4 @@
-package ai.codemap.codemap.controller;
+package ai.codemap.codemap.form;
 
 import lombok.Data;
 import lombok.Getter;

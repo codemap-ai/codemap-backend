@@ -1,9 +1,10 @@
-POST localhost:8081/submit
-Content-Type: application/json
-
-{
-  "id": 1,
-  "problemId": 1,
-  "language": "c++17",
-  "source": "#include <iostream>\nusing namespace std; int main(){ cout<<7; }"
-}
+#POST localhost:8081/submit
+#Content-Type: application/json
+#
+#{
+#  "problemId": 1,
+#  "userId": 1,
+#  "contestId" : -1,
+#  "language": 1,
+#  "source": "codesss"
+#}

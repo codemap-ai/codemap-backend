@@ -1,5 +1,8 @@
 package ai.codemap.codemap.controller;
 
+import ai.codemap.codemap.form.JudgeToMain;
+import ai.codemap.codemap.form.MainToJudge;
+import ai.codemap.codemap.form.SubmitForm;
 import ai.codemap.codemap.model.Submission;
 import ai.codemap.codemap.service.SubmissionService;
 import org.springframework.amqp.core.Queue;
@@ -8,12 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("/submit")
 public class SubmitRestController {
     private final String[] _language = {"c++14", "c++17","c++20","python3","java17"};
     private final SubmissionService submissionService;
-    private static final String QUEUE_NAME = "judge-queue";
     @Autowired
     RabbitTemplate rabbitTemplate;
 
@@ -29,6 +33,13 @@ public class SubmitRestController {
     @PostMapping("/submission")
     public ResponseEntity<JudgeToMain> get_submission(@RequestBody JudgeToMain judgeToMain){
 
+        Submission submission = submissionService.getOne(judgeToMain.getSubmissionId());
+        submission.setExecuteTime(judgeToMain.getTime());
+        submission.setUsedMemory(judgeToMain.getMemory());
+        submission.setResult(judgeToMain.getStatus());
+        submission.setScore(judgeToMain.getScore());
+
+        submissionService.addSubmission(submission);
 
         return ResponseEntity.ok(judgeToMain);
     }
@@ -38,14 +49,20 @@ public class SubmitRestController {
         MainToJudge mainToJudge = new MainToJudge();
         Submission submission = new Submission();
 
+        submission.setUserId(submitForm.getUserId());
+        submission.setProblemId(submitForm.getProblemId());
+        submission.setContestId(submitForm.getContestId());
+        submission.setUsedLanguage(submitForm.getLanguage());
+        submission.setSubmitCode(submitForm.getSource());
+        submission.setSubmitDate(java.sql.Timestamp.valueOf(LocalDateTime.now()));
         final int submissionId = submissionService.addSubmission(submission).getSubmissionId();
 
         mainToJudge.setId(submissionId);
         mainToJudge.setLanguage(_language[submitForm.getLanguage()]);
-        mainToJudge.setProblemId(submitForm.getProblem_id());
+        mainToJudge.setProblemId(submitForm.getProblemId());
         mainToJudge.setSource(submitForm.getSource());
 
-        rabbitTemplate.convertAndSend(queue.getName(), mainToJudge);
+        //rabbitTemplate.convertAndSend(queue.getName(), mainToJudge);
 
         return submissionId;
     }
@@ -53,7 +70,9 @@ public class SubmitRestController {
 
     @GetMapping("/test")
     public String testQ(){
-        //submissionService.setUpdate(1, 4);//
+        Submission submission = submissionService.getOne(1);
+        submission.setProblemId(4);
+        submissionService.addSubmission(submission);
         return "messeage send";
     }
 
