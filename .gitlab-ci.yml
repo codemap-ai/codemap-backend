@@ -26,4 +26,3 @@ deploy-job:
     - chmod 600 "$SSH_PRIVATE_KEY"
     - ssh-add "$SSH_PRIVATE_KEY"
     - scp build/libs/*.jar ubuntu@"$EC2_BACKEND_IP":~/build.jar
-    - ssh ubuntu@"$EC2_BACKEND_IP" nohup java -jar -Dspring.datasource.username="$MYSQL_USERNAME" -Dspring.datasource.password="$MYSQL_PASSWORD" -Dspring.rabbitmq.host="$RABBITMQ_HOST" -Dspring.rabbitmq.username="$RABBITMQ_USERNAME" -Dspring.rabbitmq.password="$RABBITMQ_PASSWORD" ./build.jar &
