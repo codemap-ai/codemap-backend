@@ -61,7 +61,7 @@ public class SubmitRestController {
     }
 
     private String toString(int submissionId) {
-        return toString(submissionId);
+        return Integer.toString(submissionId);
     }
 
     @PostMapping("")
