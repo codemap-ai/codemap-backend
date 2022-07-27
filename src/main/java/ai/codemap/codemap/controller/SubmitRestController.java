@@ -2,6 +2,7 @@ package ai.codemap.codemap.controller;
 
 import ai.codemap.codemap.form.JudgeToMain;
 import ai.codemap.codemap.form.MainToJudge;
+import ai.codemap.codemap.form.ResponseForm;
 import ai.codemap.codemap.form.SubmitForm;
 import ai.codemap.codemap.model.ChatMessage;
 import ai.codemap.codemap.model.Submission;
@@ -40,7 +41,7 @@ public class SubmitRestController {
 
 
     @PostMapping("/submission")
-    public ResponseEntity<JudgeToMain> get_submission(@RequestBody JudgeToMain judgeToMain) {
+    public ResponseForm get_submission(@RequestBody JudgeToMain judgeToMain) {
 
         Submission submission = submissionService.getOne(judgeToMain.getSubmissionId());
         submission.setExecuteTime(judgeToMain.getTime());
@@ -56,9 +57,11 @@ public class SubmitRestController {
 //        chatMessage.setRoomId(toString(judgeToMain.getSubmissionId()));
 //        chatMessage.setMessage("FINISH");
 
-        sendingOperations.convertAndSend("/topic/chat/room/"+judgeToMain.getSubmissionId(), submission);
+        sendingOperations.convertAndSend("/topic/chat/room/" + judgeToMain.getSubmissionId(), submission);
 
-        return ResponseEntity.ok(judgeToMain);
+        ResponseForm responseForm = new ResponseForm();
+        responseForm.setResponseEntity(ResponseEntity.ok(judgeToMain));
+        return responseForm;
     }
 
     private String toString(int submissionId) {
@@ -66,17 +69,18 @@ public class SubmitRestController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Long> submit(@RequestBody SubmitForm submitForm) {
+    public ResponseForm submit(@RequestBody SubmitForm submitForm) {
         MainToJudge mainToJudge = new MainToJudge();
         Submission submission = new Submission();
 
-        submission.setUserId(submitForm.getUserId());
+        submission.setUserId(1); // todo
+
         submission.setProblemId(submitForm.getProblemId());
         submission.setContestId(submitForm.getContestId());
         submission.setUsedLanguage(submitForm.getLanguage());
         submission.setSubmitCode(submitForm.getSource());
         submission.setSubmitDate(java.sql.Timestamp.valueOf(LocalDateTime.now()));
-        submission.setResult("Waiting");
+        submission.setResult("WAITING");
         submission.setTestMode(submitForm.getTestMode());
         submission.setInput(submitForm.getInput());
         final Long submissionId = submissionService.addSubmission(submission).getSubmissionId();
@@ -90,7 +94,10 @@ public class SubmitRestController {
 
         rabbitTemplate.convertAndSend(queue.getName(), mainToJudge);
 
-        return ResponseEntity.ok(submissionId);
+        ResponseForm responseForm = new ResponseForm();
+        responseForm.setResponseEntity(ResponseEntity.ok(submission));
+
+        return responseForm;
     }
 
 

@@ -1,6 +1,7 @@
 package ai.codemap.codemap.controller;
 
 
+import ai.codemap.codemap.form.ResponseForm;
 import ai.codemap.codemap.model.Problem;
 import ai.codemap.codemap.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,22 +25,31 @@ public class ProblemRestController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<Problem>> getProblemList() {
+    public ResponseForm getProblemList() {
 
         List<Problem> list = problemService.getAll();
         if (list == null) list = new ArrayList<Problem>();
 
-        return ResponseEntity.ok(list);
+        ResponseForm responseForm = new ResponseForm();
+        responseForm.setResponseEntity(ResponseEntity.ok(list));
+
+        return responseForm;
     }
 
     @GetMapping("/{problem_id}")
-    public ResponseEntity<Problem> getProblem(@PathVariable String problem_id) {
+    public ResponseForm getProblem(@PathVariable String problem_id) {
         Problem problem = problemService.getOne(Integer.parseInt(problem_id));
+
+        ResponseForm responseForm = new ResponseForm();
         if (problem == null) {
-            return ResponseEntity.badRequest().build();
+
+            responseForm.setResponseEntity(ResponseEntity.badRequest().build());
+            return responseForm;
         }
 
-        return ResponseEntity.ok(problem);
+        ;
+        responseForm.setResponseEntity(ResponseEntity.ok(problem));
+        return responseForm;
     }
 
 }

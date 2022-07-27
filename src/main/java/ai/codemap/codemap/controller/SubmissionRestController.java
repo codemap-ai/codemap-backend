@@ -1,5 +1,6 @@
 package ai.codemap.codemap.controller;
 
+import ai.codemap.codemap.form.ResponseForm;
 import ai.codemap.codemap.model.Submission;
 import ai.codemap.codemap.service.SubmissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,20 +24,24 @@ public class SubmissionRestController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Submission>> getSubmissionList() {
+    public ResponseForm getSubmissionList() {
         List<Submission> list = submissionService.getAll();
         if (list == null) list = new ArrayList<Submission>();
 
-        return ResponseEntity.ok(list);
+        ResponseForm responseForm = new ResponseForm();
+        responseForm.setResponseEntity(ResponseEntity.ok(list));
+        return responseForm;
     }
 
     @GetMapping("/contest/{contest_id}")
-        public ResponseEntity<List<Submission>> getSubmissionListByContestId(@PathVariable String contest_id) {
-            List<Submission> list = submissionService.getByContestId(Integer.parseInt(contest_id));
-            if (list == null) list = new ArrayList<Submission>();
+    public ResponseForm getSubmissionListByContestId(@PathVariable String contest_id) {
+        List<Submission> list = submissionService.getByContestId(Integer.parseInt(contest_id));
+        if (list == null) list = new ArrayList<Submission>();
 
-            return ResponseEntity.ok(list);
-        }
+        ResponseForm responseForm = new ResponseForm();
+        responseForm.setResponseEntity(ResponseEntity.ok(list));
+        return responseForm;
+    }
 
 
     @GetMapping("/user/{user_id}")
@@ -44,22 +49,30 @@ public class SubmissionRestController {
         List<Submission> list = submissionService.getByUserId(Integer.parseInt(user_id));
         if (list == null) list = new ArrayList<Submission>();
 
+        ResponseForm responseForm = new ResponseForm();
+        responseForm.setResponseEntity(ResponseEntity.ok(list));
         return ResponseEntity.ok(list);
     }
 
     @GetMapping("/problem/{problem_id}")
-    public ResponseEntity<List<Submission>> getSubmissionListByProblemId(@PathVariable String problem_id) {
+    public ResponseForm getSubmissionListByProblemId(@PathVariable String problem_id) {
         List<Submission> list = submissionService.getByProblemId(Integer.parseInt(problem_id));
         if (list == null) list = new ArrayList<Submission>();
 
-        return ResponseEntity.ok(list);
+        ResponseForm responseForm = new ResponseForm();
+        responseForm.setResponseEntity(ResponseEntity.ok(list));
+        return responseForm;
     }
-    @GetMapping("/{submission_id}")
-    public ResponseEntity<Submission> getSubmission(@PathVariable String submission_id) {
+
+    @GetMapping("/id/{submission_id}")
+    public ResponseForm getSubmission(@PathVariable String submission_id) {
         Submission submission = submissionService.getOne(Long.parseLong(submission_id));
+        ResponseForm responseForm = new ResponseForm();
         if (submission == null) {
-            return ResponseEntity.badRequest().build();
+            responseForm.setResponseEntity(ResponseEntity.badRequest().build());
+            return responseForm;
         }
-        return ResponseEntity.ok(submission);
+        responseForm.setResponseEntity(ResponseEntity.ok(submission));
+        return responseForm;
     }
 }

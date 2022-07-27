@@ -1,6 +1,6 @@
-#POST localhost:8081/contests/finish
-#Content-Type: application/json;
-#
-#{
-#  "contestId" : 3
-#}
+POST localhost:8081/contests/finish
+Content-Type: application/json;
+
+{
+  "contestId" : 2
+}

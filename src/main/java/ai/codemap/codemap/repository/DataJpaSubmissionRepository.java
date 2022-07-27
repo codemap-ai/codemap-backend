@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface DataJpaSubmissionRepository extends JpaRepository<Submission, Integer>, SubmissionRepository {
+public interface DataJpaSubmissionRepository extends JpaRepository<Submission, Long>, SubmissionRepository {
     @Override
     List<Submission> findByProblemId(int problem_id);
 

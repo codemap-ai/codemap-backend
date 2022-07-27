@@ -1,6 +1,7 @@
 package ai.codemap.codemap.controller;
 
 import ai.codemap.codemap.form.FinishForm;
+import ai.codemap.codemap.form.ResponseForm;
 import ai.codemap.codemap.form.StartForm;
 import ai.codemap.codemap.model.Contest;
 import ai.codemap.codemap.model.Problem;
@@ -25,21 +26,24 @@ public class ContestRestController {
 
 
     @PostMapping("/start")
-    public ResponseEntity<Integer> startContest(@RequestBody StartForm startForm){
+    public ResponseForm startContest(@RequestBody StartForm startForm) {
         Contest contest = new Contest();
 
-        contest.setUserId(startForm.getUserId());
+        contest.setUserId(1); // todo
+
         contest.setProblemSetId(startForm.getProblemSetId());
         contest.setCreateTime(java.sql.Timestamp.valueOf(LocalDateTime.now()));
 
         final int contestId = contestService.addContest(contest).getContestId();
 
-        return ResponseEntity.ok(contestId);
+        ResponseForm responseForm = new ResponseForm();
+        responseForm.setResponseEntity(ResponseEntity.ok(contestId));
+        return responseForm;
     }
 
 
     @PostMapping("/finish")
-    public ResponseEntity<Contest> finishContest(@RequestBody FinishForm finishForm){
+    public ResponseForm finishContest(@RequestBody FinishForm finishForm) {
         Contest contest = contestService.getOne(finishForm.getContestId());
 
         contest.setFinishTime(java.sql.Timestamp.valueOf(LocalDateTime.now()));
@@ -52,15 +56,25 @@ public class ContestRestController {
         contest.setPenalty(penalty);
 
         contestService.addContest(contest);
-        return ResponseEntity.ok(contest);
+
+        ResponseForm responseForm = new ResponseForm();
+        responseForm.setResponseEntity(ResponseEntity.ok(contest));
+
+        return responseForm;
     }
+
     @GetMapping("/{contest_id}")
-    public ResponseEntity<Contest> getProblem(@PathVariable String contest_id) {
+    public ResponseForm getProblem(@PathVariable String contest_id) {
         Contest contest = contestService.getOne(Integer.parseInt(contest_id));
+
+        ResponseForm responseForm = new ResponseForm();
+
         if (contest == null) {
-            return ResponseEntity.badRequest().build();
+            responseForm.setResponseEntity(ResponseEntity.badRequest().build());
+            return responseForm;
         }
 
-        return ResponseEntity.ok(contest);
+        responseForm.setResponseEntity(ResponseEntity.ok(contest));
+        return responseForm;
     }
 }

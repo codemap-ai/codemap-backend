@@ -1,7 +1,6 @@
-#POST localhost:8081/contests/start
-#Content-Type: application/json;
-#
-#{
-#  "userId" : 1,
-#  "problemSetId" : 1
-#}
+POST localhost:8081/contests/start
+Content-Type: application/json;
+
+{
+  "problemSetId" : 1
+}

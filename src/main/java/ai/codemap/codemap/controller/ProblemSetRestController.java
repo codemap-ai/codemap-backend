@@ -1,4 +1,6 @@
 package ai.codemap.codemap.controller;
+
+import ai.codemap.codemap.form.ResponseForm;
 import ai.codemap.codemap.model.ProblemSet;
 import ai.codemap.codemap.service.ProblemSetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,26 +19,33 @@ public class ProblemSetRestController {
     private final ProblemSetService problemSetService;
 
     @Autowired
-    public ProblemSetRestController(ProblemSetService problemSetService){
+    public ProblemSetRestController(ProblemSetService problemSetService) {
         this.problemSetService = problemSetService;
     }
 
     @GetMapping("")
-    public ResponseEntity<List<ProblemSet>> getProblemSetList(){
+    public ResponseForm getProblemSetList() {
 
         List<ProblemSet> list = problemSetService.getAll();
-        if(list == null) list = new ArrayList<ProblemSet>();
+        if (list == null) list = new ArrayList<ProblemSet>();
 
-        return ResponseEntity.ok(list);
+        ResponseForm responseForm = new ResponseForm();
+        responseForm.setResponseEntity(ResponseEntity.ok(list));
+
+        return responseForm;
     }
 
     @GetMapping("/{problem_set_id}")
-    public ResponseEntity<ProblemSet> getProblemSet(@PathVariable String problem_set_id){
-        ProblemSet contest = problemSetService.getOne(Integer.parseInt(problem_set_id));
-        if(contest == null){
-            return ResponseEntity.badRequest().build();
+    public ResponseForm getProblemSet(@PathVariable String problem_set_id) {
+        ProblemSet problemSet = problemSetService.getOne(Integer.parseInt(problem_set_id));
+        ResponseForm responseForm = new ResponseForm();
+
+        if (problemSet == null) {
+            responseForm.setResponseEntity(ResponseEntity.badRequest().build());
+            return responseForm;
         }
 
-        return ResponseEntity.ok(contest);
+        responseForm.setResponseEntity(ResponseEntity.ok(problemSet));
+        return responseForm;
     }
 }

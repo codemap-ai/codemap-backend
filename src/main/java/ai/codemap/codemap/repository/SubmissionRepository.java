@@ -5,9 +5,10 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SubmissionRepository {
-    Submission findById(Long submissionId);
+    Optional<Submission> findById(Long submissionId);
     List<Submission> findAll();
     Submission save(Submission submission);
     List<Submission> findByContestId(int contestId);

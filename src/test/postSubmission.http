@@ -1,11 +1,12 @@
-#POST localhost:8081/submit/submission
-#Content-Type: application/json;
-#
-#{
-#  "submissionId" : 1,
-#  "status" : "Accepted",
-#  "time" : 2.7,
-#  "memory" : 15000,
-#  "compilerMessage" : "nice",
-#  "score" : 100
-#}
+POST localhost:8081/submit/submission
+Content-Type: application/json;
+
+{
+  "submissionId" : 1,
+  "status" : "Accepted",
+  "time" : 2.7,
+  "memory" : 15000,
+  "compilerMessage" : "nice",
+  "output" : "output",
+  "score" : 100
+}

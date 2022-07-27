@@ -3,8 +3,9 @@ Content-Type: application/json
 
 {
   "problemId": 1,
-  "userId": 1,
+  "input": "input",
   "contestId" : -1,
+  "testMode" : true,
   "language": "c++17",
   "source": "codesss"
 }

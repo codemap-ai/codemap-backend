@@ -13,7 +13,7 @@ public class SubmissionService {
     }
 
     public Submission getOne(Long submission_id) {
-        return submissionRepository.findById(submission_id);
+        return submissionRepository.findById(submission_id).get();
     }
 
     public Submission addSubmission(Submission submission) {

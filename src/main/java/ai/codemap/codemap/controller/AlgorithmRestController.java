@@ -1,5 +1,6 @@
 package ai.codemap.codemap.controller;
 
+import ai.codemap.codemap.form.ResponseForm;
 import ai.codemap.codemap.model.Algorithm;
 import ai.codemap.codemap.service.AlgorithmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,27 +19,31 @@ public class AlgorithmRestController {
     private final AlgorithmService algorithmService;
 
     @Autowired
-    public AlgorithmRestController(AlgorithmService algorithmService){
+    public AlgorithmRestController(AlgorithmService algorithmService) {
         this.algorithmService = algorithmService;
     }
 
     @GetMapping("")
-    public ResponseEntity<List<Algorithm>> getAlgorithmList(){
+    public ResponseForm getAlgorithmList() {
 
         List<Algorithm> list = algorithmService.getALL();
-        if(list == null) list = new ArrayList<Algorithm>();
+        if (list == null) list = new ArrayList<Algorithm>();
 
-        return ResponseEntity.ok(list);
+        ResponseForm responseForm = new ResponseForm();
+        responseForm.setResponseEntity(ResponseEntity.ok(list));
+        return responseForm;
     }
 
     @GetMapping("/{algorithm_id}")
-    public ResponseEntity<Algorithm> getAgorithm(@PathVariable String algorithm_id){
+    public ResponseForm getAgorithm(@PathVariable String algorithm_id) {
         Algorithm algorithm = algorithmService.getOne(Integer.parseInt(algorithm_id));
+        ResponseForm responseForm = new ResponseForm();
 
-        if(algorithm == null){
-            return ResponseEntity.badRequest().build();
+        if (algorithm == null) {
+            responseForm.setResponseEntity(ResponseEntity.badRequest().build());
+            return responseForm;
         }
-
-        return ResponseEntity.ok(algorithm);
+        responseForm.setResponseEntity(ResponseEntity.ok(algorithm));
+        return responseForm;
     }
 }
