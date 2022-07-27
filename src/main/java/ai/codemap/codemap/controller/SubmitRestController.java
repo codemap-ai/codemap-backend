@@ -51,11 +51,11 @@ public class SubmitRestController {
 
         submissionService.addSubmission(submission);
 
-        ChatMessage chatMessage = new ChatMessage();
-        chatMessage.setRoomId(toString(judgeToMain.getSubmissionId()));
-        chatMessage.setMessage("FINISH");
+//        ChatMessage chatMessage = new ChatMessage();
+//        chatMessage.setRoomId(toString(judgeToMain.getSubmissionId()));
+//        chatMessage.setMessage("FINISH");
 
-        sendingOperations.convertAndSend("/topic/chat/room/"+toString(judgeToMain.getSubmissionId()), chatMessage);
+        sendingOperations.convertAndSend("/topic/chat/room/"+toString(judgeToMain.getSubmissionId()), submission);
 
         return ResponseEntity.ok(judgeToMain);
     }
@@ -65,7 +65,7 @@ public class SubmitRestController {
     }
 
     @PostMapping("")
-    public int submit(@RequestBody SubmitForm submitForm) {
+    public ResponseEntity<Integer> submit(@RequestBody SubmitForm submitForm) {
         MainToJudge mainToJudge = new MainToJudge();
         Submission submission = new Submission();
 
@@ -87,7 +87,7 @@ public class SubmitRestController {
 
         rabbitTemplate.convertAndSend(queue.getName(), mainToJudge);
 
-        return submissionId;
+        return ResponseEntity.ok(submissionId);
     }
 
 
