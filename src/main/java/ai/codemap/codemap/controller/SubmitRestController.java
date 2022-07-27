@@ -78,7 +78,7 @@ public class SubmitRestController {
         submission.setResult("Waiting");
         final int submissionId = submissionService.addSubmission(submission).getSubmissionId();
 
-        chatRoomRepository.createRoom(toString(submissionId));
+        chatRoomRepository.createRoom(Integer.toString(submissionId));
 
         mainToJudge.setId(submissionId);
         mainToJudge.setLanguage(submitForm.getLanguage());
