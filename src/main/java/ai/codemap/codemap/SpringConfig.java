@@ -3,10 +3,8 @@ package ai.codemap.codemap;
 import ai.codemap.codemap.repository.*;
 import ai.codemap.codemap.service.*;
 
-import com.rabbitmq.client.AMQP;
 import org.springframework.amqp.core.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,7 +13,6 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
-import org.springframework.context.annotation.Bean;
 
 
 @Configuration
@@ -25,14 +22,15 @@ public class SpringConfig {
     private final ProblemRepository problemRepository;
     private final SubmissionRepository submissionRepository;
     private final ContestRepository contestRepository;
-
+    private final LoadCodeRepository loadCodeRepository;
     @Autowired
-    public SpringConfig(AlgorithmRepository algorithmRepository, ProblemSetRepository problemSetRepository, ProblemRepository problemRepository, SubmissionRepository submissionRepository, ContestRepository contestRepository) {
+    public SpringConfig(AlgorithmRepository algorithmRepository, ProblemSetRepository problemSetRepository, ProblemRepository problemRepository, SubmissionRepository submissionRepository, ContestRepository contestRepository, LoadCodeRepository loadCodeRepository) {
         this.algorithmRepository = algorithmRepository;
         this.problemSetRepository = problemSetRepository;
         this.problemRepository = problemRepository;
         this.submissionRepository = submissionRepository;
         this.contestRepository = contestRepository;
+        this.loadCodeRepository = loadCodeRepository;
     }
 
     @Bean
@@ -60,6 +58,10 @@ public class SpringConfig {
         return new ContestService(contestRepository);
     }
 
+    @Bean
+    public LoadCodeService loadCodeService(){
+        return new LoadCodeService(loadCodeRepository);
+    }
 
 
 

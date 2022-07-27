@@ -1,0 +1,7 @@
+POST localhost:8081/code/load
+Content-Type: application/json;
+
+{
+  "contestId" : 1,
+  "problemId" : 2
+}
