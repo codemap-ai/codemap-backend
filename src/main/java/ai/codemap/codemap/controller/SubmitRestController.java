@@ -5,6 +5,7 @@ import ai.codemap.codemap.form.MainToJudge;
 import ai.codemap.codemap.form.SubmitForm;
 import ai.codemap.codemap.model.ChatMessage;
 import ai.codemap.codemap.model.Submission;
+import ai.codemap.codemap.repository.ChatRoomRepository;
 import ai.codemap.codemap.service.SubmissionService;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -21,7 +22,7 @@ import java.time.LocalDateTime;
 public class SubmitRestController {
     private final SubmissionService submissionService;
     private final SimpMessageSendingOperations sendingOperations;
-
+    private final ChatRoomRepository chatRoomRepository;
 
 
     @Autowired
@@ -31,9 +32,10 @@ public class SubmitRestController {
     Queue queue;
 
     @Autowired
-    public SubmitRestController(SubmissionService submissionService, SimpMessageSendingOperations sendingOperations) {
+    public SubmitRestController(SubmissionService submissionService, SimpMessageSendingOperations sendingOperations, ChatRoomRepository chatRoomRepository) {
         this.submissionService = submissionService;
         this.sendingOperations = sendingOperations;
+        this.chatRoomRepository = chatRoomRepository;
     }
 
 
@@ -75,6 +77,8 @@ public class SubmitRestController {
         submission.setSubmitDate(java.sql.Timestamp.valueOf(LocalDateTime.now()));
         submission.setResult("Waiting");
         final int submissionId = submissionService.addSubmission(submission).getSubmissionId();
+
+        chatRoomRepository.createRoom(toString(submissionId));
 
         mainToJudge.setId(submissionId);
         mainToJudge.setLanguage(submitForm.getLanguage());
