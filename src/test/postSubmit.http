@@ -1,10 +1,10 @@
-#POST localhost:8081/submit
-#Content-Type: application/json
-#
-#{
-#  "problemId": 1,
-#  "userId": 1,
-#  "contestId" : -1,
-#  "language": "c++17",
-#  "source": "codesss"
-#}
+POST localhost:8081/submit
+Content-Type: application/json
+
+{
+  "problemId": 1,
+  "userId": 1,
+  "contestId" : -1,
+  "language": "c++17",
+  "source": "codesss"
+}
