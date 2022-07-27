@@ -1,5 +1,6 @@
 package ai.codemap.codemap.controller;
 
+import ai.codemap.codemap.form.ProblemSetForm;
 import ai.codemap.codemap.form.ResponseForm;
 import ai.codemap.codemap.model.ProblemSet;
 import ai.codemap.codemap.service.ProblemSetService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -26,11 +28,24 @@ public class ProblemSetRestController {
     @GetMapping("")
     public ResponseForm getProblemSetList() {
 
-        List<ProblemSet> list = problemSetService.getAll();
-        if (list == null) list = new ArrayList<ProblemSet>();
+        List<ProblemSet> orgList = problemSetService.getAll();
+        if (orgList == null) orgList = new ArrayList<ProblemSet>();
+
+        List<ProblemSetForm> dstList = new ArrayList<>();
+
+        for (ProblemSet org : orgList) {
+            ProblemSetForm dst = new ProblemSetForm();
+            dst.setProblemSetId(org.getProblemSetId());
+            dst.setDuration(org.getDuration());
+            dst.setTitle(org.getTitle());
+            dst.setProblem_list(List.of(org.getProblem_list().split(",")));
+
+            dstList.add(dst);
+        }
+
 
         ResponseForm responseForm = new ResponseForm();
-        responseForm.setResponseEntity(ResponseEntity.ok(list));
+        responseForm.setResponseEntity(ResponseEntity.ok(dstList));
 
         return responseForm;
     }
@@ -45,7 +60,13 @@ public class ProblemSetRestController {
             return responseForm;
         }
 
-        responseForm.setResponseEntity(ResponseEntity.ok(problemSet));
+        ProblemSetForm problemSetForm = new ProblemSetForm();
+        problemSetForm.setProblemSetId(problemSet.getProblemSetId());
+        problemSetForm.setDuration(problemSet.getDuration());
+        problemSetForm.setTitle(problemSet.getTitle());
+        problemSetForm.setProblem_list(List.of(problemSet.getProblem_list().split(",")));
+
+        responseForm.setResponseEntity(ResponseEntity.ok(problemSetForm));
         return responseForm;
     }
 }
