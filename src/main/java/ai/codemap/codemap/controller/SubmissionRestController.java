@@ -54,10 +54,9 @@ public class SubmissionRestController {
 
         return ResponseEntity.ok(list);
     }
-
     @GetMapping("/{submission_id}")
     public ResponseEntity<Submission> getSubmission(@PathVariable String submission_id) {
-        Submission submission = submissionService.getOne(Integer.parseInt(submission_id));
+        Submission submission = submissionService.getOne(Long.parseLong(submission_id));
         if (submission == null) {
             return ResponseEntity.badRequest().build();
         }

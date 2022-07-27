@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface SubmissionRepository {
-    Submission findById(int submissionId);
+    Submission findById(Long submissionId);
     List<Submission> findAll();
     Submission save(Submission submission);
     List<Submission> findByContestId(int contestId);

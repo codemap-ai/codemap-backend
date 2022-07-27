@@ -17,4 +17,6 @@ public class ProblemSet {
     private String title;
     @Column(name="problem_list")
     private String problem_list;
+    @Column(name="duration") // minute
+    private int duration;
 }

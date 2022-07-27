@@ -14,7 +14,7 @@ import java.util.Date;
 public class Submission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int submissionId; // primary key
+    private Long submissionId; // primary key
     @Column(name = "problem_id")
     private int problemId;
     @Column(name = "user_id")
@@ -37,6 +37,12 @@ public class Submission {
     private Date submitDate; // submission date
     @Column(name = "score")
     private int score;
+    @Column(name = "testmode")
+    private Boolean testMode;
+    @Column(name = "input")
+    private String input;
+    @Column(name = "output")
+    private String output;
 }
 
 

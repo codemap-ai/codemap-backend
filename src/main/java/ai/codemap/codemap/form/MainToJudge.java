@@ -8,8 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MainToJudge {
-    private int id;
+    private Long id;
     private int problemId;
+    private String input;
+    private Boolean testMode;
     private String language;
     private String source;
 }

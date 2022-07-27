@@ -12,7 +12,7 @@ public class SubmissionService {
         this.submissionRepository = submissionRepository;
     }
 
-    public Submission getOne(int submission_id) {
+    public Submission getOne(Long submission_id) {
         return submissionRepository.findById(submission_id);
     }
 

@@ -8,10 +8,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class JudgeToMain {
-    private int submissionId;
+    private Long submissionId;
     private String status;
     private double time;
     private Long memory;
     private String compilerMessage;
+    private String output;
     private int score;
 }

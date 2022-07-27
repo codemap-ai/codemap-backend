@@ -48,6 +48,7 @@ public class SubmitRestController {
         submission.setResult(judgeToMain.getStatus());
         submission.setScore(judgeToMain.getScore());
         submission.setCompilerMessage(judgeToMain.getCompilerMessage());
+        submission.setOutput(judgeToMain.getOutput());
 
         submissionService.addSubmission(submission);
 
@@ -55,7 +56,7 @@ public class SubmitRestController {
 //        chatMessage.setRoomId(toString(judgeToMain.getSubmissionId()));
 //        chatMessage.setMessage("FINISH");
 
-        sendingOperations.convertAndSend("/topic/chat/room/"+toString(judgeToMain.getSubmissionId()), submission);
+        sendingOperations.convertAndSend("/topic/chat/room/"+judgeToMain.getSubmissionId(), submission);
 
         return ResponseEntity.ok(judgeToMain);
     }
@@ -65,7 +66,7 @@ public class SubmitRestController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Integer> submit(@RequestBody SubmitForm submitForm) {
+    public ResponseEntity<Long> submit(@RequestBody SubmitForm submitForm) {
         MainToJudge mainToJudge = new MainToJudge();
         Submission submission = new Submission();
 
@@ -76,9 +77,11 @@ public class SubmitRestController {
         submission.setSubmitCode(submitForm.getSource());
         submission.setSubmitDate(java.sql.Timestamp.valueOf(LocalDateTime.now()));
         submission.setResult("Waiting");
-        final int submissionId = submissionService.addSubmission(submission).getSubmissionId();
+        submission.setTestMode(submitForm.getTestMode());
+        submission.setInput(submitForm.getInput());
+        final Long submissionId = submissionService.addSubmission(submission).getSubmissionId();
 
-        chatRoomRepository.createRoom(Integer.toString(submissionId));
+        chatRoomRepository.createRoom(submissionId.toString());
 
         mainToJudge.setId(submissionId);
         mainToJudge.setLanguage(submitForm.getLanguage());
@@ -93,7 +96,7 @@ public class SubmitRestController {
 
     @GetMapping("/test")
     public String testQ() {
-        Submission submission = submissionService.getOne(1);
+        Submission submission = submissionService.getOne(1L);
         submission.setProblemId(4);
         submissionService.addSubmission(submission);
         return "messeage send";

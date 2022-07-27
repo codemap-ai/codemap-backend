@@ -11,6 +11,8 @@ public class SubmitForm {
     private int userId;
     private int problemId;
     private int contestId;
+    private Boolean testMode;
+    private String input;
     private String language;
     private String source;
 }
