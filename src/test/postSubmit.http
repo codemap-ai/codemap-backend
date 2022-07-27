@@ -1,11 +1,11 @@
-POST localhost:8081/submit
+POST http://43.200.180.31:8081/submit
 Content-Type: application/json
 
 {
-  "problemId": 1,
+  "problemId": 3,
   "input": "input",
   "contestId" : -1,
-  "testMode" : true,
+  "testMode" : false,
   "language": "c++17",
-  "source": "codesss"
+  "source": "#include <iostream>\nusing namespace std;\nint main(){int a, b; cin>>a>>b>; cout<<a+b;}"
 }

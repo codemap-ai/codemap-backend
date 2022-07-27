@@ -91,6 +91,8 @@ public class SubmitRestController {
         mainToJudge.setLanguage(submitForm.getLanguage());
         mainToJudge.setProblemId(submitForm.getProblemId());
         mainToJudge.setSource(submitForm.getSource());
+        mainToJudge.setInput(submitForm.getInput());
+        mainToJudge.setTestMode(submitForm.getTestMode());
 
         rabbitTemplate.convertAndSend(queue.getName(), mainToJudge);
 
