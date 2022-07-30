@@ -12,14 +12,17 @@ import javax.persistence.*;
 public class Problem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int problemId; // primary key
+    private Long problemId; // primary key
 
     @Column(name="title",length = 100)
     private String title;
+
     @Column(name="memory_limit")
-    private int memoryLimit; // KB
+    private Long memoryLimit; // KiB
+
     @Column(name="time_limit")
-    private float timeLimit; // sec
+    private Double timeLimit; // sec
+
     @Column(name="body",length = 100000)
     private String body;
 }

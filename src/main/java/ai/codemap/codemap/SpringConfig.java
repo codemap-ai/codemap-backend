@@ -19,15 +19,13 @@ import org.springframework.amqp.support.converter.MessageConverter;
 public class SpringConfig {
     private final AlgorithmRepository algorithmRepository;
     private final ProblemSetRepository problemSetRepository;
-    private final ProblemRepository problemRepository;
     private final SubmissionRepository submissionRepository;
     private final ContestRepository contestRepository;
     private final LoadCodeRepository loadCodeRepository;
     @Autowired
-    public SpringConfig(AlgorithmRepository algorithmRepository, ProblemSetRepository problemSetRepository, ProblemRepository problemRepository, SubmissionRepository submissionRepository, ContestRepository contestRepository, LoadCodeRepository loadCodeRepository) {
+    public SpringConfig(AlgorithmRepository algorithmRepository, ProblemSetRepository problemSetRepository, SubmissionRepository submissionRepository, ContestRepository contestRepository, LoadCodeRepository loadCodeRepository) {
         this.algorithmRepository = algorithmRepository;
         this.problemSetRepository = problemSetRepository;
-        this.problemRepository = problemRepository;
         this.submissionRepository = submissionRepository;
         this.contestRepository = contestRepository;
         this.loadCodeRepository = loadCodeRepository;
@@ -44,11 +42,6 @@ public class SpringConfig {
     }
 
     @Bean
-    public ProblemService problemService() {
-        return new ProblemService(problemRepository);
-    }
-
-    @Bean
     public SubmissionService repositoryService() {
         return new SubmissionService(submissionRepository);
     }
@@ -62,10 +55,6 @@ public class SpringConfig {
     public LoadCodeService loadCodeService(){
         return new LoadCodeService(loadCodeRepository);
     }
-
-
-
-
 
     /* rabbit queue */
 

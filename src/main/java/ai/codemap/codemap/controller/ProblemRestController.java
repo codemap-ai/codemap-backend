@@ -37,8 +37,8 @@ public class ProblemRestController {
     }
 
     @GetMapping("/{problem_id}")
-    public ResponseForm getProblem(@PathVariable String problem_id) {
-        Problem problem = problemService.getOne(Integer.parseInt(problem_id));
+    public ResponseForm getProblem(@PathVariable("problem_id") Long problemId) {
+        Problem problem = problemService.getOne(problemId);
 
         ResponseForm responseForm = new ResponseForm();
         if (problem == null) {

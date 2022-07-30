@@ -1,0 +1,45 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+
+<div>
+    <form action="/admin/problems/update" method="post" th:object="${problemForm}">
+        <table>
+            <tbody>
+                <tr>
+                    <th>#</th>
+                    <td><input th:field="*{problemId}" th:value="*{problemId}" type="text" readonly></td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td><input th:field="*{problemName}" th:value="*{problemName}"></td>
+                </tr>
+                <tr>
+                    <th>Time limit(s)</th>
+                    <td><input th:field="*{timeLimit}" th:value="*{timeLimit}"></td>
+                </tr>
+                <tr>
+                    <th>Memory limit(MiB)</th>
+                    <td><input th:field="*{memoryLimit}" th:value="*{memoryLimit}"></td>
+                </tr>
+                <tr>
+                    <th>Legend</th>
+                    <td><textarea th:field="*{legend}" th:value="*{legend}" rows="10" cols="90"></textarea></td>
+                </tr>
+                <tr>
+                    <th>Input format</th>
+                    <td><textarea th:field="*{inputFormat}" th:value="*{inputFormat}" rows="5" cols="90"></textarea></td>
+                </tr>
+                <tr>
+                    <th>Output format</th>
+                    <td><textarea th:field="*{outputFormat}" th:value="*{outputFormat}" rows="5" cols="90"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Save"></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+</body>
+</html>
