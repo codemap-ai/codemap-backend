@@ -1,6 +1,7 @@
 package ai.codemap.codemap.repository;
 
 import ai.codemap.codemap.model.Problem;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,10 +10,10 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class ProblemRepository {
 
-    @PersistenceContext
-    private EntityManager em;
+    private final EntityManager em;
 
     public Problem findById(Long problemId) {
         return em.find(Problem.class, problemId);
@@ -22,7 +23,6 @@ public class ProblemRepository {
                 .getResultList();
     }
 
-    @Transactional
     public void save(Problem problem) {
         em.persist(problem);
     }

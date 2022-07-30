@@ -2,7 +2,14 @@
 <body>
 
 <div>
-    <form action="/admin/problems/update" method="post" th:object="${problemForm}">
+    <ol>
+        <li><a th:href="@{/admin/problem/{problemId}(problemId = ${problemForm.problemId})}">Statement</a></li>
+        <li><a href="#">Tests</a></li>
+    </ol>
+</div>
+
+<div>
+    <form action="/admin/problem/update" method="post" th:object="${problemForm}">
         <table>
             <tbody>
                 <tr>

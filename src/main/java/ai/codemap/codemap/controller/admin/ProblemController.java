@@ -3,7 +3,7 @@ package ai.codemap.codemap.controller.admin;
 import ai.codemap.codemap.form.ProblemForm;
 import ai.codemap.codemap.model.Problem;
 import ai.codemap.codemap.service.ProblemService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,25 +13,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class ProblemController {
 
     private final ProblemService problemService;
 
-    @Autowired
-    public ProblemController(ProblemService problemService) {
-        this.problemService = problemService;
-    }
-
-    @PostMapping("/admin/problems/update")
+    @PostMapping("/admin/problem/update")
     public String updateProblem(ProblemForm problemForm) {
-        Problem problem = problemService.getOne(problemForm.getProblemId());
-        problem.setTitle(problemForm.getProblemName());
-        problem.setTimeLimit(problemForm.getTimeLimit());
-        problem.setMemoryLimit(problemForm.getMemoryLimit());
-        problem.setBody(problemForm.getLegend());
-        return "redirect:/admin/problem/" + problem.getProblemId();
+        problemService.updateProblem(problemForm);
+        return "redirect:/admin/problem/" + problemForm.getProblemId();
     }
-
 
     @GetMapping("/admin/problems")
     public String getProblems(Model model) {
@@ -49,10 +40,9 @@ public class ProblemController {
         problemForm.setProblemName(problem.getTitle());
         problemForm.setTimeLimit(problem.getTimeLimit());
         problemForm.setMemoryLimit(problem.getMemoryLimit());
-
-        problemForm.setLegend(problem.getBody()); // TODO: Problem Entity 수정하기
-        problemForm.setInputFormat(problem.getBody());
-        problemForm.setOutputFormat(problem.getBody());
+        problemForm.setLegend(problem.getLegend());
+        problemForm.setInputFormat(problem.getInputFormat());
+        problemForm.setOutputFormat(problem.getOutputFormat());
 
         model.addAttribute("problemForm", problemForm);
         return "problem";
