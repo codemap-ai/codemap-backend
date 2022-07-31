@@ -1,29 +1,47 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <body>
 
+<div>
+    <h3><a href="/admin/problems">Problems</a></h3>
+</div>
+
+<div>
+    <ol>
+        <li><a th:href="@{/admin/problem/{problemId}(problemId = ${problemId})}">Statement</a></li>
+        <li><a th:href="@{/admin/src/{problemId}(problemId = ${problemId})}">Resources</a></li>
+    </ol>
+</div>
+
 <div th:if="${message}">
     <h2 th:text="${message}"/>
 </div>
 
 <div>
-    <form method="POST" enctype="multipart/form-data" action="/admin">
+    <form method="POST" enctype="multipart/form-data" th:action="@{/admin/src/{problem_id}(problem_id=${problemId})}">
         <table>
-            <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+            <tr><td>File to upload:</td><td><input type="file" name="files" multiple /></td></tr>
             <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
         </table>
     </form>
 </div>
 
 <div>
-    <ul>
-        <li th:each="file : ${files}">
-            <a href="#" th:text="${file}" />
-            <form role="form" action="/admin/delete" method="post">
-                <input type="hidden" name="filename" id="filename" th:value="${file}" />
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>Action</td>
+        </tr>
+        <tr th:each="res : ${resources}">
+            <td th:text="${res.name}"></td>
+            <td>
+            <form role="form" th:action="@{/admin/src/{problem_id}/delete(problem_id=${problemId})}" method="post">
+                <input type="hidden" name="id" th:value="${res.id}" />
+                <input type="hidden" name="objectName" th:value="${res.objectName}" />
                 <input type="submit" value="Delete" />
             </form>
-        </li>
-    </ul>
+            </td>
+        </tr>
+    </table>
 </div>
 
 </body>

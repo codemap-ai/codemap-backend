@@ -8,11 +8,16 @@
 </div>
 
 <div>
-    <ul>
-        <li th:each="problem : ${problems}">
-            <a th:href="@{/admin/problem/{problemId}(problemId = ${problem.problemId})}" th:text="${problem.title}" />
-        </li>
-    </ul>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+        </tr>
+        <tr th:each="problem : ${problems}">
+            <td th:text="${problem.problemId}"></td>
+            <td><a th:href="@{/admin/problem/{problemId}(problemId = ${problem.problemId})}" th:text="${problem.title}"></a></td>
+        </tr>
+    </table>
 </div>
 
 </body>

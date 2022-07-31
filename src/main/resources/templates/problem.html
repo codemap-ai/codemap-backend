@@ -2,9 +2,13 @@
 <body>
 
 <div>
+    <h3><a href="/admin/problems">Problems</a></h3>
+</div>
+
+<div>
     <ol>
         <li><a th:href="@{/admin/problem/{problemId}(problemId = ${problemForm.problemId})}">Statement</a></li>
-        <li><a href="#">Tests</a></li>
+        <li><a th:href="@{/admin/src/{problemId}(problemId = ${problemForm.problemId})}">Resources</a></li>
     </ol>
 </div>
 
