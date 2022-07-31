@@ -22,7 +22,7 @@ public class SubmissionService {
         return submission;
     }
 
-    public List<Submission> getByUserId(int userId) {
+    public List<Submission> getByUserId(Long userId) {
         return submissionRepository.findByUserId(userId);
     }
 

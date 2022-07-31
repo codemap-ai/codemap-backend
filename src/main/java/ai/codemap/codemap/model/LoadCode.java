@@ -20,4 +20,6 @@ public class LoadCode {
     private int problemId;
     @Column(name = "code")
     private String code;
+    @Column(name = "language")
+    private String language;
 }

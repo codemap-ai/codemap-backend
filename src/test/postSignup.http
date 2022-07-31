@@ -1,0 +1,8 @@
+POST localhost:8081/users/signup
+Content-Type: application/json;
+
+{
+	"username" : "tjdahr2ASDFSADF5",
+	"nickname" : "ttjjdf",
+	"password" : "lotjd4242"
+}

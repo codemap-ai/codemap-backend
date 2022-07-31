@@ -1,0 +1,7 @@
+POST localhost:8081/users/signin
+Content-Type: application/json;
+
+{
+	"username" : "tjdahr25S",
+	"password" : "lotjd4242"
+}

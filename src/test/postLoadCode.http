@@ -2,6 +2,7 @@ POST localhost:8081/code/load
 Content-Type: application/json;
 
 {
-  "contestId" : 1,
-  "problemId" : 2
+  "contestId" : 20,
+  "problemId" : 20,
+  "language" : "c++17"
 }

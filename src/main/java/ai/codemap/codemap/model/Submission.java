@@ -18,7 +18,7 @@ public class Submission {
     @Column(name = "problem_id")
     private int problemId;
     @Column(name = "user_id")
-    private int userId;
+    private Long userId;
     @Column(name = "contest_id")
     private int contestId;
     @Column(name = "execute_time")

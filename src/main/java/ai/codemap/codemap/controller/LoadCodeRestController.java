@@ -22,33 +22,29 @@ public class LoadCodeRestController {
     }
 
     @PostMapping("/load")
-    public ResponseForm getCode(@RequestBody LoadCodeForm loadCodeForm) {
-        LoadCode loadCode = loadCodeService.getByContestIdAndProblemId(loadCodeForm.getContestId(), loadCodeForm.getProblemId());
+    public ResponseEntity getCode(@RequestBody LoadCodeForm loadCodeForm) {
+        LoadCode loadCode = loadCodeService.getByContestIdAndProblemId(loadCodeForm.getContestId(), loadCodeForm.getProblemId(), loadCodeForm.getLanguage());
 
-        ResponseForm responseForm = new ResponseForm();
+
         if (loadCode == null) {
-            responseForm.setResponseEntity(ResponseEntity.badRequest().build());
-            return responseForm;
+            return ResponseEntity.badRequest().build();
         }
-        responseForm.setResponseEntity(ResponseEntity.ok(loadCode.getCode()));
-        return responseForm;
+        return ResponseEntity.ok(loadCode.getCode());
     }
 
     @PostMapping("/save")
-    public ResponseForm addCode(@RequestBody SaveCodeForm saveCodeForm) {
-        LoadCode loadCode = loadCodeService.getByContestIdAndProblemId(saveCodeForm.getContestId(), saveCodeForm.getProblemId());
+    public ResponseEntity addCode(@RequestBody SaveCodeForm saveCodeForm) {
+        LoadCode loadCode = loadCodeService.getByContestIdAndProblemId(saveCodeForm.getContestId(), saveCodeForm.getProblemId(), saveCodeForm.getLanguage());
 
-        ResponseForm responseForm = new ResponseForm();
         if (loadCode == null) {
             loadCode = new LoadCode();
             loadCode.setContestId(saveCodeForm.getContestId());
             loadCode.setProblemId(saveCodeForm.getProblemId());
+            loadCode.setLanguage(saveCodeForm.getLanguage());
         }
         loadCode.setCode(saveCodeForm.getCode());
         loadCodeService.addLoadCode(loadCode);
-        responseForm.setResponseEntity(ResponseEntity.ok(loadCode));
-
-        return responseForm;
+        return ResponseEntity.ok(loadCode);
     }
 
 }

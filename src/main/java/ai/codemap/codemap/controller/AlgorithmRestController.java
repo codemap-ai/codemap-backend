@@ -3,6 +3,7 @@ package ai.codemap.codemap.controller;
 import ai.codemap.codemap.form.ResponseForm;
 import ai.codemap.codemap.model.Algorithm;
 import ai.codemap.codemap.service.AlgorithmService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,26 +25,23 @@ public class AlgorithmRestController {
     }
 
     @GetMapping("")
-    public ResponseForm getAlgorithmList() {
+    public ResponseEntity getAlgorithmList() {
 
         List<Algorithm> list = algorithmService.getALL();
         if (list == null) list = new ArrayList<Algorithm>();
 
-        ResponseForm responseForm = new ResponseForm();
-        responseForm.setResponseEntity(ResponseEntity.ok(list));
-        return responseForm;
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{algorithm_id}")
-    public ResponseForm getAgorithm(@PathVariable String algorithm_id) {
+    public ResponseEntity getAlgorithm(@PathVariable String algorithm_id) {
         Algorithm algorithm = algorithmService.getOne(Integer.parseInt(algorithm_id));
-        ResponseForm responseForm = new ResponseForm();
+
 
         if (algorithm == null) {
-            responseForm.setResponseEntity(ResponseEntity.badRequest().build());
-            return responseForm;
+            return ResponseEntity.badRequest().build();
+
         }
-        responseForm.setResponseEntity(ResponseEntity.ok(algorithm));
-        return responseForm;
+        return ResponseEntity.ok(algorithm);
     }
 }

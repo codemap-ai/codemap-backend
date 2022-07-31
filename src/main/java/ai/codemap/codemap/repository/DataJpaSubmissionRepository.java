@@ -13,6 +13,6 @@ public interface DataJpaSubmissionRepository extends JpaRepository<Submission, L
     List<Submission> findByContestId(int contest_id);
 
     @Override
-    List<Submission> findByUserId(int user_id);
+    List<Submission> findByUserId(Long user_id);
 
 }

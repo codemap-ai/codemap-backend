@@ -26,7 +26,7 @@ public class ProblemSetRestController {
     }
 
     @GetMapping("")
-    public ResponseForm getProblemSetList() {
+    public ResponseEntity getProblemSetList() {
 
         List<ProblemSet> orgList = problemSetService.getAll();
         if (orgList == null) orgList = new ArrayList<ProblemSet>();
@@ -43,21 +43,16 @@ public class ProblemSetRestController {
             dstList.add(dst);
         }
 
-
-        ResponseForm responseForm = new ResponseForm();
-        responseForm.setResponseEntity(ResponseEntity.ok(dstList));
-
-        return responseForm;
+        return ResponseEntity.ok(dstList);
     }
 
     @GetMapping("/{problem_set_id}")
-    public ResponseForm getProblemSet(@PathVariable String problem_set_id) {
+    public ResponseEntity getProblemSet(@PathVariable String problem_set_id) {
         ProblemSet problemSet = problemSetService.getOne(Integer.parseInt(problem_set_id));
-        ResponseForm responseForm = new ResponseForm();
+
 
         if (problemSet == null) {
-            responseForm.setResponseEntity(ResponseEntity.badRequest().build());
-            return responseForm;
+            return ResponseEntity.badRequest().build();
         }
 
         ProblemSetForm problemSetForm = new ProblemSetForm();
@@ -66,7 +61,6 @@ public class ProblemSetRestController {
         problemSetForm.setTitle(problemSet.getTitle());
         problemSetForm.setProblem_list(List.of(problemSet.getProblem_list().split(",")));
 
-        responseForm.setResponseEntity(ResponseEntity.ok(problemSetForm));
-        return responseForm;
+        return ResponseEntity.ok(problemSetForm);
     }
 }

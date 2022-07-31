@@ -18,7 +18,7 @@ public class Contest {
     @Column(name = "problem_set_id")
     private int problemSetId;
     @Column(name = "user_id")
-    private int userId;
+    private Long userId;
     @Column(name = "created_time")
     private Date createTime;
     @Column(name = "finish_time")

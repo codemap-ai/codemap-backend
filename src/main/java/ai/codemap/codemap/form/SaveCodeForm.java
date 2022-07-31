@@ -11,4 +11,5 @@ public class SaveCodeForm {
     private int contestId;
     private int problemId;
     private String code;
+    private String language;
 }

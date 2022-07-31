@@ -4,46 +4,43 @@ import ai.codemap.codemap.form.FinishForm;
 import ai.codemap.codemap.form.ResponseForm;
 import ai.codemap.codemap.form.StartForm;
 import ai.codemap.codemap.model.Contest;
-import ai.codemap.codemap.model.Problem;
 import ai.codemap.codemap.service.ContestService;
+import ai.codemap.codemap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
-import static com.fasterxml.jackson.databind.type.LogicalType.DateTime;
-
 @RestController
 @RequestMapping("/contests")
 public class ContestRestController {
     private final ContestService contestService;
-
+    private final UserService userService;
     @Autowired
-    public ContestRestController(ContestService contestService) {
+    public ContestRestController(ContestService contestService, UserService userService) {
         this.contestService = contestService;
+        this.userService = userService;
     }
 
 
     @PostMapping("/start")
-    public ResponseForm startContest(@RequestBody StartForm startForm) {
+    public ResponseEntity startContest(@RequestBody StartForm startForm) {
         Contest contest = new Contest();
 
-        contest.setUserId(1); // todo
-
+        contest.setUserId(userService.getCurrentUserId()); // todo
         contest.setProblemSetId(startForm.getProblemSetId());
         contest.setCreateTime(java.sql.Timestamp.valueOf(LocalDateTime.now()));
 
         final int contestId = contestService.addContest(contest).getContestId();
 
-        ResponseForm responseForm = new ResponseForm();
-        responseForm.setResponseEntity(ResponseEntity.ok(contestId));
-        return responseForm;
+
+        return ResponseEntity.ok(contestId);
     }
 
 
     @PostMapping("/finish")
-    public ResponseForm finishContest(@RequestBody FinishForm finishForm) {
+    public ResponseEntity finishContest(@RequestBody FinishForm finishForm) {
         Contest contest = contestService.getOne(finishForm.getContestId());
 
         contest.setFinishTime(java.sql.Timestamp.valueOf(LocalDateTime.now()));
@@ -57,24 +54,18 @@ public class ContestRestController {
 
         contestService.addContest(contest);
 
-        ResponseForm responseForm = new ResponseForm();
-        responseForm.setResponseEntity(ResponseEntity.ok(contest));
 
-        return responseForm;
+        return ResponseEntity.ok(contest);
     }
 
     @GetMapping("/{contest_id}")
-    public ResponseForm getProblem(@PathVariable String contest_id) {
+    public ResponseEntity getProblem(@PathVariable String contest_id) {
         Contest contest = contestService.getOne(Integer.parseInt(contest_id));
 
-        ResponseForm responseForm = new ResponseForm();
-
         if (contest == null) {
-            responseForm.setResponseEntity(ResponseEntity.badRequest().build());
-            return responseForm;
+            return ResponseEntity.badRequest().build();
         }
 
-        responseForm.setResponseEntity(ResponseEntity.ok(contest));
-        return responseForm;
+        return ResponseEntity.ok(contest);
     }
 }

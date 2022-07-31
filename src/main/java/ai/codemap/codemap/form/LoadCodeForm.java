@@ -10,4 +10,5 @@ import lombok.Setter;
 public class LoadCodeForm {
     private int contestId;
     private int problemId;
+    private String language;
 }

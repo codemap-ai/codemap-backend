@@ -7,6 +7,6 @@ import java.util.Optional;
 public interface LoadCodeRepository {
 
     Optional<LoadCode> findById(Long loadCodeId);
-    LoadCode findByContestIdAndProblemId(int contestId, int problemId);
+    LoadCode findByContestIdAndProblemIdAndLanguage(int contestId, int problemId, String language);
     LoadCode save(LoadCode loadCode);
 }

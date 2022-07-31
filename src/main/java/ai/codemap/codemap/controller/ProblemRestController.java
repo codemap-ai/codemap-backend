@@ -25,31 +25,25 @@ public class ProblemRestController {
     }
 
     @GetMapping("")
-    public ResponseForm getProblemList() {
+    public ResponseEntity getProblemList() {
 
         List<Problem> list = problemService.getAll();
         if (list == null) list = new ArrayList<Problem>();
 
-        ResponseForm responseForm = new ResponseForm();
-        responseForm.setResponseEntity(ResponseEntity.ok(list));
-
-        return responseForm;
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{problem_id}")
-    public ResponseForm getProblem(@PathVariable String problem_id) {
+    public ResponseEntity getProblem(@PathVariable String problem_id) {
         Problem problem = problemService.getOne(Integer.parseInt(problem_id));
 
         ResponseForm responseForm = new ResponseForm();
         if (problem == null) {
 
-            responseForm.setResponseEntity(ResponseEntity.badRequest().build());
-            return responseForm;
+            return ResponseEntity.badRequest().build();
         }
 
-        ;
-        responseForm.setResponseEntity(ResponseEntity.ok(problem));
-        return responseForm;
+        return ResponseEntity.ok(problem);
     }
 
 }

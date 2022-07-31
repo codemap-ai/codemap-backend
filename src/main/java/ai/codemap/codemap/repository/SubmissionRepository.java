@@ -13,7 +13,7 @@ public interface SubmissionRepository {
     Submission save(Submission submission);
     List<Submission> findByContestId(int contestId);
 
-    List<Submission> findByUserId(int userId);
+    List<Submission> findByUserId(Long userId);
     List<Submission> findByProblemId(int problemId);
 
 }

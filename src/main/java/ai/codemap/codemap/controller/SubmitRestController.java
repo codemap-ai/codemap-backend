@@ -4,10 +4,10 @@ import ai.codemap.codemap.form.JudgeToMain;
 import ai.codemap.codemap.form.MainToJudge;
 import ai.codemap.codemap.form.ResponseForm;
 import ai.codemap.codemap.form.SubmitForm;
-import ai.codemap.codemap.model.ChatMessage;
 import ai.codemap.codemap.model.Submission;
 import ai.codemap.codemap.repository.ChatRoomRepository;
 import ai.codemap.codemap.service.SubmissionService;
+import ai.codemap.codemap.service.UserService;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class SubmitRestController {
     private final SubmissionService submissionService;
     private final SimpMessageSendingOperations sendingOperations;
     private final ChatRoomRepository chatRoomRepository;
-
+    private final UserService userService;
 
     @Autowired
     RabbitTemplate rabbitTemplate;
@@ -33,15 +33,16 @@ public class SubmitRestController {
     Queue queue;
 
     @Autowired
-    public SubmitRestController(SubmissionService submissionService, SimpMessageSendingOperations sendingOperations, ChatRoomRepository chatRoomRepository) {
+    public SubmitRestController(SubmissionService submissionService, SimpMessageSendingOperations sendingOperations, ChatRoomRepository chatRoomRepository, UserService userService) {
         this.submissionService = submissionService;
         this.sendingOperations = sendingOperations;
         this.chatRoomRepository = chatRoomRepository;
+        this.userService = userService;
     }
 
 
     @PostMapping("/submission")
-    public ResponseForm get_submission(@RequestBody JudgeToMain judgeToMain) {
+    public ResponseEntity get_submission(@RequestBody JudgeToMain judgeToMain) {
 
         Submission submission = submissionService.getOne(judgeToMain.getSubmissionId());
         submission.setExecuteTime(judgeToMain.getTime());
@@ -59,9 +60,8 @@ public class SubmitRestController {
 
         sendingOperations.convertAndSend("/topic/chat/room/" + judgeToMain.getSubmissionId(), submission);
 
-        ResponseForm responseForm = new ResponseForm();
-        responseForm.setResponseEntity(ResponseEntity.ok(judgeToMain));
-        return responseForm;
+
+        return ResponseEntity.ok(judgeToMain);
     }
 
     private String toString(int submissionId) {
@@ -69,11 +69,11 @@ public class SubmitRestController {
     }
 
     @PostMapping("")
-    public ResponseForm submit(@RequestBody SubmitForm submitForm) {
+    public ResponseEntity submit(@RequestBody SubmitForm submitForm) {
         MainToJudge mainToJudge = new MainToJudge();
         Submission submission = new Submission();
 
-        submission.setUserId(1); // todo
+        submission.setUserId(userService.getCurrentUserId()); // todo
 
         submission.setProblemId(submitForm.getProblemId());
         submission.setContestId(submitForm.getContestId());
@@ -85,7 +85,7 @@ public class SubmitRestController {
         submission.setInput(submitForm.getInput());
         final Long submissionId = submissionService.addSubmission(submission).getSubmissionId();
 
-        chatRoomRepository.createRoom(submissionId.toString());
+        //chatRoomRepository.createRoom(submissionId.toString());
 
         mainToJudge.setId(submissionId);
         mainToJudge.setLanguage(submitForm.getLanguage());
@@ -94,12 +94,10 @@ public class SubmitRestController {
         mainToJudge.setInput(submitForm.getInput());
         mainToJudge.setTestMode(submitForm.getTestMode());
 
-        rabbitTemplate.convertAndSend(queue.getName(), mainToJudge);
+        //rabbitTemplate.convertAndSend(queue.getName(), mainToJudge);
 
-        ResponseForm responseForm = new ResponseForm();
-        responseForm.setResponseEntity(ResponseEntity.ok(submission));
 
-        return responseForm;
+        return ResponseEntity.ok(submission);
     }
 
 
