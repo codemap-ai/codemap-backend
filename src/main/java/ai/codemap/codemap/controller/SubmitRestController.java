@@ -85,7 +85,7 @@ public class SubmitRestController {
         submission.setInput(submitForm.getInput());
         final Long submissionId = submissionService.addSubmission(submission).getSubmissionId();
 
-        //chatRoomRepository.createRoom(submissionId.toString());
+        chatRoomRepository.createRoom(submissionId.toString());
 
         mainToJudge.setId(submissionId);
         mainToJudge.setLanguage(submitForm.getLanguage());
@@ -94,7 +94,7 @@ public class SubmitRestController {
         mainToJudge.setInput(submitForm.getInput());
         mainToJudge.setTestMode(submitForm.getTestMode());
 
-        //rabbitTemplate.convertAndSend(queue.getName(), mainToJudge);
+        rabbitTemplate.convertAndSend(queue.getName(), mainToJudge);
 
 
         return ResponseEntity.ok(submission);
