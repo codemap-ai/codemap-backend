@@ -1,21 +1,30 @@
+<!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Problem</title>
+    <link rel="stylesheet" href="/css/problem.css">
+</head>
+
 <body>
 
-<div>
-    <h3><a href="/admin/problems">Problems</a></h3>
-</div>
+<div id="main-wrapper">
+    <div>
+        <h3><a href="/admin/problems">Problems</a></h3>
+    </div>
 
-<div>
-    <ol>
-        <li><a th:href="@{/admin/problem/{problemId}(problemId = ${problemForm.problemId})}">Statement</a></li>
-        <li><a th:href="@{/admin/src/{problemId}(problemId = ${problemForm.problemId})}">Resources</a></li>
-    </ol>
-</div>
+    <div>
+        <ol>
+            <li><a th:href="@{/admin/problem/{problemId}(problemId = ${problemForm.problemId})}">Statement</a></li>
+            <li><a th:href="@{/admin/src/{problemId}(problemId = ${problemForm.problemId})}">Resources</a></li>
+        </ol>
+    </div>
 
-<div>
-    <form action="/admin/problem/update" method="post" th:object="${problemForm}">
-        <table>
-            <tbody>
+    <div>
+        <form action="/admin/problem/update" method="post" th:object="${problemForm}">
+            <table>
+                <tbody>
                 <tr>
                     <th>#</th>
                     <td><input th:field="*{problemId}" th:value="*{problemId}" type="text" readonly></td>
@@ -47,9 +56,10 @@
                 <tr>
                     <td><input type="submit" value="Save"></td>
                 </tr>
-            </tbody>
-        </table>
-    </form>
+                </tbody>
+            </table>
+        </form>
+    </div>
 </div>
 
 </body>

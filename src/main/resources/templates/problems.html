@@ -1,23 +1,33 @@
+<!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Problems</title>
+    <link rel="stylesheet" href="/css/problems.css">
+</head>
+
 <body>
 
-<div>
-    <form action="/admin/problem/create" method="post">
-        <input type="submit" value="New Problem">
-    </form>
-</div>
+<div id="main-wrapper">
+    <div>
+        <form action="/admin/problem/create" method="post">
+            <input type="submit" value="New Problem">
+        </form>
+    </div>
 
-<div>
-    <table>
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-        </tr>
-        <tr th:each="problem : ${problems}">
-            <td th:text="${problem.problemId}"></td>
-            <td><a th:href="@{/admin/problem/{problemId}(problemId = ${problem.problemId})}" th:text="${problem.title}"></a></td>
-        </tr>
-    </table>
+    <div>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+            </tr>
+            <tr th:each="problem : ${problems}">
+                <td th:text="${problem.problemId}"></td>
+                <td><a th:href="@{/admin/problem/{problemId}(problemId = ${problem.problemId})}" th:text="${problem.title}"></a></td>
+            </tr>
+        </table>
+    </div>
 </div>
 
 </body>

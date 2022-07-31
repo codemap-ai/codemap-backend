@@ -38,6 +38,9 @@ public class S3Service {
     }
     public void uploadFiles(Long problemId, List<MultipartFile> multipartFiles) {
         multipartFiles.forEach(file -> {
+
+            if (file.getSize() == 0) return;
+
             String key = problemId + "-" + UUID.randomUUID() + "-" + file.getOriginalFilename();
 
             ObjectMetadata objectMetadata = new ObjectMetadata();
@@ -54,11 +57,21 @@ public class S3Service {
         });
     }
 
-    public void addProblemResource(Long problemId, String name, String key) {
+    private void addProblemResource(Long problemId, String name, String key) {
         ProblemResource problemResource = new ProblemResource();
         problemResource.setProblemId(problemId);
         problemResource.setName(name);
         problemResource.setObjectName(key);
+
+        ProblemResource.Type type = ProblemResource.Type.UNKNOWN;
+        if (name.endsWith(".in")) {
+            type = ProblemResource.Type.INPUT;
+        } else if (name.endsWith(".out") || name.endsWith(".ans")) {
+            type = ProblemResource.Type.OUTPUT;
+        }
+
+        problemResource.setType(type);
+
         repository.save(problemResource);
     }
 

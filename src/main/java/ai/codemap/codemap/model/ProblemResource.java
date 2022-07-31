@@ -28,6 +28,6 @@ public class ProblemResource {
     private Type type;
 
     public enum Type {
-        Input, Output
+        INPUT, OUTPUT, UNKNOWN
     }
 }

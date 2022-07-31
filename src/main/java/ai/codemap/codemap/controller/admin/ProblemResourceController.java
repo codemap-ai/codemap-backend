@@ -26,7 +26,7 @@ public class ProblemResourceController {
         List<ProblemResource> list = s3Service.listFiles(problemId);
         model.addAttribute("problemId", problemId);
         model.addAttribute("resources", list);
-        return "uploadForm";
+        return "resources";
     }
 
     @PostMapping("/admin/src/{problem_id}/delete")
