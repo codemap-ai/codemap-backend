@@ -10,3 +10,7 @@ body {
 #io-table {
     width: 100%;
 }
+
+.action {
+    display: inline;
+}

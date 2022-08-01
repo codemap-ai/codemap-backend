@@ -1,4 +1,4 @@
-package ai.codemap.codemap.controller.admin;
+package ai.codemap.codemap.controller;
 
 import ai.codemap.codemap.form.ProblemForm;
 import ai.codemap.codemap.model.Problem;

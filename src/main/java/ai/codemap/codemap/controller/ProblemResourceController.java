@@ -1,4 +1,4 @@
-package ai.codemap.codemap.controller.admin;
+package ai.codemap.codemap.controller;
 
 import ai.codemap.codemap.model.ProblemResource;
 import ai.codemap.codemap.service.S3Service;
@@ -33,6 +33,12 @@ public class ProblemResourceController {
     public String deleteFile(@PathVariable("problem_id") Long problemId, @RequestParam("id") Long problemResourceId, @RequestParam("objectName") String objectName, RedirectAttributes redirectAttributes) {
         s3Service.deleteFile(problemResourceId, objectName);
         redirectAttributes.addFlashAttribute("message", "Successfully deleted");
+        return "redirect:/admin/src/" + problemId;
+    }
+
+    @PostMapping("/admin/src/{problemId}/example")
+    public String toggleExample(@PathVariable Long problemId, @RequestParam("id") Long problemResourceId) {
+        s3Service.toggleExample(problemResourceId);
         return "redirect:/admin/src/" + problemId;
     }
 

@@ -79,4 +79,15 @@ public class S3Service {
         amazonS3.deleteObject(bucket, objectName);
         repository.remove(problemResourceId);
     }
+
+    public void toggleExample(Long problemResourceId) {
+        ProblemResource resource = repository.findOne(problemResourceId);
+        resource.setExample(!resource.isExample());
+    }
+
+    public List<String> getExamples(Long problemId, ProblemResource.Type type) {
+        return repository.findExamples(problemId, type).stream()
+                .map(problemResource -> amazonS3.getObjectAsString(bucket, problemResource.getObjectName()))
+                .toList();
+    }
 }

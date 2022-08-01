@@ -19,13 +19,18 @@ public class ProblemResource {
     @Column(name = "problem_id")
     private Long problemId;
 
+    @Column(name = "name")
     private String name;
 
     @Column(name = "object_name")
     private String objectName; // S3에 등록되어 있는 이름
 
+    @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private Type type;
+
+    @Column(name = "is_example")
+    private boolean isExample;
 
     public enum Type {
         INPUT, OUTPUT, UNKNOWN

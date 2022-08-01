@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Preview</title>
+    <link rel="stylesheet" href="/css/problem_preview.css">
+</head>
+<body>
+
+<div id="main-wrapper">
+    <div>
+        <h3><a href="/admin/problems">Problems</a></h3>
+    </div>
+
+    <div>
+        <ol>
+            <li><a th:href="@{/admin/problem/{problemId}(problemId = ${problemId})}">Statement</a></li>
+            <li><a th:href="@{/admin/src/{problemId}(problemId = ${problemId})}">Resources</a></li>
+            <li><a th:href="@{/admin/preview/{problemId}(problemId = ${problemId})}">Preview</a></li>
+        </ol>
+    </div>
+
+    <h3>Example</h3>
+    <table>
+        <tr>
+            <th>Input</th>
+            <th>Output</th>
+        </tr>
+        <tr th:each="example : ${examples}">
+            <td><pre th:text="${example.input}"></pre></td>
+            <td><pre th:text="${example.output}"></pre></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

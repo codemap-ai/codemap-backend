@@ -19,6 +19,7 @@
         <ol>
             <li><a th:href="@{/admin/problem/{problemId}(problemId = ${problemId})}">Statement</a></li>
             <li><a th:href="@{/admin/src/{problemId}(problemId = ${problemId})}">Resources</a></li>
+            <li><a th:href="@{/admin/preview/{problemId}(problemId = ${problemId})}">Preview</a></li>
         </ol>
     </div>
 
@@ -40,13 +41,19 @@
             <tr>
                 <td>Name</td>
                 <td>Type</td>
-                <td>Action</td>
+                <td>Example</td>
+                <td>Actions</td>
             </tr>
             <tr th:each="res : ${resources}">
                 <td th:text="${res.name}"></td>
                 <td th:text="${res.type}"></td>
+                <td th:text="${res.example ? 'Y' : 'N'}"></td>
                 <td>
-                    <form role="form" th:action="@{/admin/src/{problem_id}/delete(problem_id=${problemId})}" method="post">
+                    <form role="form" th:action="@{/admin/src/{problem_id}/example(problem_id=${problemId})}" method="post" class="action">
+                        <input type="hidden" name="id" th:value="${res.id}" />
+                        <input type="submit" value="Example" />
+                    </form>
+                    <form role="form" th:action="@{/admin/src/{problem_id}/delete(problem_id=${problemId})}" method="post" class="action">
                         <input type="hidden" name="id" th:value="${res.id}" />
                         <input type="hidden" name="objectName" th:value="${res.objectName}" />
                         <input type="submit" value="Delete" />

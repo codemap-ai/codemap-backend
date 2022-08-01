@@ -27,4 +27,17 @@ public class ProblemResourceRepository {
                 .setParameter("problemId", problemId)
                 .getResultList();
     }
+
+    public ProblemResource findOne(Long id) {
+        return em.find(ProblemResource.class, id);
+    }
+
+    public List<ProblemResource> findExamples(Long problemId, ProblemResource.Type type) {
+        return em.createQuery("select r from ProblemResource r " +
+                "where r.problemId = :problemId and r.type = :type and r.isExample = true " +
+                "order by r.name asc", ProblemResource.class)
+                .setParameter("problemId", problemId)
+                .setParameter("type", type)
+                .getResultList();
+    }
 }
