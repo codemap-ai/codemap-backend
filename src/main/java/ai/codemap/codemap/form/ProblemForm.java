@@ -8,6 +8,7 @@ public class ProblemForm {
 
     private Long problemId;
     private String problemName;
+    private String checker;
     private Double timeLimit;
     private Long memoryLimit;
     private String legend;

@@ -7,13 +7,17 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@Table(name = "problem")
 public class Problem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "problem_id")
     private Long problemId; // primary key
 
     @Column(name="title",length = 100)
     private String title;
+
+    private String checker;
 
     @Column(name="memory_limit")
     private Long memoryLimit; // MiB

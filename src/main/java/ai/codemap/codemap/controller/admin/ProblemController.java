@@ -43,6 +43,7 @@ public class ProblemController {
         problemForm.setLegend(problem.getLegend());
         problemForm.setInputFormat(problem.getInputFormat());
         problemForm.setOutputFormat(problem.getOutputFormat());
+        problemForm.setChecker(problem.getChecker());
 
         model.addAttribute("problemForm", problemForm);
         return "problem";

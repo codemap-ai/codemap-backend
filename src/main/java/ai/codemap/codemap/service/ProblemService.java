@@ -27,6 +27,7 @@ public class ProblemService {
     public Long createProblem() { // returns problem id
         Problem problem = new Problem();
         problem.setTitle("New Problem");
+        problem.setChecker("wcmp");
         problem.setLegend("");
         problem.setInputFormat("");
         problem.setOutputFormat("");
@@ -39,6 +40,7 @@ public class ProblemService {
     public void updateProblem(ProblemForm problemForm) {
         Problem problem = problemRepository.findById(problemForm.getProblemId());
         problem.setTitle(problemForm.getProblemName());
+        problem.setChecker(problemForm.getChecker());
         problem.setTimeLimit(problemForm.getTimeLimit());
         problem.setMemoryLimit(problemForm.getMemoryLimit());
         problem.setLegend(problemForm.getLegend());

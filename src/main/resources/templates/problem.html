@@ -27,19 +27,36 @@
                 <tbody>
                 <tr>
                     <th>#</th>
-                    <td><input th:field="*{problemId}" th:value="*{problemId}" type="text" readonly></td>
+                    <td><input th:field="*{problemId}" type="text" readonly></td>
                 </tr>
                 <tr>
                     <th>Name</th>
-                    <td><input th:field="*{problemName}" th:value="*{problemName}"></td>
+                    <td><input th:field="*{problemName}"></td>
                 </tr>
                 <tr>
                     <th>Time limit(s)</th>
-                    <td><input th:field="*{timeLimit}" th:value="*{timeLimit}"></td>
+                    <td><input th:field="*{timeLimit}"></td>
                 </tr>
                 <tr>
                     <th>Memory limit(MiB)</th>
-                    <td><input th:field="*{memoryLimit}" th:value="*{memoryLimit}"></td>
+                    <td><input th:field="*{memoryLimit}"></td>
+                </tr>
+                <tr>
+                    <th>Checker</th>
+                    <td>
+                        <select id="checker" name="checker">
+                            <option value="wcmp" th:selected="${problemForm.checker}=='wcmp'">wcmp.cpp - Sequence of tokens</option>
+                            <option value="fcmp" th:selected="${problemForm.checker}=='fcmp'">fcmp.cpp - Lines, doesn't ignore whitespaces</option>
+                            <option value="hcmp" th:selected="${problemForm.checker}=='hcmp'">hcmp.cpp - Single huge integer</option>
+                            <option value="lcmp" th:selected="${problemForm.checker}=='lcmp'">lcmp.cpp - Lines, ignores whitespaces</option>
+                            <option value="ncmp" th:selected="${problemForm.checker}=='ncmp'">ncmp.cpp - Single or more int64, ignores whitespaces</option>
+                            <option value="nyesno" th:selected="${problemForm.checker}=='nyesno'">nyesno.cpp - Zero or more yes/no, case insensetive</option>
+                            <option value="rcmp4" th:selected="${problemForm.checker}=='rcmp4'">rcmp4.cpp - Single or more double, max any error 1E-4</option>
+                            <option value="rcmp6" th:selected="${problemForm.checker}=='rcmp6'">rcmp6.cpp - Single or more double, max any error 1E-6</option>
+                            <option value="rcmp9" th:selected="${problemForm.checker}=='rcmp9'">rcmp9.cpp - Single or more double, max any error 1E-9</option>
+                            <option value="yesno" th:selected="${problemForm.checker}=='yesno'">yesno.cpp - Single yes or no, case insensetive</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <th>Legend</th>
