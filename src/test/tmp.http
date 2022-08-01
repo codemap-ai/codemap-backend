@@ -1,2 +1,1 @@
-GET localhost:8081/users/me
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0amRhaHIyNSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NTkzNDk5MTh9.25iVI8XsPFKFnkwIHxSw2cxqOhsvNpY6xqkZE_WGDJmyWEBMI2ft-fpQDY6sptNQQJCnf0VOclYp7L6ImRc2aw
+GET 43.200.180.31:8081/

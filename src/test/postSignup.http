@@ -1,8 +1,8 @@
-POST localhost:8081/users/signup
+POST 43.200.180.31:8081/users/signup
 Content-Type: application/json;
 
 {
-	"username" : "tjdahr2ASDFSADF5",
-	"nickname" : "ttjjdf",
-	"password" : "lotjd4242"
+	"username" : "test222",
+	"nickname" : "sdfasdf",
+	"password" : "asdfs"
 }
