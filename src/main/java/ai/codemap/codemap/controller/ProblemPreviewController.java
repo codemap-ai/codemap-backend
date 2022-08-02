@@ -1,8 +1,8 @@
 package ai.codemap.codemap.controller;
 
-import ai.codemap.codemap.dto.ExampleDto;
-import ai.codemap.codemap.model.ProblemResource;
 import ai.codemap.codemap.service.S3Service;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,5 +43,11 @@ public class ProblemPreviewController {
         model.addAttribute("problemId", problemId);
         model.addAttribute("examples", examples);
         return "problem_preview";
+    }
+
+    @Getter @Setter
+    public class ExampleDto {
+        private String input = "";
+        private String output = "";
     }
 }

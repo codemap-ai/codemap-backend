@@ -26,8 +26,8 @@ public class AlgorithmRestController {
     @GetMapping("")
     public ResponseForm getAlgorithmList() {
 
-        List<Algorithm> list = algorithmService.getALL();
-        if (list == null) list = new ArrayList<Algorithm>();
+        List<Algorithm> list = algorithmService.getAll();
+        if (list == null) list = new ArrayList<>();
 
         ResponseForm responseForm = new ResponseForm();
         responseForm.setResponseEntity(ResponseEntity.ok(list));
@@ -36,7 +36,7 @@ public class AlgorithmRestController {
 
     @GetMapping("/{algorithm_id}")
     public ResponseForm getAgorithm(@PathVariable String algorithm_id) {
-        Algorithm algorithm = algorithmService.getOne(Integer.parseInt(algorithm_id));
+        Algorithm algorithm = algorithmService.getOne(Long.parseLong(algorithm_id));
         ResponseForm responseForm = new ResponseForm();
 
         if (algorithm == null) {

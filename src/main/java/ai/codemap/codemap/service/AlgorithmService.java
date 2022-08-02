@@ -39,6 +39,11 @@ public class AlgorithmService {
         algorithm.setDescription(description);
     }
 
+    public void update(Long algorithmId, String json) {
+        Algorithm algorithm = algorithmRepository.findById(algorithmId);
+        algorithm.setBody(json);
+    }
+
     public Algorithm getOne(Long algorithmId){
             return algorithmRepository.findById(algorithmId);
         }

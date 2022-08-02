@@ -5,6 +5,7 @@ import ai.codemap.codemap.service.AlgorithmService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,12 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class AlgorithmController {
 
     private final AlgorithmService algorithmService;
@@ -36,13 +39,14 @@ public class AlgorithmController {
         AlgorithmForm algorithmForm = new AlgorithmForm(algorithmId, algorithm.getTitle(), algorithm.getDescription());
         model.addAttribute("algorithmForm", algorithmForm);
         model.addAttribute("algorithmId", algorithmId);
+        model.addAttribute("json", algorithm.getBody());
         return "algorithm";
     }
 
     @PostMapping("/admin/algorithm/{algorithmId}")
-    public String updateAlgorithm(@PathVariable Long algorithmId, AlgorithmForm algorithmForm) {
+    public String updateAlgorithm(@PathVariable Long algorithmId, @Valid AlgorithmForm algorithmForm) {
         algorithmService.update(algorithmId, algorithmForm.getTitle(), algorithmForm.getDescription());
-        return "redirect:/admin/algorithm" + algorithmId;
+        return "redirect:/admin/algorithm/" + algorithmId;
     }
 
     @PostMapping("/admin/algorithm/{algorithmId}/content")
@@ -51,10 +55,10 @@ public class AlgorithmController {
         try {
             json = algorithmService.serialize(files);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.warn("Failed to serialize algorithm contents.", e);
         }
-        // TODO: Save to database
-        return "redirect:/admin/algorithm" + algorithmId;
+        algorithmService.update(algorithmId, json);
+        return "redirect:/admin/algorithm/" + algorithmId;
     }
 
     @PostMapping("/admin/algorithms/create")
@@ -67,10 +71,7 @@ public class AlgorithmController {
     static class AlgorithmForm {
 
         Long algorithmId;
-
-        @NotBlank
-        String title;
-
+        @NotBlank String title;
         String description;
     }
 }

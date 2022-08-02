@@ -1,10 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Algorithm</title>
+    <link rel="stylesheet" href="/css/algorithm.css">
 </head>
-<body>
 
+<body>
+<div id="main-wrapper">
+
+    <div>
+        <h3><a href="/admin/algorithms">Algorithms</a></h3>
+    </div>
+
+    <div>
+        <form th:action="@{/admin/algorithm/{algorithmId}(algorithmId=${algorithmId})}" method="post" th:object="${algorithmForm}">
+            <table>
+                <tr>
+                    <th>#</th>
+                    <td><input th:field="*{algorithmId}" type="text" readonly></td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td><input th:field="*{title}" required="required"></td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td><textarea th:field="*{description}" rows="5" cols="90"></textarea></td>
+                </tr>
+            </table>
+            <input type="submit" value="Save">
+        </form>
+    </div>
+
+    <div style="margin-top: 3rem; margin-bottom: 1rem;">
+        <form method="post" enctype="multipart/form-data" th:action="@{/admin/algorithm/{algorithmId}/content(algorithmId=${algorithmId})}">
+            <table>
+                <tr><td>Choose files:</td><td><input type="file" name="files" required="required" multiple></td></tr>
+                <tr><td></td><td><input type="submit" value="Submit"></td></tr>
+            </table>
+        </form>
+    </div>
+
+    <div>
+        <textarea rows="20" cols="90" th:text="${json}"></textarea>
+    </div>
+</div>
 </body>
 </html>

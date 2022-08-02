@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Algorithms</title>
+    <link rel="stylesheet" href="/css/algorithms.css">
 </head>
 <body>
+<div id="main-wrapper">
+    <h3>Algorithms</h3>
 
+    <div>
+        <form action="/admin/algorithms/create" method="post">
+            <input type="submit" value="New Algorithm">
+        </form>
+    </div>
+
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+        <tr th:each="algorithm : ${algorithms}">
+            <td th:text="${algorithm.algorithmId}"></td>
+            <td><a th:href="@{/admin/algorithm/{algorithmId}(algorithmId=${algorithm.algorithmId})}" th:text="${algorithm.title}"></a></td>
+            <td th:text="${algorithm.description}"></td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
