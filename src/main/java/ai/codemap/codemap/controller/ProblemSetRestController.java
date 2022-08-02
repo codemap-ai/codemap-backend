@@ -38,7 +38,6 @@ public class ProblemSetRestController {
             dst.setProblemSetId(org.getProblemSetId());
             dst.setDuration(org.getDuration());
             dst.setTitle(org.getTitle());
-            dst.setProblem_list(List.of(org.getProblem_list().split(",")));
 
             dstList.add(dst);
         }
@@ -52,7 +51,7 @@ public class ProblemSetRestController {
 
     @GetMapping("/{problem_set_id}")
     public ResponseForm getProblemSet(@PathVariable String problem_set_id) {
-        ProblemSet problemSet = problemSetService.getOne(Integer.parseInt(problem_set_id));
+        ProblemSet problemSet = problemSetService.getOne(Long.parseLong(problem_set_id));
         ResponseForm responseForm = new ResponseForm();
 
         if (problemSet == null) {
@@ -64,7 +63,6 @@ public class ProblemSetRestController {
         problemSetForm.setProblemSetId(problemSet.getProblemSetId());
         problemSetForm.setDuration(problemSet.getDuration());
         problemSetForm.setTitle(problemSet.getTitle());
-        problemSetForm.setProblem_list(List.of(problemSet.getProblem_list().split(",")));
 
         responseForm.setResponseEntity(ResponseEntity.ok(problemSetForm));
         return responseForm;

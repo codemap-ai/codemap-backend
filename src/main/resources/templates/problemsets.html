@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Problemsets</title>
+    <link rel="stylesheet" href="/css/problemsets.css">
+</head>
+<body>
+<div id="main-wrapper">
+    <h3>Problemsets</h3>
+
+    <div>
+        <form action="/admin/problemsets/create" method="post">
+            <input type="submit" value="New Problemset">
+        </form>
+    </div>
+
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+        </tr>
+        <tr th:each="problemSet : ${problemSets}">
+            <td th:text="${problemSet.problemSetId}"></td>
+            <td><a th:href="@{/admin/problemset/{problemSetId}(problemSetId=${problemSet.problemSetId})}" th:text="${problemSet.title}"></a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

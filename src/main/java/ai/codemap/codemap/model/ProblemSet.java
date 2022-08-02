@@ -5,18 +5,24 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-@Data
+import java.util.ArrayList;
+import java.util.List;
+
+import static javax.persistence.FetchType.LAZY;
+
 @Getter
 @Setter
 @Entity
 public class ProblemSet {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int problemSetId; // primary key
-    @Column(name="title")
+    private Long problemSetId; // primary key
+
     private String title;
-    @Column(name="problem_list")
-    private String problem_list;
-    @Column(name="duration") // minute
-    private int duration;
+
+    private Long duration; // minute
+
+    @OneToMany(mappedBy = "problemSet")
+    private List<ProblemSetProblem> problemSetProblems = new ArrayList<>();
 }

@@ -16,8 +16,8 @@ import java.util.List;
 @Getter
 @Setter
 public class ProblemSetForm {
-    private int problemSetId; // primary key
+    private Long problemSetId; // primary key
     private String title;
     private List<String> problem_list;
-    private int duration;
+    private Long duration;
 }

@@ -18,14 +18,12 @@ import org.springframework.amqp.support.converter.MessageConverter;
 @Configuration
 public class SpringConfig {
     private final AlgorithmRepository algorithmRepository;
-    private final ProblemSetRepository problemSetRepository;
     private final SubmissionRepository submissionRepository;
     private final ContestRepository contestRepository;
     private final LoadCodeRepository loadCodeRepository;
     @Autowired
     public SpringConfig(AlgorithmRepository algorithmRepository, ProblemSetRepository problemSetRepository, SubmissionRepository submissionRepository, ContestRepository contestRepository, LoadCodeRepository loadCodeRepository) {
         this.algorithmRepository = algorithmRepository;
-        this.problemSetRepository = problemSetRepository;
         this.submissionRepository = submissionRepository;
         this.contestRepository = contestRepository;
         this.loadCodeRepository = loadCodeRepository;
@@ -34,11 +32,6 @@ public class SpringConfig {
     @Bean
     public AlgorithmService algorithmService() {
         return new AlgorithmService(algorithmRepository);
-    }
-
-    @Bean
-    public ProblemSetService problemSetService() {
-        return new ProblemSetService(problemSetRepository);
     }
 
     @Bean

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Problemset</title>
+    <link rel="stylesheet" href="/css/problemset.css">
+</head>
+
+<body>
+<div id="main-wrapper">
+
+    <div>
+        <h3><a href="/admin/problemsets">Problemsets</a></h3>
+    </div>
+
+    <div>
+        <form th:action="@{/admin/problemset/{problemSetId}/update(problemSetId=${problemSetId})}" method="post" th:object="${problemSetForm}">
+            <table>
+                <tr>
+                    <th>#</th>
+                    <td><input th:field="*{problemSetId}" type="text" readonly></td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td><input th:field="*{title}"></td>
+                </tr>
+                <tr>
+                    <th>Duration(min)</th>
+                    <td><input th:field="*{duration}"></td>
+                </tr>
+            </table>
+            <input type="submit" value="Save">
+        </form>
+    </div>
+
+    <div style="margin-top: 3rem; margin-bottom: 1rem;">
+        <form method="post" th:action="@{/admin/problemset/{problemSetId}/add(problemSetId = ${problemSetId})}">
+            <label for="problemId">Problem #</label>
+            <input type="text" name="problemId" id="problemId">
+            <input type="submit" value="Add">
+        </form>
+    </div>
+
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="problem : ${problems}">
+            <td th:text="${problem.problemId}"></td>
+            <td th:text="${problem.title}"></td>
+            <td>
+                <form method="post" th:action="@{/admin/problemset/{problemSetId}/pop(problemSetId = ${problemSetId})}">
+                    <input type="hidden" name="problemSetProblemId" id="problemSetProblemId" th:value="${problem.problemSetProblemId}">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
