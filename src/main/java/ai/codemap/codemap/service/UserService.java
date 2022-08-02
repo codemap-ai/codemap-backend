@@ -30,8 +30,8 @@ public class UserService {
         }
 
         Authority authority = Authority.builder()
-                .authorityName("ROLE_USER")
-                .build();
+                        .authorityName("ROLE_USER")
+                        .build();
 
         User user = User.builder()
                 .username(userDto.getUsername())
@@ -40,6 +40,7 @@ public class UserService {
                 .authorities(Collections.singleton(authority))
                 .activated(true)
                 .build();
+
 
         return UserDto.from(userRepository.save(user));
     }
