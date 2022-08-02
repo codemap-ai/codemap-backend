@@ -1,5 +1,6 @@
 package ai.codemap.codemap.service;
 
+import ai.codemap.codemap.dto.SimpleProblemDto;
 import ai.codemap.codemap.form.ProblemForm;
 import ai.codemap.codemap.model.Problem;
 import ai.codemap.codemap.repository.ProblemRepository;
@@ -22,6 +23,10 @@ public class ProblemService {
 
     public List<Problem> getAll() {
         return problemRepository.findAll();
+    }
+
+    public List<SimpleProblemDto> getSimpleList() {
+        return problemRepository.getSimpleList();
     }
 
     public Long createProblem() { // returns problem id

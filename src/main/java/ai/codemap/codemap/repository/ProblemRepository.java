@@ -1,12 +1,11 @@
 package ai.codemap.codemap.repository;
 
+import ai.codemap.codemap.dto.SimpleProblemDto;
 import ai.codemap.codemap.model.Problem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
@@ -25,6 +24,11 @@ public class ProblemRepository {
 
     public void save(Problem problem) {
         em.persist(problem);
+    }
+
+    public List<SimpleProblemDto> getSimpleList() {
+        return em.createQuery("select new ai.codemap.codemap.dto.SimpleProblemDto(p.problemId, p.title) from Problem p", SimpleProblemDto.class)
+                .getResultList();
     }
 
 }

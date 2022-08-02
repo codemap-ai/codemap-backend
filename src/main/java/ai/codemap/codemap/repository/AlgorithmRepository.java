@@ -1,5 +1,6 @@
 package ai.codemap.codemap.repository;
 
+import ai.codemap.codemap.dto.SimpleAlgorithmDto;
 import ai.codemap.codemap.model.Algorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -24,5 +25,10 @@ public class AlgorithmRepository {
     public Long save(Algorithm algorithm) {
         em.persist(algorithm);
         return algorithm.getAlgorithmId();
+    }
+
+    public List<SimpleAlgorithmDto> getSimpleList() {
+        return em.createQuery("select new ai.codemap.codemap.dto.SimpleAlgorithmDto(a.algorithmId, a.title, a.description) from Algorithm a", SimpleAlgorithmDto.class)
+                .getResultList();
     }
 }

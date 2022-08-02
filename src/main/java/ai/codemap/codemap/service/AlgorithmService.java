@@ -1,5 +1,6 @@
 package ai.codemap.codemap.service;
 
+import ai.codemap.codemap.dto.SimpleAlgorithmDto;
 import ai.codemap.codemap.repository.AlgorithmRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
@@ -49,6 +50,10 @@ public class AlgorithmService {
         }
     public List<Algorithm> getAll(){
         return algorithmRepository.findAll();
+    }
+
+    public List<SimpleAlgorithmDto> getSimpleList() {
+        return algorithmRepository.getSimpleList();
     }
 
     public String serialize(List<MultipartFile> files) throws IOException {

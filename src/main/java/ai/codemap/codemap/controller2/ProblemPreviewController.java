@@ -1,4 +1,4 @@
-package ai.codemap.codemap.controller;
+package ai.codemap.codemap.controller2;
 
 import ai.codemap.codemap.service.S3Service;
 import lombok.Getter;

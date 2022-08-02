@@ -12,7 +12,6 @@ public class Algorithm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long algorithmId; // primary key
-
     @Column(name = "title", length = 100)
     private String title;
     @Column(name = "body", length = 100000)

@@ -1,49 +1,44 @@
 package ai.codemap.codemap.controller;
 
-import ai.codemap.codemap.form.ResponseForm;
+import ai.codemap.codemap.dto.SimpleAlgorithmDto;
 import ai.codemap.codemap.model.Algorithm;
 import ai.codemap.codemap.service.AlgorithmService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/algorithms")
+@RequiredArgsConstructor
 public class AlgorithmRestController {
     private final AlgorithmService algorithmService;
 
-    @Autowired
-    public AlgorithmRestController(AlgorithmService algorithmService) {
-        this.algorithmService = algorithmService;
+    @GetMapping("/algorithms")
+    public List<SimpleAlgorithmDto> getAlgorithmList() {
+        return algorithmService.getSimpleList();
     }
 
-    @GetMapping("")
-    public ResponseForm getAlgorithmList() {
+    @GetMapping("/algorithms/{algorithmId}")
+    public AlgorithmResponse getAlgorithm(@PathVariable Long algorithmId) {
+        Algorithm algorithm = algorithmService.getOne(algorithmId);
 
-        List<Algorithm> list = algorithmService.getAll();
-        if (list == null) list = new ArrayList<>();
+        AlgorithmResponse response = new AlgorithmResponse();
+        response.setAlgorithmId(algorithm.getAlgorithmId());
+        response.setTitle(algorithm.getTitle());
+        response.setBody(algorithm.getBody());
+        response.setDescription(algorithm.getDescription());
 
-        ResponseForm responseForm = new ResponseForm();
-        responseForm.setResponseEntity(ResponseEntity.ok(list));
-        return responseForm;
+        return response;
     }
 
-    @GetMapping("/{algorithm_id}")
-    public ResponseForm getAgorithm(@PathVariable String algorithm_id) {
-        Algorithm algorithm = algorithmService.getOne(Long.parseLong(algorithm_id));
-        ResponseForm responseForm = new ResponseForm();
-
-        if (algorithm == null) {
-            responseForm.setResponseEntity(ResponseEntity.badRequest().build());
-            return responseForm;
-        }
-        responseForm.setResponseEntity(ResponseEntity.ok(algorithm));
-        return responseForm;
+    @Data
+    static class AlgorithmResponse {
+        private Long algorithmId;
+        private String title;
+        private String body;
+        private String description;
     }
 }
