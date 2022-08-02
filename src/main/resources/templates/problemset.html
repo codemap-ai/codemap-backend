@@ -11,8 +11,13 @@
 <div id="main-wrapper">
 
     <div>
-        <h3><a href="/admin/problemsets">Problemsets</a></h3>
+        <h3 style="display: inline-block; margin: 1rem;"><a href="/admin">Main</a></h3>
+        <h3 style="display: inline-block; margin: 1rem;"><a href="/admin/algorithms">Algorithms</a></h3>
+        <h3 style="display: inline-block; margin: 1rem;"><a href="/admin/problems">Problems</a></h3>
+        <h3 style="display: inline-block; margin: 1rem;"><a href="/admin/problemsets">Problemsets</a></h3>
     </div>
+
+    <h3>Problemset</h3>
 
     <div>
         <form th:action="@{/admin/problemset/{problemSetId}/update(problemSetId=${problemSetId})}" method="post" th:object="${problemSetForm}">
@@ -23,11 +28,11 @@
                 </tr>
                 <tr>
                     <th>Name</th>
-                    <td><input th:field="*{title}"></td>
+                    <td><input th:field="*{title}" required="required"></td>
                 </tr>
                 <tr>
                     <th>Duration(min)</th>
-                    <td><input th:field="*{duration}"></td>
+                    <td><input th:field="*{duration}" required="required"></td>
                 </tr>
             </table>
             <input type="submit" value="Save">
@@ -37,7 +42,7 @@
     <div style="margin-top: 3rem; margin-bottom: 1rem;">
         <form method="post" th:action="@{/admin/problemset/{problemSetId}/add(problemSetId = ${problemSetId})}">
             <label for="problemId">Problem #</label>
-            <input type="text" name="problemId" id="problemId">
+            <input type="text" name="problemId" id="problemId" required="required">
             <input type="submit" value="Add">
         </form>
     </div>
