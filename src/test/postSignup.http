@@ -2,7 +2,7 @@ POST localhost:8081/users/signup
 Content-Type: application/json;
 
 {
-	"username" : "test222",
-	"nickname" : "sdfasdf",
-	"password" : "asdfsddf"
+	"username" : "test1",
+	"nickname" : "test1",
+	"password" : "test1"
 }
