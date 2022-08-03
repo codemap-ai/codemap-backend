@@ -3,6 +3,7 @@ package ai.codemap.codemap.controller;
 import ai.codemap.codemap.dto.SimpleAlgorithmDto;
 import ai.codemap.codemap.model.Algorithm;
 import ai.codemap.codemap.service.AlgorithmService;
+import com.fasterxml.jackson.annotation.JsonRawValue;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,7 @@ public class AlgorithmRestController {
     static class AlgorithmResponse {
         private Long algorithmId;
         private String title;
+        @JsonRawValue
         private String body;
         private String description;
     }
