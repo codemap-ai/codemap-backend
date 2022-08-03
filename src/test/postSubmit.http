@@ -1,10 +1,10 @@
 POST 43.200.180.31:8081/submit
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0MSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NTk1ODA5Mjl9.CXXVhavdSBJ37AO5zEXH82bh4sf8RDDF4Yc-9AdV3yhVGul6m7jsVyIJqpi9xpwoRTGEY5OiUG04nRMqQ_XuHw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0MSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NTk1ODE3NTV9.xMhBKMKbISZaX8VXUHOhEuiVlcpLWgKzLCqXT-_LnfhXantD5va9zlGE582jbxA9zGQjxpIdxLJO-aWiEXZr_A
 Content-Type: application/json
 
 {
-  "problemId": 3,
-  "input": "1 3",
+  "problemId": 1,
+  "input": "1 4",
   "contestId" : -1,
   "testMode" : true,
   "language": "c++17",
