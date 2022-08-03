@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Problem Resources</title>
+    <link rel="stylesheet" href="/css/resources.css">
+</head>
+
+<body>
+
+<div id="main-wrapper">
+
+    <div>
+        <h3 style="display: inline-block; margin: 1rem;"><a href="/admin">Main</a></h3>
+        <h3 style="display: inline-block; margin: 1rem;"><a href="/admin/algorithms">Algorithms</a></h3>
+        <h3 style="display: inline-block; margin: 1rem;"><a href="/admin/problems">Problems</a></h3>
+        <h3 style="display: inline-block; margin: 1rem;"><a href="/admin/problemsets">Problemsets</a></h3>
+    </div>
+
+    <h3>Problem</h3>
+
+    <div>
+        <ol>
+            <li><a th:href="@{/admin/problem/{problemId}(problemId = ${problemId})}">Statement</a></li>
+            <li><a th:href="@{/admin/src/{problemId}(problemId = ${problemId})}">Resources</a></li>
+            <li><a th:href="@{/admin/preview/{problemId}(problemId = ${problemId})}">Preview</a></li>
+        </ol>
+    </div>
+
+    <div th:if="${message}">
+        <h2 th:text="${message}"/>
+    </div>
+
+    <div>
+        <form method="POST" enctype="multipart/form-data" th:action="@{/admin/src/{problem_id}(problem_id=${problemId})}">
+            <table>
+                <tr><td>File to upload:</td><td><input type="file" name="files" multiple /></td></tr>
+                <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+            </table>
+        </form>
+    </div>
+
+    <div>
+        <table id="io-table">
+            <tr>
+                <td>Name</td>
+                <td>Type</td>
+                <td>Example</td>
+                <td>Actions</td>
+            </tr>
+            <tr th:each="res : ${resources}">
+                <td th:text="${res.name}"></td>
+                <td th:text="${res.type}"></td>
+                <td th:text="${res.example ? 'Y' : 'N'}"></td>
+                <td>
+                    <form role="form" th:action="@{/admin/src/{problem_id}/example(problem_id=${problemId})}" method="post" class="action">
+                        <input type="hidden" name="id" th:value="${res.id}" />
+                        <input type="submit" value="Example" />
+                    </form>
+                    <form role="form" th:action="@{/admin/src/{problem_id}/delete(problem_id=${problemId})}" method="post" class="action">
+                        <input type="hidden" name="id" th:value="${res.id}" />
+                        <input type="hidden" name="objectName" th:value="${res.objectName}" />
+                        <input type="submit" value="Delete" />
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
