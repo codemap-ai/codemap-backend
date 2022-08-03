@@ -1,12 +1,12 @@
-POST localhost:8081/submit
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0amRhaHIyNSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NTkzNDk3MjV9.VRGpSV9w_4KIFyRTxJ59lG_zvYgSMkjFLlzBkYtyvEi0zxPCSmQmW0re_rI3_rOghReDjbSHdoNeupEEdQU7vw
+POST 43.200.180.31:8081/submit
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0MSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NTk1ODA5Mjl9.CXXVhavdSBJ37AO5zEXH82bh4sf8RDDF4Yc-9AdV3yhVGul6m7jsVyIJqpi9xpwoRTGEY5OiUG04nRMqQ_XuHw
 Content-Type: application/json
 
 {
   "problemId": 3,
-  "input": "1 2",
+  "input": "1 3",
   "contestId" : -1,
-  "testMode" : false,
+  "testMode" : true,
   "language": "c++17",
   "source": "#include <iostream>\nusing namespace std;\nint main(){int a, b; cin>>a>>b; cout<<a+b;}"
 }

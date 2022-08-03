@@ -1,2 +1,2 @@
-GET localhost:8081/ws/chat
+GET 43.200.180.31:8081/algorithms
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0MSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NTk1MDQ4NDJ9.e0lt89Fxqp_9ZiAVtQBKR6aPU8BQFrC8Jm5xdmzZqXoq7YEdD1zcMtcMpUctkjs-3r57fMWS2dJSuuK7rgQCMg

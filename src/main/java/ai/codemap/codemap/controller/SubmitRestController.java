@@ -94,7 +94,7 @@ public class SubmitRestController {
         mainToJudge.setInput(submitForm.getInput());
         mainToJudge.setTestMode(submitForm.getTestMode());
 
-        rabbitTemplate.convertAndSend(queue.getName(), mainToJudge);
+        //rabbitTemplate.convertAndSend(queue.getName(), mainToJudge);
 
 
         return ResponseEntity.ok(submission);
