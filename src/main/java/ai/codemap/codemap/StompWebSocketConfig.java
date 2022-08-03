@@ -1,7 +1,5 @@
 package ai.codemap.codemap;
 
-import ai.codemap.codemap.websocket.SocketHandler;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.*;
@@ -22,4 +20,6 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
         registry.setApplicationDestinationPrefixes("/app");
     }
+
+
 }
