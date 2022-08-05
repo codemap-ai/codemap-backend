@@ -1,4 +1,4 @@
-POST 43.200.180.31:8081/submit
+POST localhost:8081/submit
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0MSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NTk1ODE3NTV9.xMhBKMKbISZaX8VXUHOhEuiVlcpLWgKzLCqXT-_LnfhXantD5va9zlGE582jbxA9zGQjxpIdxLJO-aWiEXZr_A
 Content-Type: application/json
 

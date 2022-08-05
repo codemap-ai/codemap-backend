@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 
-@Data
+
 @Getter
 @Setter
 @Entity

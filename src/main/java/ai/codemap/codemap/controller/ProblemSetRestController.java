@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,7 +23,7 @@ public class ProblemSetRestController {
     public List<SimpleProblemSet> getProblemSetList() {
         return problemSetService.getAll().stream()
                 .map(p -> new SimpleProblemSet(p.getProblemSetId(), p.getTitle(), p.getDuration()))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/problem_sets/{problemSetId}")
@@ -32,7 +33,7 @@ public class ProblemSetRestController {
         List<SimpleProblemDto> problemList = problemSet.getProblemSetProblems().stream()
                 .map(ProblemSetProblem::getProblem)
                 .map(problem -> new SimpleProblemDto(problem.getProblemId(), problem.getTitle()))
-                .toList();
+                .collect(Collectors.toList());
 
         ProblemSetResponse response = new ProblemSetResponse();
         response.setProblemSetId(problemSet.getProblemSetId());
