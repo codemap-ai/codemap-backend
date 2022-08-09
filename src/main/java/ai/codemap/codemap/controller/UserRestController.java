@@ -93,7 +93,7 @@ public class UserRestController {
         user.setPassword(passwordEncoder.encode(updatePasswordDto.getPassword()));
         userService.addUser(user);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(UserDto.from(user));
     }
 
     @GetMapping("/me")
