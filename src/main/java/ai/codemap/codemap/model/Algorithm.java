@@ -18,4 +18,8 @@ public class Algorithm {
     private String body;
     @Column(name = "description", length = 10000)
     private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 }
