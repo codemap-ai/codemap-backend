@@ -31,6 +31,14 @@
                     <td><input th:field="*{title}" required="required"></td>
                 </tr>
                 <tr>
+                    <th>Category</th>
+                    <td>
+                        <select id="categoryId" name="categoryId">
+                            <option th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.title}" th:selected="${algorithmForm.categoryId}==${category.categoryId}"></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <th>Description</th>
                     <td><textarea th:field="*{description}" rows="5" cols="90"></textarea></td>
                 </tr>

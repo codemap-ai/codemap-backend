@@ -16,15 +16,25 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    public Long createCategory(String title, String description) {
+    public Long createCategory() {
         Category category = new Category();
-        category.setTitle(title);
-        category.setDescription(description);
+        category.setTitle("New Category");
+        category.setDescription("Category description");
         return categoryRepository.save(category);
+    }
+
+    public List<Category> getAll() {
+        return categoryRepository.findAll();
     }
 
     public List<Algorithm> getAlgorithms(Long categoryId) {
         Category category = categoryRepository.findById(categoryId);
         return category.getAlgorithms();
+    }
+
+    public void updateCategory(Long categoryId, String title, String description) {
+        Category category = categoryRepository.findById(categoryId);
+        category.setTitle(title);
+        category.setDescription(description);
     }
 }

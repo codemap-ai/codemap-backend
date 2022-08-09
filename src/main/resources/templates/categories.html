@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Algorithms</title>
+    <link rel="stylesheet" href="/css/categories.css">
+</head>
+<body>
+<div id="main-wrapper">
+
+    <div>
+        <h3 style="display: inline-block; margin: 1rem;"><a href="/admin">Main</a></h3>
+        <h3 style="display: inline-block; margin: 1rem;"><a href="/admin/algorithms">Algorithms</a></h3>
+        <h3 style="display: inline-block; margin: 1rem;"><a href="/admin/problems">Problems</a></h3>
+        <h3 style="display: inline-block; margin: 1rem;"><a href="/admin/problemsets">Problemsets</a></h3>
+    </div>
+
+    <h3>Categories</h3>
+
+    <div>
+        <form action="/admin/categories/create" method="post">
+            <input type="submit" value="New Category">
+        </form>
+    </div>
+
+    <div th:each="category : ${categories}">
+        <form action="/admin/categories/" method="post">
+            <table>
+                <tr>
+                    <th>#</th>
+                    <td><input type="text" name="categoryId" th:value="${category.categoryId}" readonly></td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td><input type="text" name="title" th:value="${category.title}"></td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td><input type="text" name="description" th:value="${category.description}"></td>
+                </tr>
+                <tr>
+                    <th>Action</th>
+                    <td><input type="submit" value="Update"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>

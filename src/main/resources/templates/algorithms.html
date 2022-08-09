@@ -19,6 +19,10 @@
     <h3>Algorithms</h3>
 
     <div>
+        <a href="/admin/categories">Manage Categories</a>
+    </div>
+
+    <div>
         <form action="/admin/algorithms/create" method="post">
             <input type="submit" value="New Algorithm">
         </form>
@@ -28,11 +32,13 @@
         <tr>
             <th>#</th>
             <th>Name</th>
+            <th>Category</th>
             <th>Description</th>
         </tr>
         <tr th:each="algorithm : ${algorithms}">
             <td th:text="${algorithm.algorithmId}"></td>
             <td><a th:href="@{/admin/algorithm/{algorithmId}(algorithmId=${algorithm.algorithmId})}" th:text="${algorithm.title}"></a></td>
+            <td th:text="${algorithm.category?.title}"></td>
             <td th:text="${algorithm.description}"></td>
         </tr>
     </table>

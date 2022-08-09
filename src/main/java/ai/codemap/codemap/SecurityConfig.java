@@ -78,6 +78,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/algorithms").permitAll()
                 .antMatchers("/algorithms/{algorithm_id}").permitAll()
+                .antMatchers("/algorithms/category").permitAll()
+                .antMatchers("/algorithms/category/{categoryId}").permitAll()
                 .antMatchers("/submissions/all").permitAll()
                 .antMatchers("/submissions/user/{user_id}").permitAll()
                 .antMatchers("/submissions/problem/{problem_id}").permitAll()

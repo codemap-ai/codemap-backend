@@ -1,11 +1,14 @@
 package ai.codemap.codemap.controller2;
 
 import ai.codemap.codemap.model.Algorithm;
+import ai.codemap.codemap.model.Category;
 import ai.codemap.codemap.service.AlgorithmService;
+import ai.codemap.codemap.service.CategoryService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +23,17 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-@RequiredArgsConstructor
 @Slf4j
 public class AlgorithmController {
 
     private final AlgorithmService algorithmService;
+    private final CategoryService categoryService;
+
+    @Autowired
+    public AlgorithmController(AlgorithmService algorithmService, CategoryService categoryService) {
+        this.algorithmService = algorithmService;
+        this.categoryService = categoryService;
+    }
 
     @GetMapping("/admin/algorithms")
     public String getAlgorithms(Model model) {
@@ -36,16 +45,24 @@ public class AlgorithmController {
     @GetMapping("/admin/algorithm/{algorithmId}")
     public String getAlgorithm(@PathVariable Long algorithmId, Model model) {
         Algorithm algorithm = algorithmService.getOne(algorithmId);
-        AlgorithmForm algorithmForm = new AlgorithmForm(algorithmId, algorithm.getTitle(), algorithm.getDescription());
+        Long categoryId = null;
+        if (algorithm.getCategory() != null)
+            categoryId = algorithm.getCategory().getCategoryId();
+        AlgorithmForm algorithmForm = new AlgorithmForm(algorithmId, categoryId, algorithm.getTitle(), algorithm.getDescription());
+
+        List<Category> categories = categoryService.getAll();
+
         model.addAttribute("algorithmForm", algorithmForm);
         model.addAttribute("algorithmId", algorithmId);
         model.addAttribute("json", algorithm.getBody());
+        model.addAttribute("categories", categories);
+
         return "algorithm";
     }
 
     @PostMapping("/admin/algorithm/{algorithmId}")
     public String updateAlgorithm(@PathVariable Long algorithmId, @Valid AlgorithmForm algorithmForm) {
-        algorithmService.update(algorithmId, algorithmForm.getTitle(), algorithmForm.getDescription());
+        algorithmService.update(algorithmId, algorithmForm.getCategoryId(), algorithmForm.getTitle(), algorithmForm.getDescription());
         return "redirect:/admin/algorithm/" + algorithmId;
     }
 
@@ -71,6 +88,7 @@ public class AlgorithmController {
     static class AlgorithmForm {
 
         Long algorithmId;
+        Long categoryId;
         @NotBlank String title;
         String description;
     }

@@ -1,7 +1,9 @@
 package ai.codemap.codemap.service;
 
 import ai.codemap.codemap.dto.SimpleAlgorithmDto;
+import ai.codemap.codemap.model.Category;
 import ai.codemap.codemap.repository.AlgorithmRepository;
+import ai.codemap.codemap.repository.CategoryRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,12 +20,14 @@ import java.util.*;
 @Transactional
 public class AlgorithmService {
     private final AlgorithmRepository algorithmRepository;
+    private final CategoryRepository categoryRepository;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public AlgorithmService(AlgorithmRepository algorithmRepository, ObjectMapper objectMapper) {
+    public AlgorithmService(AlgorithmRepository algorithmRepository, ObjectMapper objectMapper, CategoryRepository categoryRepository) {
         this.algorithmRepository = algorithmRepository;
         this.objectMapper = objectMapper;
+        this.categoryRepository = categoryRepository;
     }
 
     public Long createAlgorithm() {
@@ -34,10 +38,14 @@ public class AlgorithmService {
         return algorithmRepository.save(algorithm);
     }
 
-    public void update(Long algorithmId, String title, String description) {
+    public void update(Long algorithmId, Long categoryId, String title, String description) {
         Algorithm algorithm = algorithmRepository.findById(algorithmId);
         algorithm.setTitle(title);
         algorithm.setDescription(description);
+
+        Category category = categoryRepository.findById(categoryId);
+        algorithm.setCategory(category);
+        category.getAlgorithms().add(algorithm);
     }
 
     public void update(Long algorithmId, String json) {
