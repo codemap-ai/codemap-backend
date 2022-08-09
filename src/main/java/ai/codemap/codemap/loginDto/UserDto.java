@@ -26,6 +26,10 @@ public class UserDto {
    @NotNull
    @Size(min = 3, max = 50)
    private String nickname;
+
+   @NotNull
+   private String email;
+
    private Set<AuthorityDto> authorityDtoSet;
 
    public static UserDto from(User user) {
@@ -34,6 +38,7 @@ public class UserDto {
       return UserDto.builder()
               .username(user.getUsername())
               .nickname(user.getNickname())
+              .email(user.getEmail())
               .authorityDtoSet(user.getAuthorities().stream()
                       .map(authority -> AuthorityDto.builder().authorityName(authority.getAuthorityName()).build())
                       .collect(Collectors.toSet()))

@@ -4,5 +4,6 @@ Content-Type: application/json;
 {
 	"username" : "test1",
 	"nickname" : "test1",
-	"password" : "test1"
+	"password" : "test1",
+    "email" : "21700655@handong.ac.kr"
 }

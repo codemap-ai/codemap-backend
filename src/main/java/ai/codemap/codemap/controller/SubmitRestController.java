@@ -54,10 +54,6 @@ public class SubmitRestController {
 
         submissionService.addSubmission(submission);
 
-//        ChatMessage chatMessage = new ChatMessage();
-//        chatMessage.setRoomId(toString(judgeToMain.getSubmissionId()));
-//        chatMessage.setMessage("FINISH");
-
         sendingOperations.convertAndSend("/topic/chat/room/" + judgeToMain.getSubmissionId(), submission);
 
 

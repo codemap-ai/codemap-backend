@@ -32,6 +32,9 @@ public class User {
    @Column(name = "nickname", length = 50)
    private String nickname;
 
+   @Column(name = "email")
+   private String email;
+
    @Column(name = "activated")
    private boolean activated;
 

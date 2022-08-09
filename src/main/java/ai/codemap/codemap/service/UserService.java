@@ -37,6 +37,7 @@ public class UserService {
                 .username(userDto.getUsername())
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .nickname(userDto.getNickname())
+                .email(userDto.getEmail())
                 .authorities(Collections.singleton(authority))
                 .activated(true)
                 .build();
@@ -58,4 +59,15 @@ public class UserService {
     public Long getCurrentUserId(){
         return userRepository.getIdByUsername(SecurityUtil.getCurrentUsername().get());
     }
+
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+    public User getUserByUserId(Long userId){
+        return userRepository.findByUserId(userId);
+    }
+    public User addUser(User user){
+        return userRepository.save(user);
+    }
+
 }
