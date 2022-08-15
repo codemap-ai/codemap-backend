@@ -34,7 +34,7 @@ public class AlgorithmService {
         Algorithm algorithm = new Algorithm();
         algorithm.setTitle("New Algorithm");
         algorithm.setDescription("Algorithm Description");
-        algorithm.setBody("");
+        algorithm.setBody("[]");
         return algorithmRepository.save(algorithm);
     }
 
