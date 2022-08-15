@@ -15,7 +15,7 @@ public class Algorithm {
     @Column(name = "title", length = 100)
     private String title;
     @Column(name = "body", length = 100000)
-    private String body;
+    private String body = "[]";
     @Column(name = "description", length = 10000)
     private String description;
 
