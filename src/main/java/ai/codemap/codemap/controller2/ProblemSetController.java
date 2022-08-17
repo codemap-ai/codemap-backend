@@ -51,6 +51,7 @@ public class ProblemSetController {
 
     @PostMapping("/admin/problemset/{problemSetId}/add")
     public String addProblem(@PathVariable Long problemSetId, @RequestParam Long problemId) {
+
         problemSetService.addProblem(problemSetId, problemId);
         return "redirect:/admin/problemset/" + problemSetId;
     }
