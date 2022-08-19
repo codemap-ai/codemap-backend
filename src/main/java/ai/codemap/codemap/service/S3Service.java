@@ -64,9 +64,9 @@ public class S3Service {
         problemResource.setObjectName(key);
 
         ProblemResource.Type type = ProblemResource.Type.UNKNOWN;
-        if (name.endsWith(".in")) {
+        if (name.endsWith(".in") || name.endsWith(".in.txt")) {
             type = ProblemResource.Type.INPUT;
-        } else if (name.endsWith(".out") || name.endsWith(".ans")) {
+        } else if (name.endsWith(".out") || name.endsWith(".ans") || name.endsWith(".out.txt")) {
             type = ProblemResource.Type.OUTPUT;
         }
 
