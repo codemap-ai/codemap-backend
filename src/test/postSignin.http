@@ -1,7 +1,7 @@
-POST localhost:8081/users/signin
+POST 43.200.180.31:8081/users/signin
 Content-Type: application/json;
 
 {
-	"username" : "test1",
-	"password" : "test1"
+	"username" : "tjdahr25",
+	"password" : "tjdahr25"
 }

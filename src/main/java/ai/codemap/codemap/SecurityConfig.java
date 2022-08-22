@@ -96,6 +96,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/code/load").authenticated()
                 .antMatchers("/submit").authenticated()
                 .antMatchers("/submit/submission").permitAll()
+                .antMatchers("/submit/test").permitAll()
                 .antMatchers("/users/signup").permitAll()
                 .antMatchers("/users/signin").permitAll()
                 .antMatchers("/users/password/find").permitAll()
