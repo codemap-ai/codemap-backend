@@ -20,12 +20,17 @@ public class SpringConfig {
     private final SubmissionRepository submissionRepository;
     private final ContestRepository contestRepository;
     private final LoadCodeRepository loadCodeRepository;
+
     @Autowired
     public SpringConfig(ProblemSetRepository problemSetRepository, SubmissionRepository submissionRepository, ContestRepository contestRepository, LoadCodeRepository loadCodeRepository) {
         this.submissionRepository = submissionRepository;
         this.contestRepository = contestRepository;
         this.loadCodeRepository = loadCodeRepository;
+
     }
+
+
+
 
     @Bean
     public SubmissionService repositoryService() {

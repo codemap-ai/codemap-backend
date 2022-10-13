@@ -38,6 +38,9 @@ public class User {
    @Column(name = "activated")
    private boolean activated;
 
+   @Column(name = "social_id")
+   private Long socialId;
+
    @ManyToMany
    @JoinTable(
       name = "user_authority",

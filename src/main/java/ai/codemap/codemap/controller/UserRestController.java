@@ -5,9 +5,11 @@ import ai.codemap.codemap.jwt.TokenProvider;
 import ai.codemap.codemap.loginDto.*;
 import ai.codemap.codemap.model.User;
 import ai.codemap.codemap.service.UserService;
+import com.mysql.cj.log.Log;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -18,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -34,6 +37,7 @@ public class UserRestController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender javaMailSender;
+
     public UserRestController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserService userService, PasswordEncoder passwordEncoder, JavaMailSender javaMailSender) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
@@ -44,7 +48,8 @@ public class UserRestController {
 
     @PostMapping("/signup")
     public ResponseEntity signup(@Valid @RequestBody UserDto userDto) {
-
+        if (userDto.getUsername().length() >= 5 && userDto.getUsername().substring(0, 5).equals("KAKAO"))
+            return ResponseEntity.badRequest().build();
         return ResponseEntity.ok(userService.signup(userDto));
     }
 
@@ -53,7 +58,7 @@ public class UserRestController {
 
         User user = userService.getUserByUsername(findPasswordDto.getUsername());
 
-        if(user == null || !Objects.equals(user.getEmail(), findPasswordDto.getEmail())){
+        if (user == null || !Objects.equals(user.getEmail(), findPasswordDto.getEmail())) {
             return ResponseEntity.badRequest().build();
         }
 
@@ -76,7 +81,7 @@ public class UserRestController {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true, "UTF-8");
 
-        mimeMessageHelper.setFrom(from,"Codemap");
+        mimeMessageHelper.setFrom(from, "Codemap");
         mimeMessageHelper.setTo(to);
         mimeMessageHelper.setSubject(subject);
         mimeMessageHelper.setText(body.toString(), true);
@@ -86,7 +91,7 @@ public class UserRestController {
     }
 
     @PostMapping("/password/update")
-    public  ResponseEntity updatePassword(@Valid @RequestBody updatePasswordDto updatePasswordDto){
+    public ResponseEntity updatePassword(@Valid @RequestBody updatePasswordDto updatePasswordDto) {
 
         User user = userService.getUserByUserId(userService.getCurrentUserId());
 
@@ -108,8 +113,7 @@ public class UserRestController {
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
-        System.out.println(loginDto.getUsername());
-        System.out.println(loginDto.getPassword());
+
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -119,5 +123,23 @@ public class UserRestController {
         httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
 
         return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
+    }
+
+    @GetMapping("/oauth/kakao/signin")
+    public String authorizeWithKakao() {
+        return "redirect:https://kauth.kakao.com/oauth/authorize?client_id=f796398f8dc1c3d64a37a9e053a9be9b&redirect_uri=https://api.codemap.com/users/kakao/signin";
+    }
+
+    @GetMapping("/kakao/signin")
+    public ResponseEntity KakaoLogin(String code) {
+
+        UserDto userDto = userService.kakaoSignin(code);
+
+        LoginDto loginDto = LoginDto.builder()
+                .username(userDto.getUsername())
+                .password(userDto.getEmail())
+                .build();
+
+        return authorize(loginDto);
     }
 }

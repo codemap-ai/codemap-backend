@@ -103,7 +103,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/password/update").authenticated()
                 .antMatchers("/ws/**").permitAll()
                 .antMatchers("/admin/**").permitAll()
-
+                .antMatchers("/users/kakao/signin").permitAll()
+                .antMatchers("/users/oauth/kakao/signin").permitAll()
                 .anyRequest().authenticated()
 
                 .and()
