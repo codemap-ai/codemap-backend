@@ -21,12 +21,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
+import java.net.http.HttpClient;
 import java.util.Objects;
 
 @RestController
@@ -38,6 +40,7 @@ public class UserRestController {
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender javaMailSender;
     final String baseURL = "https://api.codemap.ai";
+
     public UserRestController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserService userService, PasswordEncoder passwordEncoder, JavaMailSender javaMailSender) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
@@ -126,8 +129,11 @@ public class UserRestController {
     }
 
     @GetMapping("/oauth/kakao/signin")
-    public String authorizeWithKakao() {
-        return "redirect:https://kauth.kakao.com/oauth/authorize?client_id=f796398f8dc1c3d64a37a9e053a9be9b&redirect_uri="+baseURL+"/users/kakao/signin&response_type=code";
+    public RedirectView authorizeWithKakao() {
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("https://kauth.kakao.com/oauth/authorize?client_id=f796398f8dc1c3d64a37a9e053a9be9b&redirect_uri=" + baseURL + "/users/kakao/signin&response_type=code");
+        return redirectView;
+
     }
 
     @GetMapping("/kakao/signin")
