@@ -37,7 +37,7 @@ public class UserRestController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender javaMailSender;
-
+    final String baseURL = "https://api.codemap.ai";
     public UserRestController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserService userService, PasswordEncoder passwordEncoder, JavaMailSender javaMailSender) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
@@ -127,7 +127,7 @@ public class UserRestController {
 
     @GetMapping("/oauth/kakao/signin")
     public String authorizeWithKakao() {
-        return "redirect:https://kauth.kakao.com/oauth/authorize?client_id=f796398f8dc1c3d64a37a9e053a9be9b&redirect_uri=https://api.codemap.ai/users/kakao/signin&response_type=code";
+        return "redirect:https://kauth.kakao.com/oauth/authorize?client_id=f796398f8dc1c3d64a37a9e053a9be9b&redirect_uri="+baseURL+"/users/kakao/signin&response_type=code";
     }
 
     @GetMapping("/kakao/signin")

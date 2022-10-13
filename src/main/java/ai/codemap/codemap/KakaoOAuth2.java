@@ -25,6 +25,7 @@ import java.util.Map;
 
 @Component
 public class KakaoOAuth2 {
+    final String baseURL = "https://api.codemap.ai";
     final WebClient client = WebClient.builder()
             .baseUrl("https://kauth.kakao.com")
             .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
@@ -44,7 +45,7 @@ public class KakaoOAuth2 {
                         .path("/oauth/token")
                         .queryParam("grant_type", "authorization_code")
                         .queryParam("client_id", "f796398f8dc1c3d64a37a9e053a9be9b")
-                        .queryParam("redirect_uri", "https://api.codemap.com/users/kakao/signin")
+                        .queryParam("redirect_uri", baseURL+"/users/kakao/signin")
                         .queryParam("code", code)
                         .build())
                 .retrieve().bodyToMono(Object.class).block();
