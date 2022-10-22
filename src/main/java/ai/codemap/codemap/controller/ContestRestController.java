@@ -5,6 +5,7 @@ import ai.codemap.codemap.form.StartForm;
 import ai.codemap.codemap.model.Contest;
 import ai.codemap.codemap.service.ContestService;
 import ai.codemap.codemap.service.UserService;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class ContestRestController {
 
         contest.setUser(userService.getCurrentUser());
         contest.setProblemSetId(startForm.getProblemSetId());
-        contest.setCreateTime(java.sql.Timestamp.valueOf(LocalDateTime.now()));
+        contest.setCreateTime(LocalDateTime.now());
 
         final Long contestId = contestService.addContest(contest);
 
@@ -40,7 +41,7 @@ public class ContestRestController {
     public ResponseEntity finishContest(@RequestBody FinishForm finishForm) {
         Contest contest = contestService.getOne(finishForm.getContestId());
 
-        contest.setFinishTime(java.sql.Timestamp.valueOf(LocalDateTime.now()));
+        contest.setFinishTime(LocalDateTime.now());
 
         Long penalty = 0L;
         /*
@@ -55,13 +56,21 @@ public class ContestRestController {
     }
 
     @GetMapping("/{contestId}")
-    public ResponseEntity getProblem(@PathVariable Long contestId) {
+    public ContestResponse getContest(@PathVariable Long contestId) {
         Contest contest = contestService.getOne(contestId);
+        ContestResponse response = new ContestResponse();
 
-        if (contest == null) {
-            return ResponseEntity.badRequest().build();
-        }
+        response.setProblemSetId(contest.getProblemSetId());
+        response.setCreateTime(contest.getCreateTime());
+        response.setFinishTime(contest.getFinishTime());
 
-        return ResponseEntity.ok(contest);
+        return response;
+    }
+
+    @Data
+    static class ContestResponse {
+        private Long problemSetId;
+        private LocalDateTime createTime;
+        private LocalDateTime finishTime;
     }
 }

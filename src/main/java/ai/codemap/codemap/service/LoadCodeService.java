@@ -13,7 +13,7 @@ public class LoadCodeService {
         return loadCodeRepository.save(loadCode);
     }
 
-    public LoadCode getByContestIdAndProblemId(int contestId, int problemId, String language){
+    public LoadCode getByContestIdAndProblemId(Long contestId, Long problemId, String language) {
         return loadCodeRepository.findByContestIdAndProblemIdAndLanguage(contestId,problemId,language);
     }
 

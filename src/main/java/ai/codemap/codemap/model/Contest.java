@@ -4,8 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
-
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -24,10 +23,10 @@ public class Contest {
     private User user;
 
     @Column(name = "created_time")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @Column(name = "finish_time")
-    private Date finishTime;
+    private LocalDateTime finishTime;
 
     @Column(name = "penalty")
     private Long penalty;
