@@ -6,12 +6,16 @@ import ai.codemap.codemap.repository.ContestRepository;
 import ai.codemap.codemap.repository.ProblemSetRepository;
 import ai.codemap.codemap.repository.SubmissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
+@Transactional
 public class ScoreboardService {
 
     private final ProblemSetRepository problemSetRepository;
