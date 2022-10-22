@@ -66,9 +66,13 @@ public class UserService {
                         .authorityName("ROLE_USER")
                         .build();
 
+        String userEmailTmp = "thisistemporaryvalue";
+        if(kakaoUser.getEmail()!=null) userEmailTmp = kakaoUser.getEmail();
+
+
         User user = User.builder()
                 .username(username)
-                .password(passwordEncoder.encode(kakaoUser.getEmail()))
+                .password(passwordEncoder.encode(userEmailTmp))
                 .nickname(kakaoUser.getNickname())
                 .email(kakaoUser.getEmail())
                 .authorities(Collections.singleton(authority))
