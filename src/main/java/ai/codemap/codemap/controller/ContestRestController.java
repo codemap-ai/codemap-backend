@@ -38,21 +38,24 @@ public class ContestRestController {
     }
 
     @PostMapping("/finish")
-    public ResponseEntity finishContest(@RequestBody FinishForm finishForm) {
+    public ContestResponse finishContest(@RequestBody FinishForm finishForm) {
         Contest contest = contestService.getOne(finishForm.getContestId());
 
         contest.setFinishTime(OffsetDateTime.now());
 
+        // TODO: calculate penalty
         Long penalty = 0L;
-        /*
-            todo
-            calculate penalty
-        */
         contest.setPenalty(penalty);
 
         contestService.addContest(contest);
 
-        return ResponseEntity.ok(contest);
+        ContestResponse response = new ContestResponse();
+
+        response.setProblemSetId(contest.getProblemSetId());
+        response.setCreateTime(contest.getCreateTime());
+        response.setFinishTime(contest.getFinishTime());
+
+        return response;
     }
 
     @GetMapping("/{contestId}")

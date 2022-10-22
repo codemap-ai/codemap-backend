@@ -82,12 +82,16 @@ public class ScoreboardService {
         for (var entry : map.entrySet()) {
             List<Submission> submissions = submissionRepository.findByUserIdAndContestId(entry.getKey(), entry.getValue());
             for (Submission submission : submissions) {
+                if (submission.getTestMode()) {
+                    continue;
+                }
                 ScoreboardRun run = new ScoreboardRun();
                 run.setId(submission.getSubmissionId());
                 run.setTeam(submission.getUserId());
                 run.setResult(submission.getResult().equals("ACCEPTED") ? "Yes" : "No");
                 run.setProblem(problemIdMap.get(submission.getProblemId()));
                 run.setSubmissionTime(1L);
+                runs.add(run);
             }
         }
         scoreboardRuns.setRuns(runs);
