@@ -14,12 +14,12 @@ public class ScoreboardController {
 
     private final ScoreboardService scoreboardService;
 
-    @GetMapping("/contests/spotboard/{problemSetId}/contest.json")
+    @GetMapping("/spotboard/{problemSetId}/contest.json")
     public ScoreboardContest getContest(@PathVariable Long problemSetId) {
         return scoreboardService.getScoreboardContest(problemSetId);
     }
 
-    @GetMapping("/contests/spotboard/{problemSetId}/runs.json")
+    @GetMapping("/spotboard/{problemSetId}/runs.json")
     public ScoreboardRuns getRuns(@PathVariable Long problemSetId) {
         return scoreboardService.getScoreboardRuns(problemSetId);
     }
