@@ -2,9 +2,11 @@ package ai.codemap.codemap.service;
 
 import ai.codemap.codemap.model.Contest;
 import ai.codemap.codemap.repository.ContestRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 public class ContestService {
     private ContestRepository contestRepository;
     public ContestService(ContestRepository contestRepository) {
