@@ -33,10 +33,8 @@ public class ContestRestController {
 
         final Long contestId = contestService.addContest(contest);
 
-
         return ResponseEntity.ok(contestId);
     }
-
 
     @PostMapping("/finish")
     public ResponseEntity finishContest(@RequestBody FinishForm finishForm) {
@@ -57,8 +55,8 @@ public class ContestRestController {
     }
 
     @GetMapping("/{contestId}")
-    public ResponseEntity getProblem(@PathVariable String contestId) {
-        Contest contest = contestService.getOne(Integer.parseInt(contestId));
+    public ResponseEntity getProblem(@PathVariable Long contestId) {
+        Contest contest = contestService.getOne(contestId);
 
         if (contest == null) {
             return ResponseEntity.badRequest().build();

@@ -16,8 +16,8 @@ public class ContestService {
     public Long addContest(Contest contest) {
         return contestRepository.save(contest);
     }
-    public Contest getOne(int contest_id){
-        return contestRepository.findById(contest_id);
+    public Contest getOne(Long contestId){
+        return contestRepository.findById(contestId);
     }
 
     public List<Contest> getAll(){
