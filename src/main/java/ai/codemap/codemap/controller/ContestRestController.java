@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @RestController
 @RequestMapping("/contests")
@@ -30,7 +30,7 @@ public class ContestRestController {
 
         contest.setUser(userService.getCurrentUser());
         contest.setProblemSetId(startForm.getProblemSetId());
-        contest.setCreateTime(LocalDateTime.now());
+        contest.setCreateTime(OffsetDateTime.now());
 
         final Long contestId = contestService.addContest(contest);
 
@@ -41,7 +41,7 @@ public class ContestRestController {
     public ResponseEntity finishContest(@RequestBody FinishForm finishForm) {
         Contest contest = contestService.getOne(finishForm.getContestId());
 
-        contest.setFinishTime(LocalDateTime.now());
+        contest.setFinishTime(OffsetDateTime.now());
 
         Long penalty = 0L;
         /*
@@ -70,7 +70,7 @@ public class ContestRestController {
     @Data
     static class ContestResponse {
         private Long problemSetId;
-        private LocalDateTime createTime;
-        private LocalDateTime finishTime;
+        private OffsetDateTime createTime;
+        private OffsetDateTime finishTime;
     }
 }
