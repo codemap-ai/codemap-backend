@@ -14,7 +14,7 @@ public class ContestRepository {
 
     private final EntityManager em;
 
-    public Contest findById(Integer contestId) {
+    public Contest findById(Long contestId) {
         return em.find(Contest.class, contestId);
     }
     public List<Contest> findAll() {
