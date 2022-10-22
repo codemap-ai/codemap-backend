@@ -59,7 +59,7 @@ public class ScoreboardService {
         ScoreboardRuns scoreboardRuns = new ScoreboardRuns();
         ProblemSet problemSet = problemSetRepository.findById(problemSetId);
         ScoreboardTime scoreboardTime = new ScoreboardTime();
-        scoreboardTime.setContestTime(problemSet.getDuration());
+        scoreboardTime.setContestTime(problemSet.getDuration() * 60L); // min -> sec
         scoreboardTime.setNoMoreUpdate(false);
         scoreboardTime.setTimeStamp(0L);
         scoreboardRuns.setTime(scoreboardTime);
