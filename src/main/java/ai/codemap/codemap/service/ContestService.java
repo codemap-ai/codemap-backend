@@ -11,7 +11,7 @@ public class ContestService {
         this.contestRepository = contestRepository;
     }
 
-    public Contest addContest(Contest contest) {
+    public Long addContest(Contest contest) {
         return contestRepository.save(contest);
     }
     public Contest getOne(int contest_id){

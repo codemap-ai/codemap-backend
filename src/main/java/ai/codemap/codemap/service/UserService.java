@@ -94,6 +94,10 @@ public class UserService {
         return userRepository.getIdByUsername(SecurityUtil.getCurrentUsername().get());
     }
 
+    public User getCurrentUser() {
+        return userRepository.findByUserId(getCurrentUserId());
+    }
+
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }

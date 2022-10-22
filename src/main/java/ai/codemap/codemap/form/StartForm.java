@@ -8,5 +8,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StartForm {
-    private int problemSetId;
+    private Long problemSetId;
 }

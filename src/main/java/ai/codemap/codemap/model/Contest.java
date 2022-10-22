@@ -12,18 +12,24 @@ import java.util.Date;
 @Setter
 @Entity
 public class Contest {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int contestId; // primary key
+    private Long contestId; // primary key
+
     @Column(name = "problem_set_id")
-    private int problemSetId;
-    @Column(name = "user_id")
-    private Long userId;
+    private Long problemSetId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Column(name = "created_time")
     private Date createTime;
+
     @Column(name = "finish_time")
     private Date finishTime;
-    @Column(name = "penalty")
-    private int penalty;
 
+    @Column(name = "penalty")
+    private Long penalty;
 }

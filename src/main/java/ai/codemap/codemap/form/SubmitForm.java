@@ -8,8 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SubmitForm {
-    private int problemId;
-    private int contestId;
+    private Long problemId;
+    private Long contestId;
     private Boolean testMode;
     private String input;
     private String language;

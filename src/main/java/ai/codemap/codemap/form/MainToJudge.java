@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class MainToJudge {
     private Long id;
-    private int problemId;
+    private Long problemId;
     private String input;
     private Boolean testMode;
     private String language;

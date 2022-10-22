@@ -26,12 +26,12 @@ public class SubmissionService {
         return submissionRepository.findByUserId(userId);
     }
 
-    public List<Submission> getByProblemId(int problemId) {
+    public List<Submission> getByProblemId(Long problemId) {
         return submissionRepository.findByProblemId(problemId);
     }
 
 
-    public List<Submission> getByContestId(int contestId) {
+    public List<Submission> getByContestId(Long contestId) {
         return submissionRepository.findByContestId(contestId);
     }
 

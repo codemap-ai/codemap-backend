@@ -11,9 +11,11 @@ public interface SubmissionRepository {
     Optional<Submission> findById(Long submissionId);
     List<Submission> findAll();
     Submission save(Submission submission);
-    List<Submission> findByContestId(int contestId);
+    List<Submission> findByContestId(Long contestId);
 
     List<Submission> findByUserId(Long userId);
-    List<Submission> findByProblemId(int problemId);
+    List<Submission> findByProblemId(Long problemId);
+
+    List<Submission> findByUserIdAndContestId(Long userId, Long contestId);
 
 }

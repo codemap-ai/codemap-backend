@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface DataJpaSubmissionRepository extends JpaRepository<Submission, Long>, SubmissionRepository {
     @Override
-    List<Submission> findByProblemId(int problem_id);
+    List<Submission> findByProblemId(Long problem_id);
 
     @Override
-    List<Submission> findByContestId(int contest_id);
+    List<Submission> findByContestId(Long contest_id);
 
     @Override
     List<Submission> findByUserId(Long user_id);

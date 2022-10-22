@@ -1,7 +1,6 @@
 package ai.codemap.codemap.controller;
 
 import ai.codemap.codemap.form.FinishForm;
-import ai.codemap.codemap.form.ResponseForm;
 import ai.codemap.codemap.form.StartForm;
 import ai.codemap.codemap.model.Contest;
 import ai.codemap.codemap.service.ContestService;
@@ -28,11 +27,11 @@ public class ContestRestController {
     public ResponseEntity startContest(@RequestBody StartForm startForm) {
         Contest contest = new Contest();
 
-        contest.setUserId(userService.getCurrentUserId()); // todo
+        contest.setUser(userService.getCurrentUser());
         contest.setProblemSetId(startForm.getProblemSetId());
         contest.setCreateTime(java.sql.Timestamp.valueOf(LocalDateTime.now()));
 
-        final int contestId = contestService.addContest(contest).getContestId();
+        final Long contestId = contestService.addContest(contest);
 
 
         return ResponseEntity.ok(contestId);
@@ -45,7 +44,7 @@ public class ContestRestController {
 
         contest.setFinishTime(java.sql.Timestamp.valueOf(LocalDateTime.now()));
 
-        int penalty = 0;
+        Long penalty = 0L;
         /*
             todo
             calculate penalty
@@ -54,13 +53,12 @@ public class ContestRestController {
 
         contestService.addContest(contest);
 
-
         return ResponseEntity.ok(contest);
     }
 
-    @GetMapping("/{contest_id}")
-    public ResponseEntity getProblem(@PathVariable String contest_id) {
-        Contest contest = contestService.getOne(Integer.parseInt(contest_id));
+    @GetMapping("/{contestId}")
+    public ResponseEntity getProblem(@PathVariable String contestId) {
+        Contest contest = contestService.getOne(Integer.parseInt(contestId));
 
         if (contest == null) {
             return ResponseEntity.badRequest().build();

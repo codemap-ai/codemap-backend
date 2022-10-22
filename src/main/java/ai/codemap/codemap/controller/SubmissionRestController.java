@@ -31,9 +31,9 @@ public class SubmissionRestController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/contest/{contest_id}")
-    public ResponseEntity getSubmissionListByContestId(@PathVariable String contest_id) {
-        List<Submission> list = submissionService.getByContestId(Integer.parseInt(contest_id));
+    @GetMapping("/contest/{contestId}")
+    public ResponseEntity getSubmissionListByContestId(@PathVariable Long contestId) {
+        List<Submission> list = submissionService.getByContestId(contestId);
         if (list == null) list = new ArrayList<Submission>();
 
         return ResponseEntity.ok(list);
@@ -48,9 +48,9 @@ public class SubmissionRestController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/problem/{problem_id}")
-    public ResponseEntity getSubmissionListByProblemId(@PathVariable String problem_id) {
-        List<Submission> list = submissionService.getByProblemId(Integer.parseInt(problem_id));
+    @GetMapping("/problem/{problemId}")
+    public ResponseEntity getSubmissionListByProblemId(@PathVariable Long problemId) {
+        List<Submission> list = submissionService.getByProblemId(problemId);
         if (list == null) list = new ArrayList<Submission>();
 
         return ResponseEntity.ok(list);
