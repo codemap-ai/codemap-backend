@@ -1,0 +1,7 @@
+POST localhost:8081/users/kakao/interlock
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmNkIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2ODIzODI5OH0.HnnowwYK1uPvZ-R5o3MiAvSGTJlkGvT2s87WvHmrG1lC9JDbZP87byKdWuM6dh_hRKL_z-KSEpaxXC8u7P8zMw
+Content-Type: application/json;
+
+{
+  "id" : 2472757647
+}

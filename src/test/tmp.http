@@ -1,5 +1,5 @@
 #GET https://kauth.kakao.com/oauth/authorize?client_id=f796398f8dc1c3d64a37a9e053a9be9b&redirect_uri=http://localhost:8081/users/kakao/signin&response_type=code
 #GET http://localhost:8081/users/oauth/kakao/signin
-GET https://kauth.kakao.com/oauth/authorize?client_id=f796398f8dc1c3d64a37a9e053a9be9b&redirect_uri=http://localhost:8081/users/kakao/signin&response_type=code
+GET https://kauth.kakao.com/oauth/authorize?client_id=f796398f8dc1c3d64a37a9e053a9be9b&redirect_uri=http://localhost:8081/users/kakao/me&response_type=code
 # POST
 

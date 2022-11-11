@@ -1,5 +1,6 @@
 package ai.codemap.codemap.service;
-
+import com.fasterxml.jackson.databind.ser.Serializers;
+import org.apache.commons.codec.binary.Base64;
 import ai.codemap.codemap.KakaoOAuth2;
 import ai.codemap.codemap.exception.DuplicateMemberException;
 import ai.codemap.codemap.loginDto.KakaoUser;
@@ -13,6 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.plaf.basic.BasicEditorPaneUI;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
 @Service
@@ -30,7 +35,7 @@ public class UserService {
     }
 
 
-    public UserDto signup(UserDto userDto) {
+    public UserDto signup(UserDto userDto) throws Exception{
         if (userRepository.findOneWithAuthoritiesByUsername(userDto.getUsername()).orElse(null) != null) {
             throw new DuplicateMemberException("이미 가입되어 있는 유저입니다.");
         }
@@ -39,46 +44,44 @@ public class UserService {
                 .authorityName("ROLE_USER")
                 .build();
 
+
+        byte[] encodedPasswordBytes = userDto.getPassword().getBytes(Charset.forName("ASCII"));
+        String base64EncodedPassword = base64Encode(encodedPasswordBytes);
+
+
         User user = User.builder()
                 .username(userDto.getUsername())
                 .password(passwordEncoder.encode(userDto.getPassword()))
+                .encPassword(base64EncodedPassword)
                 .nickname(userDto.getNickname())
                 .email(userDto.getEmail())
                 .authorities(Collections.singleton(authority))
                 .activated(true)
-                .socialId(-1L)
+                .socialId("")
                 .build();
 
 
         return UserDto.from(userRepository.save(user));
     }
 
-    public UserDto kakaoSignin(String code) {
-
-        System.out.println(code);
-        KakaoUser kakaoUser = kakaoOAuth2.getUserInfo(code);
-        String username = "KAKAO" + kakaoUser.getId();
-        if (userRepository.findOneWithAuthoritiesByUsername(username).orElse(null) != null) {
-            return UserDto.from(getUserByUsername(username));
-        }
-
-        Authority authority = Authority.builder()
-                        .authorityName("ROLE_USER")
-                        .build();
-
-        String userEmailTmp = "thisistemporaryvalue";
-        if(kakaoUser.getEmail()!=null) userEmailTmp = kakaoUser.getEmail();
-
-
-        User user = User.builder()
-                .username(username)
-                .password(passwordEncoder.encode(userEmailTmp))
-                .nickname(kakaoUser.getNickname())
-                .email(kakaoUser.getEmail())
-                .authorities(Collections.singleton(authority))
-                .activated(true)
-                .socialId(kakaoUser.getId())
-                .build();
+    public KakaoUser kakaoUserInfo(String code, String endPoint){
+        KakaoUser kakaoUser = kakaoOAuth2.getUserInfo(code, endPoint);
+        System.out.println(kakaoUser);
+        return kakaoUser;
+    }
+    public User kakaoSignin(String code, String endPoint){
+        KakaoUser kakaoUser = kakaoOAuth2.getUserInfo(code, endPoint);
+        System.out.println(kakaoUser);
+        String social_id = "kakao" + kakaoUser.getId();
+        User user = userRepository.findBySocialId(social_id);
+        return user;
+    }
+    public UserDto kakaoInterlock(Long id) {
+        User user = getCurrentUser();
+        System.out.println("user");
+        System.out.println(user);
+        String social_id = "kakao" + id.toString();
+        user.setSocialId(social_id);
 
         return UserDto.from(userRepository.save(user));
     }
@@ -110,4 +113,10 @@ public class UserService {
     public User addUser(User user) {
         return userRepository.save(user);
     }
+
+    public static String base64Encode(byte[] bytes) {
+        return (new Base64()).encodeToString(bytes);
+    }
+
+
 }

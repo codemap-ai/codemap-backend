@@ -26,26 +26,27 @@ import java.util.Map;
 @Component
 public class KakaoOAuth2 {
     final String baseURL = "https://api.codemap.ai";
+    //final String baseURL = "http://localhost:8081";
     final WebClient client = WebClient.builder()
             .baseUrl("https://kauth.kakao.com")
             .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .build();
 
-    public KakaoUser getUserInfo(String code) {
-        String token = accessToken(code);
+    public KakaoUser getUserInfo(String code, String endPoint) {
+        String token = accessToken(code, endPoint);
         KakaoUser kakaoUser = getUserByKakaoToken(token);
 
         return kakaoUser;
     }
 
-    private String accessToken(String code) {
+    private String accessToken(String code, String endPoint) {
 
         Object response = client.post().
                 uri(uriBuilder -> uriBuilder
                         .path("/oauth/token")
                         .queryParam("grant_type", "authorization_code")
                         .queryParam("client_id", "f796398f8dc1c3d64a37a9e053a9be9b")
-                        .queryParam("redirect_uri", baseURL+"/users/kakao/signin")
+                        .queryParam("redirect_uri", baseURL+"/users/kakao/"+endPoint)
                         .queryParam("code", code)
                         .build())
                 .retrieve().bodyToMono(Object.class).block();
@@ -73,8 +74,9 @@ public class KakaoOAuth2 {
         Map<String, Object> profile = (Map<String, Object>) account.get("profile");
 
 
-        KakaoUser kakaoUser = KakaoUser.builder().
-                nickname((String) profile.get("nickname"))
+        KakaoUser kakaoUser = KakaoUser.builder()
+                .nickname((String) profile.get("nickname"))
+                .image((String) profile.get("profile_image_url"))
                 .email((String) account.get("email"))
                 .id((Long) res.get("id"))
                 .build();

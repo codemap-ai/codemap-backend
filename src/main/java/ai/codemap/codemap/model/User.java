@@ -29,6 +29,9 @@ public class User {
    @Column(name = "password", length = 100)
    private String password;
 
+   @Column(name = "enc_password")
+   private String encPassword;
+
    @Column(name = "nickname", length = 50)
    private String nickname;
 
@@ -39,7 +42,7 @@ public class User {
    private boolean activated;
 
    @Column(name = "social_id")
-   private Long socialId;
+   private String socialId; //e.g kakao19, facebook19, google19
 
    @ManyToMany
    @JoinTable(

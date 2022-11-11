@@ -1,9 +1,9 @@
-POST 43.200.180.31:8081/users/signup
+POST localhost:8081/users/signup
 Content-Type: application/json;
 
 {
-	"username" : "tjdahr2ss5",
+	"username" : "abcd",
 	"nickname" : "tjdahrtjsssdahr",
-	"password" : "tjdasshr25",
+	"password" : "abcd",
     "email" : "21700655@handong.ac.kr"
 }

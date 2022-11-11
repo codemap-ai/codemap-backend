@@ -6,6 +6,8 @@ import ai.codemap.codemap.loginDto.*;
 import ai.codemap.codemap.model.User;
 import ai.codemap.codemap.service.UserService;
 import com.mysql.cj.log.Log;
+import lombok.Data;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -40,6 +42,7 @@ public class UserRestController {
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender javaMailSender;
     final String baseURL = "https://api.codemap.ai";
+    //final String baseURL = "http://localhost:8081";
 
     public UserRestController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserService userService, PasswordEncoder passwordEncoder, JavaMailSender javaMailSender) {
         this.tokenProvider = tokenProvider;
@@ -50,9 +53,7 @@ public class UserRestController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity signup(@Valid @RequestBody UserDto userDto) {
-        if (userDto.getUsername().length() >= 5 && userDto.getUsername().substring(0, 5).equals("KAKAO"))
-            return ResponseEntity.badRequest().build();
+    public ResponseEntity signup(@Valid @RequestBody UserDto userDto) throws Exception {
         return ResponseEntity.ok(userService.signup(userDto));
     }
 
@@ -117,10 +118,15 @@ public class UserRestController {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
 
+        System.out.println(authenticationToken);
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+        System.out.println("auth");
+        System.out.println(authentication);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+
         String jwt = tokenProvider.createToken(authentication);
+        System.out.println(jwt);
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
@@ -133,19 +139,44 @@ public class UserRestController {
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("https://kauth.kakao.com/oauth/authorize?client_id=f796398f8dc1c3d64a37a9e053a9be9b&redirect_uri=" + baseURL + "/users/kakao/signin&response_type=code");
         return redirectView;
-
+    }
+    @GetMapping("/oauth/kakao/info")
+    public RedirectView getInfoWithKakao() {
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("https://kauth.kakao.com/oauth/authorize?client_id=f796398f8dc1c3d64a37a9e053a9be9b&redirect_uri=" + baseURL + "/users/kakao/me&response_type=code");
+        return redirectView;
     }
 
+    @GetMapping("/kakao/me")
+    public ResponseEntity KakaoInfo(String code) throws UnsupportedEncodingException{
+        KakaoUser kakaoUser = userService.kakaoUserInfo(code, "me");
+        System.out.println(kakaoUser);
+        return ResponseEntity.ok(kakaoUser);
+    }
     @GetMapping("/kakao/signin")
-    public ResponseEntity KakaoLogin(String code) {
+    public ResponseEntity KakaoLogin(String code) throws UnsupportedEncodingException {
 
-        UserDto userDto = userService.kakaoSignin(code);
+        User user = userService.kakaoSignin(code, "signin");
+
+        if (user == null) {
+            return ResponseEntity.badRequest().build();
+        }
 
         LoginDto loginDto = LoginDto.builder()
-                .username(userDto.getUsername())
-                .password(userDto.getEmail())
+                .username(user.getUsername())
+                .password(base64Decode(user.getEncPassword()))
                 .build();
 
         return authorize(loginDto);
+    }
+
+    @PostMapping("kakao/interlock")
+    public ResponseEntity KakaoInterlock(@RequestBody InterLockDto interLockDto) {
+        return ResponseEntity.ok(userService.kakaoInterlock(interLockDto.getId()));
+    }
+
+    public static String base64Decode(String encoded) throws UnsupportedEncodingException {
+        byte[] buff = (new Base64()).decode(encoded);
+        return new String(buff);
     }
 }

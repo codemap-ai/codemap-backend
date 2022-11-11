@@ -6,7 +6,8 @@ import lombok.Data;
 @Data
 @Builder
 public class KakaoUser {
-    Long id;
-    String email;
-    String nickname;
+    private Long id;
+    private String email;
+    private String image;
+    private String nickname;
 }
