@@ -15,9 +15,9 @@ public class LoadCode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long loadCodeId;
     @Column(name = "contest_id")
-    private int contestId;
+    private Long contestId;
     @Column(name = "problem_id")
-    private int problemId;
+    private Long problemId;
     @Column(name = "code")
     private String code;
     @Column(name = "language")

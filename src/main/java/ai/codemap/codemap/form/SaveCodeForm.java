@@ -5,11 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Data
-@Getter
-@Setter
 public class SaveCodeForm {
-    private int contestId;
-    private int problemId;
+    private Long contestId;
+    private Long problemId;
     private String code;
     private String language;
 }
