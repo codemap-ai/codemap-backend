@@ -140,6 +140,7 @@ public class UserRestController {
         redirectView.setUrl("https://kauth.kakao.com/oauth/authorize?client_id=f796398f8dc1c3d64a37a9e053a9be9b&redirect_uri=" + baseURL + "/users/kakao/signin&response_type=code");
         return redirectView;
     }
+
     @GetMapping("/oauth/kakao/info")
     public RedirectView getInfoWithKakao() {
         RedirectView redirectView = new RedirectView();
@@ -148,26 +149,35 @@ public class UserRestController {
     }
 
     @GetMapping("/kakao/me")
-    public ResponseEntity KakaoInfo(String code) throws UnsupportedEncodingException{
+    public ResponseEntity KakaoInfo(String code) throws UnsupportedEncodingException {
         KakaoUser kakaoUser = userService.kakaoUserInfo(code, "me");
         System.out.println(kakaoUser);
         return ResponseEntity.ok(kakaoUser);
     }
+
     @GetMapping("/kakao/signin")
-    public ResponseEntity KakaoLogin(String code) throws UnsupportedEncodingException {
+    public RedirectView KakaoLogin(String code) throws UnsupportedEncodingException {
 
         User user = userService.kakaoSignin(code, "signin");
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("https://www.codemap.ai/auth/");
 
         if (user == null) {
-            return ResponseEntity.badRequest().build();
+            return redirectView;
         }
 
-        LoginDto loginDto = LoginDto.builder()
-                .username(user.getUsername())
-                .password(base64Decode(user.getEncPassword()))
-                .build();
 
-        return authorize(loginDto);
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(user.getUsername(), base64Decode(user.getEncPassword()));
+
+
+        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = tokenProvider.createToken(authentication);
+        redirectView.setUrl("https://www.codemap.ai/auth/" + jwt);
+        System.out.println(jwt);
+        return redirectView;
     }
 
     @PostMapping("kakao/interlock")
