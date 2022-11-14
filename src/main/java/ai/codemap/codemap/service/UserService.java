@@ -113,7 +113,7 @@ public class UserService {
     public User addUser(User user) {
         return userRepository.save(user);
     }
-
+    public User getUserBySocialId(String socialId) {return userRepository.findBySocialId(socialId);}
     public static String base64Encode(byte[] bytes) {
         return (new Base64()).encodeToString(bytes);
     }

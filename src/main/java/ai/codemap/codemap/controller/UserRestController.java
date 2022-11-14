@@ -168,7 +168,10 @@ public class UserRestController {
     @GetMapping("/kakao/me")
     public ResponseEntity KakaoInfo(String code) throws UnsupportedEncodingException {
         KakaoUser kakaoUser = userService.kakaoUserInfo(code, "me");
-        System.out.println(kakaoUser);
+        User user = userService.getUserBySocialId("kakao"+kakaoUser.getId().toString());
+
+        if(user==null) return ResponseEntity.badRequest().build();
+
         return ResponseEntity.ok(kakaoUser);
     }
 
