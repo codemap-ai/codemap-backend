@@ -141,10 +141,27 @@ public class UserRestController {
         return redirectView;
     }
 
+    @GetMapping("/oauth/kakao/getId")
+    public RedirectView getIdWithKakao() {
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("https://kauth.kakao.com/oauth/authorize?client_id=f796398f8dc1c3d64a37a9e053a9be9b&redirect_uri=" + baseURL + "/users/kakao/getId&response_type=code");
+        return redirectView;
+    }
+
     @GetMapping("/oauth/kakao/info")
     public RedirectView getInfoWithKakao() {
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("https://kauth.kakao.com/oauth/authorize?client_id=f796398f8dc1c3d64a37a9e053a9be9b&redirect_uri=" + baseURL + "/users/kakao/me&response_type=code");
+        return redirectView;
+    }
+
+    @GetMapping("/kakao/getId")
+    public RedirectView KakaoId(String code)  {
+        KakaoUser kakaoUser = userService.kakaoUserInfo(code, "getId");
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("https://www.codemap.ai/id/" + kakaoUser.getId().toString());
+        System.out.println(kakaoUser);
+
         return redirectView;
     }
 

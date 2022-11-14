@@ -108,6 +108,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/oauth/kakao/signin").permitAll()
                 .antMatchers("/users/kakao/info").permitAll()
                 .antMatchers("/users/oauth/kakao/info").permitAll()
+                .antMatchers("/users/kakao/getId").permitAll()
+                .antMatchers("/users/oauth/kakao/getId").authenticated()
                 .antMatchers("/users/kakao/interlock").authenticated()
                 .antMatchers("/spotboard/{problemSetId}/contest.json").permitAll()
                 .antMatchers("/spotboard/{problemSetId}/runs.json").permitAll()
