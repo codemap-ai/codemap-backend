@@ -3,7 +3,9 @@ package ai.codemap.codemap.controller;
 import ai.codemap.codemap.jwt.JwtFilter;
 import ai.codemap.codemap.jwt.TokenProvider;
 import ai.codemap.codemap.loginDto.*;
+import ai.codemap.codemap.model.KakaoInfo;
 import ai.codemap.codemap.model.User;
+import ai.codemap.codemap.service.KakaoInfoService;
 import ai.codemap.codemap.service.UserService;
 import com.mysql.cj.log.Log;
 import lombok.Data;
@@ -39,17 +41,21 @@ public class UserRestController {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final UserService userService;
+    private final KakaoInfoService kakaoInfoService;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender javaMailSender;
     final String baseURL = "https://api.codemap.ai";
     //final String baseURL = "http://localhost:8081";
 
-    public UserRestController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserService userService, PasswordEncoder passwordEncoder, JavaMailSender javaMailSender) {
+    public UserRestController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserService userService, PasswordEncoder passwordEncoder, JavaMailSender javaMailSender, KakaoInfoService kakaoInfoService)
+
+    {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.javaMailSender = javaMailSender;
+        this.kakaoInfoService = kakaoInfoService;
     }
 
     @PostMapping("/signup")
@@ -155,12 +161,19 @@ public class UserRestController {
         return redirectView;
     }
 
+
     @GetMapping("/kakao/getId")
     public RedirectView KakaoId(String code)  {
         KakaoUser kakaoUser = userService.kakaoUserInfo(code, "getId");
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("https://www.codemap.ai/id/" + kakaoUser.getId().toString());
         System.out.println(kakaoUser);
+
+        KakaoInfo kakaoInfo = new KakaoInfo();
+        kakaoInfo.setId(kakaoUser.getId());
+        kakaoInfo.setImage(kakaoUser.getImage());
+
+        kakaoInfoService.addKakaoInfo(kakaoInfo);
 
         return redirectView;
     }
@@ -202,11 +215,21 @@ public class UserRestController {
 
     @PostMapping("kakao/interlock")
     public ResponseEntity KakaoInterlock(@RequestBody InterLockDto interLockDto) {
-        return ResponseEntity.ok(userService.kakaoInterlock(interLockDto.getId()));
+        String image = userService.kakaoInterlock(interLockDto.getId());
+
+        if(image == "" ) return ResponseEntity.badRequest().build();
+
+        InterlockForm interlockForm = new InterlockForm();
+        interlockForm.setImage(image);
+        return ResponseEntity.ok(interlockForm);
     }
 
     public static String base64Decode(String encoded) throws UnsupportedEncodingException {
         byte[] buff = (new Base64()).decode(encoded);
         return new String(buff);
+    }
+    @Data
+    private class InterlockForm{
+        private String image;
     }
 }

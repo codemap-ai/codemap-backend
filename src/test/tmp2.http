@@ -1,2 +1,1 @@
-GET localhost:8081/users/oauth/kakao/
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmNkIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2ODQ4OTU2MX0.-JM1lmlNUKr5XDrkE8yKHezjVoYAw0h_b1NHbh6-CnzMRCAncR4h5vma6CKRyTspxoQoeZX58VBU1dmKkLHXhg
+GET localhost:8081/users/oauth/kakao/getId

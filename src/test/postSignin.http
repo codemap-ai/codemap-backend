@@ -1,4 +1,4 @@
-POST https://api.codemap.ai/users/signin
+POST localhost:8081/users/signin
 Content-Type: application/json;
 
 {

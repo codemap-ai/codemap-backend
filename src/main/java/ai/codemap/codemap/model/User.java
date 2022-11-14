@@ -44,6 +44,9 @@ public class User {
    @Column(name = "social_id")
    private String socialId; //e.g kakao19, facebook19, google19
 
+   @Column(name = "image")
+   private String image;
+
    @ManyToMany
    @JoinTable(
       name = "user_authority",

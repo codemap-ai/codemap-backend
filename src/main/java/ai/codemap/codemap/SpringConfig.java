@@ -1,5 +1,6 @@
 package ai.codemap.codemap;
 
+import ai.codemap.codemap.model.KakaoInfo;
 import ai.codemap.codemap.repository.*;
 import ai.codemap.codemap.service.*;
 
@@ -20,18 +21,19 @@ public class SpringConfig {
     private final SubmissionRepository submissionRepository;
     private final ContestRepository contestRepository;
     private final LoadCodeRepository loadCodeRepository;
-
+    private final KakaoInfoRespository kakaoInfoRespository;
     @Autowired
-    public SpringConfig(ProblemSetRepository problemSetRepository, SubmissionRepository submissionRepository, ContestRepository contestRepository, LoadCodeRepository loadCodeRepository) {
+    public SpringConfig(ProblemSetRepository problemSetRepository, SubmissionRepository submissionRepository, ContestRepository contestRepository, LoadCodeRepository loadCodeRepository, KakaoInfoRespository kakaoInfoRespository) {
         this.submissionRepository = submissionRepository;
         this.contestRepository = contestRepository;
         this.loadCodeRepository = loadCodeRepository;
-
+        this.kakaoInfoRespository = kakaoInfoRespository;
     }
 
 
 
-
+    @Bean
+    public KakaoInfoService kakaoInfoService() { return new KakaoInfoService(kakaoInfoRespository);}
     @Bean
     public SubmissionService repositoryService() {
         return new SubmissionService(submissionRepository);

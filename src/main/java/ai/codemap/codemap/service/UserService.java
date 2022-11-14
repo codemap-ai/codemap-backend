@@ -26,9 +26,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final KakaoOAuth2 kakaoOAuth2;
-
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, KakaoOAuth2 kakaoOAuth2) {
-
+    private final KakaoInfoService kakaoInfoService;
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, KakaoOAuth2 kakaoOAuth2, KakaoInfoService kakaoInfoService) {
+        this.kakaoInfoService = kakaoInfoService;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.kakaoOAuth2 = kakaoOAuth2;
@@ -54,6 +54,7 @@ public class UserService {
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .encPassword(base64EncodedPassword)
                 .nickname(userDto.getNickname())
+                .image("tmp")
                 .email(userDto.getEmail())
                 .authorities(Collections.singleton(authority))
                 .activated(true)
@@ -76,14 +77,18 @@ public class UserService {
         User user = userRepository.findBySocialId(social_id);
         return user;
     }
-    public UserDto kakaoInterlock(Long id) {
+    public String kakaoInterlock(Long id) {
         User user = getCurrentUser();
-        System.out.println("user");
-        System.out.println(user);
+
+        if(userRepository.findBySocialId("kakao"+id.toString()) != null){
+            return "";
+        }
+
         String social_id = "kakao" + id.toString();
         user.setSocialId(social_id);
+        user.setImage(kakaoInfoService.getById(id).getImage());
 
-        return UserDto.from(userRepository.save(user));
+        return user.getImage();
     }
 
     public UserDto getUserWithAuthorities(String username) {
