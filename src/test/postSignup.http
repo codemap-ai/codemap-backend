@@ -1,9 +1,9 @@
-POST https://api.codemap.ai/users/signup
+POST localhost:8081/users/signup
 Content-Type: application/json;
 
 {
-	"username" : "abcd",
+	"username" : "abcde",
 	"nickname" : "tjdahrtjsssdahr",
-	"password" : "abcd",
+	"password" : "abcde",
     "email" : "21700655@handong.ac.kr"
 }

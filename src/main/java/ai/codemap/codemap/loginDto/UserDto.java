@@ -27,6 +27,8 @@ public class UserDto {
    @Size(min = 3, max = 50)
    private String nickname;
 
+   private String image;
+
    @NotNull
    private String email;
 
@@ -38,6 +40,7 @@ public class UserDto {
       return UserDto.builder()
               .username(user.getUsername())
               .nickname(user.getNickname())
+              .image(user.getImage())
               .email(user.getEmail())
               .authorityDtoSet(user.getAuthorities().stream()
                       .map(authority -> AuthorityDto.builder().authorityName(authority.getAuthorityName()).build())

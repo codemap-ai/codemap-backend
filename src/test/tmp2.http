@@ -1,1 +1,1 @@
-GET localhost:8081/users/oauth/kakao/getId
+GET https://api.codemap.ai/users/oauth/kakao/getId
