@@ -61,16 +61,16 @@ public class ScoreboardService {
             teams.add(new ScoreboardTeam(1000000007L, "__int128_t (__int128_t)"));
             teams.add(new ScoreboardTeam(1000000008L, "WriteInGo (WriteInGo)"));
             teams.add(new ScoreboardTeam(1000000009L, "rustecean (rustecean)"));
-            teams.add(new ScoreboardTeam(10000000010L, "math0000 (math0000)"));
-            teams.add(new ScoreboardTeam(10000000011L, "arcticfox (arcticfox)"));
-            teams.add(new ScoreboardTeam(10000000012L, "paran0idAndr0id (paran0idAndr0id)"));
-            teams.add(new ScoreboardTeam(10000000013L, "FakePlasticTrees (FakePlasticTrees)"));
-            teams.add(new ScoreboardTeam(10000000014L, "ao19990823 (ao19990823)"));
-            teams.add(new ScoreboardTeam(10000000015L, "1289io (1289io)"));
-            teams.add(new ScoreboardTeam(10000000016L, "Gauss77 (Gauss77)"));
-            teams.add(new ScoreboardTeam(10000000017L, "00000000 (00000000)"));
-            teams.add(new ScoreboardTeam(10000000018L, "only (only)"));
-            teams.add(new ScoreboardTeam(10000000019L, "ACL (ACL)"));
+            teams.add(new ScoreboardTeam(1000000010L, "math0000 (math0000)"));
+            teams.add(new ScoreboardTeam(1000000011L, "arcticfox (arcticfox)"));
+            teams.add(new ScoreboardTeam(1000000012L, "paran0idAndr0id (paran0idAndr0id)"));
+            teams.add(new ScoreboardTeam(1000000013L, "FakePlasticTrees (FakePlasticTrees)"));
+            teams.add(new ScoreboardTeam(1000000014L, "ao19990823 (ao19990823)"));
+            teams.add(new ScoreboardTeam(1000000015L, "1289io (1289io)"));
+            teams.add(new ScoreboardTeam(1000000016L, "Gauss77 (Gauss77)"));
+            teams.add(new ScoreboardTeam(1000000017L, "00000000 (00000000)"));
+            teams.add(new ScoreboardTeam(1000000018L, "only (only)"));
+            teams.add(new ScoreboardTeam(1000000019L, "ACL (ACL)"));
         }
         contest.setTeams(teams);
         return contest;
@@ -174,7 +174,7 @@ public class ScoreboardService {
         Random rand = new Random();
         rand.setSeed(0L);
 
-        for (int i = 0; i < 100; ++i) {
+        for (int i = 0; i < 200; ++i) {
             long id = 1000000041L + i;
             long team = 1000000000L + rand.nextLong(0, 20);
             long problem = rand.nextLong(0, 10);
