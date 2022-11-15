@@ -46,6 +46,7 @@ public class ScoreboardService {
             problem.setName(Character.toString('A' + i));
             problem.setTitle(titles.get(i));
             problem.setColor("sample" + i);
+            problems.add(problem);
         }
         contest.setProblems(problems);
         List<ScoreboardTeam> teams = contestRepository.getUsersByProblemSetId(problemSetId).stream()
