@@ -125,51 +125,51 @@ public class ScoreboardService {
     List<ScoreboardRun> dummy() {
         List<ScoreboardRun> result = new ArrayList<>();
 
-        result.add(new ScoreboardRun(1000000000L, 1000000000L, 0L, "NO", 1L));
-        result.add(new ScoreboardRun(1000000001L, 1000000000L, 0L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000002L, 1000000000L, 1L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000003L, 1000000000L, 2L, "NO", 1L));
-        result.add(new ScoreboardRun(1000000004L, 1000000000L, 3L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000005L, 1000000000L, 4L, "NO", 1L));
-        result.add(new ScoreboardRun(1000000006L, 1000000000L, 5L, "YES", 1L));
+        result.add(new ScoreboardRun(1000000000L, 1000000000L, 0L, "No", 1L));
+        result.add(new ScoreboardRun(1000000001L, 1000000000L, 0L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000002L, 1000000000L, 1L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000003L, 1000000000L, 2L, "No", 1L));
+        result.add(new ScoreboardRun(1000000004L, 1000000000L, 3L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000005L, 1000000000L, 4L, "No", 1L));
+        result.add(new ScoreboardRun(1000000006L, 1000000000L, 5L, "Yes", 1L));
 
-        result.add(new ScoreboardRun(1000000007L, 1000000001L, 7L, "NO", 1L));
-        result.add(new ScoreboardRun(1000000008L, 1000000001L, 0L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000009L, 1000000001L, 1L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000010L, 1000000001L, 2L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000011L, 1000000001L, 3L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000012L, 1000000001L, 4L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000013L, 1000000001L, 5L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000014L, 1000000001L, 9L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000015L, 1000000001L, 8L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000016L, 1000000001L, 7L, "YES", 1L));
+        result.add(new ScoreboardRun(1000000007L, 1000000001L, 7L, "No", 1L));
+        result.add(new ScoreboardRun(1000000008L, 1000000001L, 0L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000009L, 1000000001L, 1L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000010L, 1000000001L, 2L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000011L, 1000000001L, 3L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000012L, 1000000001L, 4L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000013L, 1000000001L, 5L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000014L, 1000000001L, 9L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000015L, 1000000001L, 8L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000016L, 1000000001L, 7L, "Yes", 1L));
 
-        result.add(new ScoreboardRun(1000000017L, 1000000002L, 0L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000018L, 1000000002L, 1L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000019L, 1000000002L, 2L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000020L, 1000000002L, 3L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000021L, 1000000002L, 4L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000022L, 1000000002L, 5L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000023L, 1000000002L, 6L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000024L, 1000000002L, 7L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000025L, 1000000002L, 8L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000026L, 1000000002L, 9L, "YES", 1L));
+        result.add(new ScoreboardRun(1000000017L, 1000000002L, 0L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000018L, 1000000002L, 1L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000019L, 1000000002L, 2L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000020L, 1000000002L, 3L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000021L, 1000000002L, 4L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000022L, 1000000002L, 5L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000023L, 1000000002L, 6L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000024L, 1000000002L, 7L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000025L, 1000000002L, 8L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000026L, 1000000002L, 9L, "Yes", 1L));
 
-        result.add(new ScoreboardRun(1000000027L, 1000000003L, 0L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000028L, 1000000003L, 1L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000029L, 1000000003L, 2L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000030L, 1000000003L, 3L, "NO", 1L));
-        result.add(new ScoreboardRun(1000000031L, 1000000003L, 3L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000032L, 1000000003L, 5L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000033L, 1000000003L, 6L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000034L, 1000000003L, 7L, "NO", 1L));
-        result.add(new ScoreboardRun(1000000035L, 1000000003L, 8L, "NO", 1L));
-        result.add(new ScoreboardRun(1000000036L, 1000000003L, 9L, "NO", 1L));
+        result.add(new ScoreboardRun(1000000027L, 1000000003L, 0L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000028L, 1000000003L, 1L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000029L, 1000000003L, 2L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000030L, 1000000003L, 3L, "No", 1L));
+        result.add(new ScoreboardRun(1000000031L, 1000000003L, 3L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000032L, 1000000003L, 5L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000033L, 1000000003L, 6L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000034L, 1000000003L, 7L, "No", 1L));
+        result.add(new ScoreboardRun(1000000035L, 1000000003L, 8L, "No", 1L));
+        result.add(new ScoreboardRun(1000000036L, 1000000003L, 9L, "No", 1L));
 
-        result.add(new ScoreboardRun(1000000037L, 1000000004L, 0L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000038L, 1000000004L, 1L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000039L, 1000000004L, 2L, "YES", 1L));
-        result.add(new ScoreboardRun(1000000040L, 1000000004L, 3L, "YES", 1L));
+        result.add(new ScoreboardRun(1000000037L, 1000000004L, 0L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000038L, 1000000004L, 1L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000039L, 1000000004L, 2L, "Yes", 1L));
+        result.add(new ScoreboardRun(1000000040L, 1000000004L, 3L, "Yes", 1L));
 
         Random rand = new Random();
         rand.setSeed(0L);
@@ -178,7 +178,7 @@ public class ScoreboardService {
             long id = 1000000041L + i;
             long team = 1000000000L + rand.nextLong(0, 20);
             long problem = rand.nextLong(0, 10);
-            String result_ = rand.nextBoolean() ? "YES" : "NO";
+            String result_ = rand.nextBoolean() ? "Yes" : "No";
             result.add(new ScoreboardRun(id, team, problem, result_, 1L));
         }
 
