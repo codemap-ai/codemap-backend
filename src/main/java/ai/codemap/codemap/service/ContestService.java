@@ -23,4 +23,6 @@ public class ContestService {
     public List<Contest> getAll(){
         return contestRepository.findAll();
     }
+
+    public List<Contest> getByUserId(Long userId) {return contestRepository.findByUserId(userId);}
 }

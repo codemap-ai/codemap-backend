@@ -34,9 +34,21 @@ public class ContestRepository {
     }
 
     public List<Contest> findByProblemSetId(Long problemSetId) {
+
+
+
         return em.createQuery("select c from Contest c where c.problemSetId = :problemSetId", Contest.class)
                 .setParameter("problemSetId", problemSetId)
                 .getResultList();
     }
 
+    public List<Contest> findByUserId(Long userId){
+        User user = em.createQuery("select u from User u where u.userId = :userId", User.class)
+                .setParameter("userId", userId)
+                .getSingleResult();
+
+        return em.createQuery("select c from Contest c where c.user = :user", Contest.class)
+                        .setParameter("user", user)
+                        .getResultList();
+    }
 }

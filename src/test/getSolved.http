@@ -1,0 +1,3 @@
+GET localhost:8081/users/solved
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmNkZSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2Njg2NTA5MzZ9.91WMOfeaV5pIgADzyI-YusDP_5Rs5uNKi4Lqkj_-6QOvNGJF2pXzOuqLEOINMZdLinyCo17OMMODbMpvKIdhNQ
+Content-Type: application/json;

@@ -67,6 +67,7 @@ public class ContestRestController {
         response.setCreateTime(contest.getCreateTime());
         response.setFinishTime(contest.getFinishTime());
 
+        System.out.println(contest.getUser().getUserId());
         return response;
     }
 

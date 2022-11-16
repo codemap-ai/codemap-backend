@@ -39,5 +39,5 @@ public class SubmissionService {
         return submissionRepository.findAll();
     }
 
-
+    public List<Submission> getByUserIdAndSuccess(Long userId) {return submissionRepository.findByUserIdAndSuccess(userId);}
 }

@@ -1,5 +1,5 @@
 POST https://api.codemap.ai/users/kakao/interlock
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0dHR0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2ODUwNjQ3NX0.HYtrCFxi45rhzjXTOEpMEGTK_Zhn23dP8qB4RQG_Z6-Hr-CBxIvJPMyGz8ofBqKJQR1HsMmPiJUjK2NXAXgd3A
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmNkIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2ODUxNjY0M30.9CREyP2cwsZw53MCow-BRrVjgjHED6K0ZXzBghiZCS5Ql08pBWuk_nCoU0LOR0mDZDjMX3gmCds2o_aB6Mhlog
 Content-Type: application/json;
 
 {

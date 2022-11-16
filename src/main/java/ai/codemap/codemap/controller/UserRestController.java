@@ -3,17 +3,16 @@ package ai.codemap.codemap.controller;
 import ai.codemap.codemap.jwt.JwtFilter;
 import ai.codemap.codemap.jwt.TokenProvider;
 import ai.codemap.codemap.loginDto.*;
+import ai.codemap.codemap.model.Contest;
 import ai.codemap.codemap.model.KakaoInfo;
+import ai.codemap.codemap.model.Submission;
 import ai.codemap.codemap.model.User;
-import ai.codemap.codemap.service.KakaoInfoService;
-import ai.codemap.codemap.service.UserService;
-import com.mysql.cj.log.Log;
+import ai.codemap.codemap.service.*;
 import lombok.Data;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -24,7 +23,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.mail.MessagingException;
@@ -32,8 +30,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
-import java.net.http.HttpClient;
-import java.util.Objects;
+import java.util.*;
 
 @RestController
 @RequestMapping("/users")
@@ -43,13 +40,21 @@ public class UserRestController {
     private final UserService userService;
     private final KakaoInfoService kakaoInfoService;
     private final PasswordEncoder passwordEncoder;
+    private final ProblemService problemService;
     private final JavaMailSender javaMailSender;
+    private final SubmissionService submissionService;
+    private final ContestService contestService;
+    private final ProblemSetService problemSetService;
     final String baseURL = "https://api.codemap.ai";
     //final String baseURL = "http://localhost:8081";
 
-    public UserRestController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserService userService, PasswordEncoder passwordEncoder, JavaMailSender javaMailSender, KakaoInfoService kakaoInfoService)
+    public UserRestController(ProblemSetService problemSetService, ContestService contestService, ProblemService problemService, SubmissionService submissionService, TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserService userService, PasswordEncoder passwordEncoder, JavaMailSender javaMailSender, KakaoInfoService kakaoInfoService)
 
     {
+        this.problemSetService = problemSetService;
+        this.contestService = contestService;
+        this.problemService = problemService;
+        this.submissionService = submissionService;
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userService = userService;
@@ -213,7 +218,7 @@ public class UserRestController {
         return redirectView;
     }
 
-    @PostMapping("kakao/interlock")
+    @PostMapping("/kakao/interlock")
     public ResponseEntity KakaoInterlock(@RequestBody InterLockDto interLockDto) {
         String image = userService.kakaoInterlock(interLockDto.getId());
 
@@ -224,6 +229,45 @@ public class UserRestController {
         return ResponseEntity.ok(interlockForm);
     }
 
+
+    @GetMapping("/solved")
+    public ResponseEntity getSolved(){
+        Long userId = userService.getCurrentUserId();
+
+        List<Submission> submissions = submissionService.getByUserIdAndSuccess(userId);
+        HashMap<Long, String> hashMap = new HashMap<>();
+        for(Submission submission : submissions){
+            hashMap.put(submission.getProblemId(), problemService.getOne(submission.getProblemId()).getTitle());
+        }
+
+        SovledForm sovledForm = new SovledForm();
+        sovledForm.setProblems(new ArrayList<>());
+        sovledForm.setContests(new ArrayList<>());
+
+        for(Map.Entry<Long, String> entry : hashMap.entrySet()){
+            SolvedProblem solvedProblem = new SolvedProblem();
+            solvedProblem.setProblem_id(entry.getKey());
+            solvedProblem.setName(entry.getValue());
+            sovledForm.getProblems().add(solvedProblem);
+        }
+
+        hashMap.clear();
+        List<Contest> contests = contestService.getByUserId(userId);
+        for(Contest contest : contests){
+            hashMap.put(contest.getProblemSetId(),problemSetService.getOne(contest.getProblemSetId()).getTitle());
+        }
+
+        for(Map.Entry<Long, String> entry : hashMap.entrySet()){
+            SolvedContest solvedContest = new SolvedContest();
+            solvedContest.setProblem_set_id(entry.getKey());
+            solvedContest.setProblem_set_name(entry.getValue());
+            sovledForm.getContests().add(solvedContest);
+        }
+
+
+        return ResponseEntity.ok(sovledForm);
+    }
+
     public static String base64Decode(String encoded) throws UnsupportedEncodingException {
         byte[] buff = (new Base64()).decode(encoded);
         return new String(buff);
@@ -231,5 +275,23 @@ public class UserRestController {
     @Data
     private class InterlockForm{
         private String image;
+    }
+
+    @Data
+    private class SovledForm{
+        private List<SolvedContest> contests;
+        private List<SolvedProblem> problems;
+    }
+
+    @Data
+    private class SolvedProblem{
+        private Long problem_id;
+        private String name;
+    }
+
+    @Data
+    private class SolvedContest{
+        private Long problem_set_id;
+        private String problem_set_name;
     }
 }

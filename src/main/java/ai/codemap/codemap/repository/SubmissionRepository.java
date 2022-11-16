@@ -15,7 +15,7 @@ public interface SubmissionRepository {
 
     List<Submission> findByUserId(Long userId);
     List<Submission> findByProblemId(Long problemId);
-
+    List<Submission> findByUserIdAndSuccess(Long userId);
     List<Submission> findByUserIdAndContestId(Long userId, Long contestId);
 
 }
